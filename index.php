@@ -1,4 +1,2 @@
-
 <?php
-    echo "<h1> Hola Mundo </h1>";
-?>
+require_once __DIR__ . '/funciones.php';
