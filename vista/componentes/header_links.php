@@ -26,10 +26,8 @@
             ],
         ],
     ];
-?>
 
-<?php
-function renderizar_menu($data_ejemplo) {
+function renderizar_links_header($data_ejemplo) {
     ?>
     <nav class="header-nav">
         <ul class="menu">
@@ -42,6 +40,7 @@ function renderizar_menu($data_ejemplo) {
                 $tiene_sub_menu = !empty($info['submenu']) && is_array($info['submenu']);
             ?>
                 <li class="menu-item <?= $tiene_sub_menu ? 'has-sub-menu' : '' ?>">
+                    
                     <a href="<?= htmlspecialchars($info['url'] ?? '#', ENT_QUOTES, 'UTF-8') ?>">
                         <?= htmlspecialchars($nombre ?? 'Enlace', ENT_QUOTES, 'UTF-8') ?>
                         <?= $tiene_sub_menu ? colocar_svg('@imagenes/flecha.svg') : '' ?>
@@ -58,10 +57,10 @@ function renderizar_menu($data_ejemplo) {
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
+
                 </li>
             <?php endforeach; ?>
         </ul>
     </nav>
     <?php
 }
-?>
