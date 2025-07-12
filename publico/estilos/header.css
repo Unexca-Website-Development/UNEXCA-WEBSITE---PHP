@@ -1,66 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-
-:root {
-    --azul: #022873;
-    --negro: #1f1f1f;
-    --gris: #D3D9E7;
-    --blanco: #F0F2F7;
-
-    --fuente-principal: "Plus Jakarta Sans", sans-serif;
-}
-/* Reset */
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  text-decoration: none;
-    list-style-type: none;
-}
-
-html{
-  position: relative;
-  font-family: var(--fuente-principal);
-  color:var(--negro);
-}
-
-body{
-    background-color: var(--blanco);
-  width: 100%;
-  height: 100%;
-  max-height: 100vh;
-  overflow-x: hidden;
-  line-height: 1.5;
-}
-
-a , li{
-  list-style-type: none;
-  text-decoration:none;
-  text-decoration-skip-ink: auto;
-  color: inherit;
-}
-
-button, input{
-  font: inherit;
-  background-color: transparent;
-  border: none;
-}
-
-h1{
-  font-size: 4rem;
-  line-height: 1.2;
-}
-
-h2{
-  font-size: 3rem;
-  line-height: 1.2;
-}
-
-h3{
-  font-size: 1.5rem;
-}
-
-/* MENU (UTILIZAR ESTA PARTE PARA TODAS LAS PÁGINAS) */
 .logo-imagen,
 .usuario-logo {
   width: auto;
@@ -68,19 +5,31 @@ h3{
 }
 
 .logo-imagen > svg > path{
-    fill: var(--blanco);
+  fill: var(--blanco);
 }
 
 header {
-    background-color: var(--azul);
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-    filter: drop-shadow(0px 8px 10px rgba(31, 31, 31, 0.3));
-    position: fixed;
-    width: 100vw;
-    z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0px 8px 10px rgba(31, 31, 31, 0.3));
+  width: 100vw;
+  position: fixed;
+  z-index: 9999;
+}
+
+header > svg > path{
+  fill:var(--azul);
+}
+
+.contenedor-nav{
+  display: flex;
+  background-color: var(--azul);
+  height: fit-content;
+  width: 100%;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center;
+  padding-bottom: calc(1rem / 2);
 }
 
 .header-nav{
@@ -99,29 +48,14 @@ header {
 }
 
 .menu-item > a{
-    padding: 1rem;
+    padding: calc(1rem / 2);
     background-color: var(--azul);
     display: flex;
     font-weight: 600;
     font-size:1rem;
     color:var(--blanco);
+    align-items: center;
 }
-
-/* .menu-item.has-sub-menu > a {
-  position: relative;
-}
-
-/* Ni idea */
-/* .menu-item.has-sub-menu > a:after {
-  display: block;
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  color: var(--blanco);
-  font-size: 18px;
-  font-weight: 500;
-} */
 
 .sub-menu{
     background-color: var(--blanco);

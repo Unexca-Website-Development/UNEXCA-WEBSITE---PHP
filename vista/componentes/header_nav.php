@@ -44,6 +44,7 @@ function renderizar_menu($data_ejemplo) {
                 <li class="menu-item <?= $tiene_sub_menu ? 'has-sub-menu' : '' ?>">
                     <a href="<?= htmlspecialchars($info['url'] ?? '#', ENT_QUOTES, 'UTF-8') ?>">
                         <?= htmlspecialchars($nombre ?? 'Enlace', ENT_QUOTES, 'UTF-8') ?>
+                        <?= $tiene_sub_menu ? colocar_svg('@imagenes/flecha.svg') : '' ?>
                     </a>
 
                     <?php if ($tiene_sub_menu): ?>
