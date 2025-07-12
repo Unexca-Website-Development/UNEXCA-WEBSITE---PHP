@@ -29,9 +29,9 @@
 ?>
 
 <?php
-function renderizarMenu($data_ejemplo) {
+function renderizar_menu($data_ejemplo) {
     ?>
-    <nav class="navbar">
+    <nav class="header-nav">
         <ul class="menu">
             <?php 
                 // Itera la data que resive
@@ -49,7 +49,7 @@ function renderizarMenu($data_ejemplo) {
                     <?php if ($tiene_sub_menu): ?>
                         <ul class="sub-menu">
                             <?php foreach ($info['submenu'] as $texto => $url): ?>
-                                <li class="menu-item">
+                                <li class="sub-menu-item">
                                     <a href="<?= htmlspecialchars($url ?? '#', ENT_QUOTES, 'UTF-8') ?>">
                                         <?= htmlspecialchars($texto ?? 'Default', ENT_QUOTES, 'UTF-8') ?>
                                     </a>
