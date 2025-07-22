@@ -1,9 +1,10 @@
 .seccion-hero{
-display: flex;
-flex-direction: row;
-padding: 3rem 1.5rem;
-gap: 1.5rem;
-position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 3rem 1.5rem;
+    gap: 1.5rem;
+    position: relative;
+    flex-wrap: wrap;
 }
 
 .seccion-hero__contenido{
@@ -15,17 +16,17 @@ position: relative;
 }
 
 .seccion-hero__titulo{
-font-family: var(--fuente-titulos);
-font-weight: 700;
-font-size: 3rem;
-text-transform: uppercase;
-color: var(--azul);
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: var(--azul);
 }
 
 .seccion-hero__parrafo{
-width: 956px;
-height: 200px;
-font-size: 1.5rem;
-line-height: 2.5rem;
-color: var(--negro);
+    width: 956px;
+    height: 200px;
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    color: var(--negro);
 }

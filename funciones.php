@@ -1,4 +1,11 @@
 <?php
+// Carga centralizada de funciones y componentes reutilizables
+// Aquí se incluyen todos los archivos con funciones auxiliares y componentes PHP
+// que estarán disponibles en todo el proyecto al incluir este archivo.
+require_once colocar_ruta_sistema('@componentes/header_links.php');
+require_once colocar_ruta_sistema('@componentes/footer_links.php');
+require_once colocar_ruta_sistema('@componentes/botones.php');
+
 
 function obtener_rutas(){
     // La primera vez, $rutas es null, asi que se carga el archivo

@@ -1,5 +1,3 @@
-<?php include colocar_ruta_sistema('@componentes/footer_links.php'); ?>
-
 <footer class="footer">
     <?= colocar_svg('@imagenes/decoracion.svg') ?>
     <div class="footer__contenedor">

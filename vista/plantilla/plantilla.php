@@ -6,7 +6,7 @@
 <body>
     <?php include colocar_ruta_sistema("@componentes/header.php"); ?>
 
-    <main>
+    <main class="main">
         <?php include $archivoVista; ?>
     </main>
 

@@ -1,0 +1,21 @@
+.boton-principal{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--azul);
+    padding: 0.5rem 1rem;
+    border: 2px var(--azul) solid;
+    display: flex;
+    height: fit-content;
+    gap: auto;
+    align-self: flex-end;
+}
+
+.boton-principal > svg {
+    transform: rotate(-90deg);
+    width: 2.5rem;
+    height: auto;
+}
+
+.boton-principal > svg > path{
+    fill: var(--azul);
+}

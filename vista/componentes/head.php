@@ -3,4 +3,5 @@
     <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/footer.css')?>">
     <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/header.css')?>">
     <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/inicio.css')?>">
+    <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/botones.css')?>">
     <title>UNEXCA - Inicio</title>

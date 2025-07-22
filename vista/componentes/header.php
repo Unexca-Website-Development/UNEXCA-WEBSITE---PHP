@@ -1,4 +1,3 @@
-<?php include colocar_ruta_sistema('@componentes/header_links.php'); ?>
 <header class="header">
     <div class="header__contenedor-nav">
         <a href="" class="header__logo-menu">
