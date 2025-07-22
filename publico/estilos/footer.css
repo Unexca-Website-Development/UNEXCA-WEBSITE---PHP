@@ -61,7 +61,6 @@
   flex-wrap: wrap;
   justify-content: start;
   align-items: center;
-  border-top: 1px solid var(--blanco);
   padding-top: 1rem;
   gap: 1rem;
   width: 100%;
@@ -82,8 +81,8 @@
   font-size: 1rem;
   text-wrap: balance;
   font-weight: 400;
-  border-left: 1px solid var(--blanco);
-  border-right: 1px solid var(--blanco);
+  border-left: 2px solid var(--blanco);
+  border-right: 2px solid var(--blanco);
 }
 
 .footer__copyleft {
