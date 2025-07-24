@@ -204,6 +204,7 @@
 .carrera__imagen {
     max-height: 12.5rem;
     object-fit: cover;
+    pointer-events: none;
 }
 
 .carrera__imagen > img {
