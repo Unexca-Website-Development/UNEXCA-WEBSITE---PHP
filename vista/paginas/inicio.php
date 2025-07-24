@@ -1,9 +1,36 @@
-<section class="seccion-hero">
-    <div class="seccion-hero__contenido">
-        <h2 class="seccion-hero__titulo">Un poco de historia...</h2>
-        <p class="seccion-hero__parrafo">
-            Fundada el 27 de febrero de 2018, surge de la transformación del Colegio Universitario “Francisco de Miranda”, el Colegio Universitario “Profesor José Lorenzo Pérez Rodríguez” y el Colegio Universitario de Caracas, según el Decreto Presidencial N° 3.293 publicado en la Gaceta Oficial Extraordinaria N° 41.349, en el marco de la Misión Alma Mater.
-        </p>
+<section class="seccion-banner">
+    <h1 class="seccion-banner__titulo">UNEXCA</h1>
+    <div class="seccion-banner__boton-contenedor">
+        <?= colocar_svg('@imagenes/decoracion_2.svg') ?>
+        <a class="seccion-banner__boton-link" href="#inicio">
+            Explora la Unexca
+            <?= colocar_svg('@imagenes/flecha.svg'); ?>
+        </a>
     </div>
-    <?php renderizar_boton(); ?>
+    <div class="seccion-banner__imagen-contenedor">
+        <img id="seccion-banner__imagen" class="activo" src="<?= colocar_ruta_html('@imagenes/banner_guaira.jpeg'); ?>">
+    </div>
 </section>
+
+<main class="main">
+    <section class="seccion-historia">
+        <div class="seccion-historia__contenido">
+            <h2 class="seccion-historia__titulo">Un poco de historia...</h2>
+            <p class="seccion-historia__parrafo">
+                Fundada el 27 de febrero de 2018, surge de la transformación del Colegio Universitario “Francisco de Miranda”, el Colegio Universitario “Profesor José Lorenzo Pérez Rodríguez” y el Colegio Universitario de Caracas, según el Decreto Presidencial N° 3.293 publicado en la Gaceta Oficial Extraordinaria N° 41.349, en el marco de la Misión Alma Mater.
+            </p>
+        </div>
+        <?php renderizar_boton(); ?>
+    </section>
+
+    <section class="carreras">
+        <div class="carreras__contenido">
+            <h2 class="carreras__titulo">Oferta Académica</h2>
+            <div class="carreras__lista">
+                <?= renderizar_carreras($data_ejemplo_carrera); ?>
+            </div>
+        </div>
+    </section>
+
+    <script src="<?= colocar_ruta_html('@scripts/slider.js')?>"> </script>
+</main>

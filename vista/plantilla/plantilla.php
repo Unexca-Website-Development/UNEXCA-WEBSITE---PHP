@@ -6,9 +6,9 @@
 <body>
     <?php include colocar_ruta_sistema("@componentes/header.php"); ?>
 
-    <main class="main">
+    <div class="main__contenedor">
         <?php include $archivoVista; ?>
-    </main>
+    </div>
 
     <?php include colocar_ruta_sistema("@componentes/footer.php"); ?>
 </body>

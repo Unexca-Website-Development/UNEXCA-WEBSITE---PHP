@@ -46,3 +46,8 @@ button, input{
   background-color: transparent;
   border: none;
 }
+
+section{
+  max-width: 1366px;
+  margin: auto;
+}
