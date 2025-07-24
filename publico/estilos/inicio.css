@@ -2,6 +2,7 @@
     position: relative;
     background-color: var(--blanco);
     z-index: 3;
+    width: 100vw;
 }
 
 /* Seccion del Banner */
@@ -34,6 +35,7 @@
     flex-direction: column;
     width: 100%;
     bottom: 0;
+    left: 0;
     filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 1));
     z-index: 2;
 }
@@ -121,6 +123,7 @@
     gap: 1.5rem;
     position: relative;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .seccion-historia__contenido{
@@ -179,9 +182,8 @@
 
 .carreras__lista {
     display: flex;
-    padding-bottom: 2rem;
-    gap: 2rem;
-    overflow-x: scroll;
+    gap: 3rem;
+    overflow-x: hidden;
     cursor: grab;
     user-select: none;
 }
@@ -200,14 +202,14 @@
 }
 
 .carrera__imagen {
-    min-height: 12.5rem;
+    max-height: 12.5rem;
     object-fit: cover;
 }
 
 .carrera__imagen > img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .carrera__contenido {
@@ -256,4 +258,35 @@
 
 .carrera__enlace > svg > path {
     fill: var(--blanco);
+}
+
+.carreras__contenedor-botones {
+    display: flex;
+    width: fit-content;
+    gap: 1.5rem;
+    align-self: end;
+}
+
+.carreras__boton {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: var(--blanco);
+}
+
+.carreras__boton > svg {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.carreras__boton > svg > path {
+    fill: var(--azul); 
+}
+
+.carreras__boton--izquierda {
+    transform: rotate(90deg);
+}
+
+.carreras__boton--derecha {
+    transform: rotate(-90deg);
 }

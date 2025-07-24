@@ -1,7 +1,7 @@
 <section class="seccion-banner">
     <h1 class="seccion-banner__titulo">UNEXCA</h1>
     <div class="seccion-banner__boton-contenedor">
-        <?= colocar_svg('@imagenes/decoracion_2.svg') ?>
+        <?= colocar_svg('@imagenes/decoracion_2.svg'); ?>
         <a class="seccion-banner__boton-link" href="#inicio">
             Explora la Unexca
             <?= colocar_svg('@imagenes/flecha.svg'); ?>
@@ -28,6 +28,14 @@
             <h2 class="carreras__titulo">Oferta Académica</h2>
             <div class="carreras__lista">
                 <?= renderizar_carreras($data_ejemplo_carrera); ?>
+            </div>
+            <div class="carreras__contenedor-botones">
+                <div class="carreras__boton carreras__boton--izquierda">
+                    <?= colocar_svg('@imagenes/flecha.svg'); ?>
+                </div>
+                <div class="carreras__boton carreras__boton--derecha">
+                    <?= colocar_svg('@imagenes/flecha.svg'); ?>
+                </div>
             </div>
         </div>
     </section>

@@ -37,3 +37,24 @@ slider.addEventListener('mouseleave', detenerDeslizamiento);
 slider.addEventListener('touchstart', iniciarDeslizamiento, { passive: false });
 slider.addEventListener('touchmove', moverDeslizamiento, { passive: false });
 slider.addEventListener('touchend', detenerDeslizamiento);
+
+
+// Botones
+const botonIzquierda = document.querySelector('.carreras__boton--izquierda');
+const botonDerecha = document.querySelector('.carreras__boton--derecha');
+
+// Estos son los pixeles que desplaza
+const desplazamientoBoton = 450;
+
+const moverSlider = (direccion) => {
+  slider.scrollBy({
+    left: direccion * desplazamientoBoton,
+    behavior: 'smooth'
+  });
+};
+
+// Funciona tanto en PC como en telefonos
+['mousedown', 'touchstart'].forEach(evento => {
+  botonIzquierda.addEventListener(evento, () => moverSlider(-1));
+  botonDerecha.addEventListener(evento, () => moverSlider(1));
+});
