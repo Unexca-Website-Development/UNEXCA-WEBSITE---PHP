@@ -15,6 +15,11 @@
   width: 100vw;
   position: fixed;
   z-index: 9999;
+  transition: transform 0.3s ease;
+}
+
+.header--oculto{
+  transform: translateY(-100%);
 }
 
 .header > svg {
