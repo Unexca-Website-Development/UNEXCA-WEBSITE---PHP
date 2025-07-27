@@ -51,3 +51,15 @@ section{
   max-width: 1366px;
   margin: auto;
 }
+
+figure, img, picture {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: none;
+    margin: 0;
+}
+
+.main_contenedor{
+  width: 100vw;
+}

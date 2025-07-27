@@ -6,6 +6,7 @@ require_once colocar_ruta_sistema('@componentes/header_links.php');
 require_once colocar_ruta_sistema('@componentes/footer_links.php');
 require_once colocar_ruta_sistema('@componentes/botones.php');
 require_once colocar_ruta_sistema('@componentes/ofertas_academicas.php');
+require_once colocar_ruta_sistema('@componentes/noticias.php');
 
 
 function obtener_rutas(){
