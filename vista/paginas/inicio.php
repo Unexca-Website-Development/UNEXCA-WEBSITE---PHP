@@ -13,6 +13,7 @@
 </section>
 
 <main class="main__inicio">
+    
     <section class="historia">
         <div class="historia__contenido">
             <h2 class="historia__titulo">Un poco de historia...</h2>

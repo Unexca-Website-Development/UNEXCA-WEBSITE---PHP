@@ -101,7 +101,7 @@
   font-size: 1rem;
   font-weight: 600;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--gris);
+  border-bottom: 2px solid var(--gris-claro);
   color: inherit;
   text-decoration: none;
 }
