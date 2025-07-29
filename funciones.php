@@ -20,7 +20,7 @@ function obtener_rutas(){
 
     // $rutas ya tiene el archivo asi que no tendra que volver hacer el require gracias al static
     return $rutas;
-}
+};
 
 // Rutas de raiz del proyecto para php, como por ejemplo -> include obteneRutasSistema(@ejemplo/footer.php)
 function colocar_ruta_sistema(string $alias): string{
@@ -38,7 +38,7 @@ function colocar_ruta_sistema(string $alias): string{
     }
     // Si el alias no concuerda con ninguna ruta, arroja este mensaje
     throw new Exception("Ruta de sistema no encontrada para '$alias'");
-}
+};
 
 // Rutas para elementos html como por ejemplo -> src=""
 function colocar_ruta_html(string $alias): string{
@@ -52,7 +52,7 @@ function colocar_ruta_html(string $alias): string{
     }
 
     throw new Exception("Ruta de HTML no encontrada para '$alias'");
-}
+};
 
 // Rutas para elementos svg como por ejemplo los iconos en formato svg
 function colocar_svg(string $alias): string {
@@ -71,4 +71,9 @@ function colocar_svg(string $alias): string {
     }
 
     throw new Exception("Ruta de sistema no encontrada para '$alias'");
-}
+};
+
+// Funcion para colocar enlaces en elementos <a>
+function colocar_enlace(string $pagina): string {
+    return htmlspecialchars("index.php?pagina=" . urlencode($pagina), ENT_QUOTES, 'UTF-8');
+};
