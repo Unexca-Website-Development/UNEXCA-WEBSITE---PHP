@@ -1,3 +1,4 @@
+/* ======================= */
 .main__inicio {
     position: relative;
     background-color: var(--blanco);
@@ -5,6 +6,7 @@
     width: 100vw;
 }
 
+/* ======================= */
 /* Seccion del Banner */
 .banner {
     position: relative;
@@ -115,6 +117,7 @@
     opacity: 1;
 }
 
+/* ======================= */
 /* Seccion de Historia */
 .historia{
     display: flex;
@@ -150,6 +153,7 @@
     color: var(--negro);
 }
 
+/* ======================= */
 /* Seccion de Carreras */
 .carreras {
     display: flex;
@@ -294,7 +298,8 @@
     transform: rotate(-90deg);
 }
 
-/* Noticias */
+/* ======================= */
+/* Seccion de Noticias */
 
 .noticias{
     display: flex;

@@ -1,0 +1,37 @@
+.main__general{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background-color: var(--blanco);
+    max-width: 1366px;
+    padding: 9rem;
+}
+
+.titulos{
+    color: var(--azul);
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    font-size: 3rem;
+    padding-bottom: 1rem;
+}
+
+.parrafo{
+    color: var(--negro);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+    padding-bottom: 3rem;
+}
+
+.imagen__contenedor{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 3rem;
+    max-width: 800px;
+}
+
+.imagen__texto{
+    color: var(--negro);
+    font-size: 1rem;
+}

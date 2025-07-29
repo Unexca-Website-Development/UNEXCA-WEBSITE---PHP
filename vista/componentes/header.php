@@ -1,6 +1,6 @@
 <header class="header">
     <div class="header__contenedor-nav">
-        <a href="" class="header__logo-menu">
+        <a href="<?= colocar_enlace('inicio'); ?>" class="header__logo-menu">
             <?= colocar_svg('@imagenes/logo_menu.svg') ?>
         </a> 
         <?php renderizar_links_header($data_ejemplo) ?>

@@ -70,7 +70,12 @@
   width: 100%;
 }
 
-.footer__fondo > svg {
+.footer__logo-fondo{
+  width: fit-content;
+  height: auto;
+}
+
+.footer__logo-fondo > svg {
   width: 150px;
   height: auto;
 }

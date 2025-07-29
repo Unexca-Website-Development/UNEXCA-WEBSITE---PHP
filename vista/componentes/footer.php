@@ -1,9 +1,15 @@
 <footer class="footer">
     <?= colocar_svg('@imagenes/decoracion.svg') ?>
     <div class="footer__contenedor">
+        
         <?php renderizar_links_footer($data_ejemplo_footer) ?>
+
         <div class="footer__fondo">
-            <?= colocar_svg('@imagenes/logo_menu.svg') ?>
+
+            <a href="<?= colocar_enlace('inicio'); ?>" class="footer__logo-fondo">
+                <?= colocar_svg('@imagenes/logo_menu.svg') ?>
+            </a>
+            
             <p class="footer__texto">
                 <span class="footer__copyleft">&copy;</span>2025. Universidad Nacional Experimental de la Gran Caracas (UNEXCA).
             </p>
