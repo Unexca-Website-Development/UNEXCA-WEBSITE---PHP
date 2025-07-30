@@ -1,39 +1,11 @@
 <?php
-// Esta es una data de prueba
-    $data_ejemplo = [
-        "La Unexca" => [
-            "url" => "#",
-            "submenu" => [
-                "Historia" => "history.html",
-                "Misión, Visión y Valores" => "history.html#mis-vi-va",
-                "Autoridades Universitarias" => "autoridades.html",
-            ],
-        ],
-        "Programas Académicos" => [
-            "url" => "index.html#carr_link",
-            "submenu" => [],
-        ],
-        "Noticias" => [
-            "url" => "index.html#noti_link",
-            "submenu" => [],
-        ],
-        "Acerca de..." => [
-            "url" => "#",
-            "submenu" => [
-                "Servicios" => "servicios.html",
-                "Contactos" => "contacto.html",
-                "Preguntas Frecuentes" => "faqs.html",
-            ],
-        ],
-    ];
-
-function renderizar_links_header($data_ejemplo) {
+function renderizar_links_header($data_array) {
     ?>
     <nav class="header__nav">
         <ul class="header__menu">
             <?php 
                 // Itera la data que resive
-                foreach ($data_ejemplo as $nombre => $info):
+                foreach ($data_array as $nombre => $info):
 
                 // Guarda true si no esta vacio el array y false si lo esta.
                 // Ademas se asegura de que sea un array valido

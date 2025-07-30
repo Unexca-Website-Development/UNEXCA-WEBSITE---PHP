@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php include colocar_ruta_sistema("@componentes/head.php"); ?>
+    <?php renderizar_head(); ?>
 </head>
 <body>
-    <?php include colocar_ruta_sistema("@componentes/header.php"); ?>
+    <?php renderizar_header($data_header) ?>
 
     <div class="main__contenedor">
         <?php include $archivoVista; ?>
     </div>
 
-    <?php include colocar_ruta_sistema("@componentes/footer.php"); ?>
+    <?php renderizar_footer($data_footer) ?>
 </body>
 </html>

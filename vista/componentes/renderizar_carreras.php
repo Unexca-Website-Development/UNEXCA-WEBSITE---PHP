@@ -1,58 +1,6 @@
 <?php
-
-$data_ejemplo_carrera = [
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "PNF CONTADURIA",
-        "descripcion" => "Adquiere profundos conocimientos de las Ciencias Contables y Sociales para ser capaza de elaborar, revisar, examinar, presentar y dar fe publica de la informacion financiera de identidades publicas y privadas.",
-        "links" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-];
-
-function renderizar_carreras($data_ejemplo_carrera) {
-    foreach ($data_ejemplo_carrera as $carrera) {
+function renderizar_carreras($data_array) {
+    foreach ($data_array as $carrera) {
         ?>
         <div class="carrera">
             <div class="carrera__imagen">

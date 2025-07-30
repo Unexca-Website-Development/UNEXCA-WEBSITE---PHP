@@ -1,33 +1,11 @@
 <?php 
-
-$data_ejemplo_noticias = [
-    [
-        "title" => "The truly impactful technologies are always based on the condition that you can freely explore.",
-        "link" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "The truly impactful technologies are always based on the condition that you can freely explore.",
-        "link" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "The truly impactful technologies are always based on the condition that you can freely explore.",
-        "link" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-    [
-        "title" => "The truly impactful technologies are always based on the condition that you can freely explore.",
-        "link" => "#",
-        "img" => "contaduria-foto.jpg",
-    ],
-];
-
-function renderizar_noticias($data_ejemplo_noticias){
+function renderizar_noticias($data_array){
     $contador = 0;
-    foreach ($data_ejemplo_noticias as $noticia) {
+    foreach ($data_array as $noticia) {
 
+        // Cuantas carreras renderizar
         if ($contador >= 4) break;
+
         ?>
         <article class="noticia">
             <figure class="noticia__imagen">
@@ -43,6 +21,7 @@ function renderizar_noticias($data_ejemplo_noticias){
             </div>
         </article>
         <?php
+        
         $contador++;
     }
 }
