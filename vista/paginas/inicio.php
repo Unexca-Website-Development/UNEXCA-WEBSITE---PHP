@@ -28,7 +28,7 @@
         <div class="carreras__contenido">
             <h2 class="carreras__titulo">Oferta Académica</h2>
             <div class="carreras__lista">
-                <?= renderizar_carreras($data_ejemplo_carrera); ?>
+                <?= renderizar_carreras($data_carrera); ?>
             </div>
             <div class="carreras__contenedor-botones">
                 <div class="carreras__boton carreras__boton--izquierda">
@@ -45,7 +45,7 @@
         <div class="noticias__contenido">
             <h2 class="noticias__titulo">Noticias</h2>
             <div class="noticias__lista">
-                <?= renderizar_noticias($data_ejemplo_noticias); ?>
+                <?= renderizar_noticias($data_noticias); ?>
             </div>
         </div>
     </section>
