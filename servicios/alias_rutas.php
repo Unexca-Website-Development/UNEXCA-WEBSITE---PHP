@@ -11,6 +11,7 @@ return [
         '@plantilla'   => __DIR__ . '/vista/plantilla',
         '@scripts'     => __DIR__ . '/publico/scripts',
         '@vista'       => __DIR__ . '/vista',
+        '@servicios'   => __DIR__ . '/servicios' 
     ],
     'html' => [
         '@componentes' => '/vista/componentes',
@@ -22,5 +23,6 @@ return [
         // '@plantilla'   => '/vista/plantilla',
         '@scripts'     => '/publico/scripts',
         // '@vista'       => '/vista',
+        // '@servicios'   => '/servicios' 
     ]
 ];

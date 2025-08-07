@@ -1,6 +1,9 @@
 <?php
-$rutas = require_once __DIR__ . '/alias_rutas.php';
-require_once __DIR__ . '/funciones.php';
+require_once __DIR__ . '/servicios/utilidades.php';
+require_once __DIR__ . '/servicios/alias_rutas.php';
+
+require_once colocar_ruta_sistema('@servicios/carga_componentes.php');
+
 
 // Definición de páginas permitidas
 $paginasPermitidas = [
