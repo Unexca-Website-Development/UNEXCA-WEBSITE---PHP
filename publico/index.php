@@ -20,10 +20,10 @@ if (!array_key_exists($pagina, $paginasPermitidas)) {
 }
 
 // Obtiene la ruta absoluta de la vista correspondiente
-$archivoVista = colocar_ruta_sistema("@paginas/{$paginasPermitidas[$pagina]}");
+$vista_plantilla = colocar_ruta_sistema("@paginas/{$paginasPermitidas[$pagina]}");
 
 // Verifica que el archivo exista físicamente
-if (!file_exists($archivoVista)) {
+if (!file_exists($vista_plantilla)) {
     http_response_code(404);
     die("Archivo de vista no encontrado");
 }

@@ -7,10 +7,12 @@ class BaseModelo {
     //Tablas creadas en la base de datos de la unexca
     private $tablasPermitidas = [
         'autoridades_academicas',
+        'carrera',
+        'carrera_id',
+        'carrera_niveles_academicos',
         'carrera_nucleos',
         'carrera_parrafos',
         'carrera_turnos',
-        'carreras',
         'contactos_coordinadores_pnf',
         'contactos_directivos',
         'faqs',
