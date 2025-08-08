@@ -2,16 +2,16 @@
 
 return [
     'sistema' => [
-        '@componentes' => __DIR__ . '/vista/componentes',
-        '@controlador' => __DIR__ . '/controlador',
-        '@estilos'     => __DIR__ . '/publico/estilos',
-        '@imagenes'    => __DIR__ . '/publico/imagenes',
-        '@modelo'      => __DIR__ . '/modelo',
-        '@paginas'     => __DIR__ . '/vista/paginas',
-        '@plantilla'   => __DIR__ . '/vista/plantilla',
-        '@scripts'     => __DIR__ . '/publico/scripts',
-        '@vista'       => __DIR__ . '/vista',
-        '@servicios'   => __DIR__ . '/servicios' 
+        '@componentes' => dirname(__DIR__) . '/vista/componentes',
+        '@controlador' => dirname(__DIR__) . '/controlador',
+        '@estilos'     => dirname(__DIR__) . '/publico/estilos',
+        '@imagenes'    => dirname(__DIR__) . '/publico/imagenes',
+        '@modelo'      => dirname(__DIR__) . '/modelo',
+        '@paginas'     => dirname(__DIR__) . '/vista/paginas',
+        '@plantilla'   => dirname(__DIR__) . '/vista/plantilla',
+        '@scripts'     => dirname(__DIR__) . '/publico/scripts',
+        '@vista'       => dirname(__DIR__) . '/vista',
+        '@servicios'   => dirname(__DIR__) . '/servicios' 
     ],
     'html' => [
         '@componentes' => '/vista/componentes',
@@ -26,3 +26,6 @@ return [
         // '@servicios'   => '/servicios' 
     ]
 ];
+
+
+
