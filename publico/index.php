@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/servicios/utilidades.php';
-require_once __DIR__ . '/servicios/alias_rutas.php';
+require_once dirname(__DIR__) . '/servicios/utilidades.php';
+require_once dirname(__DIR__) . '/servicios/alias_rutas.php';
 
 require_once colocar_ruta_sistema('@servicios/carga_componentes.php');
 
