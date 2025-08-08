@@ -12,7 +12,8 @@ class PlantillaServicio {
     /**
      * Transforma los datos del footer en un arreglo agrupado por secciones
      */
-    public function obtenerDatosFooter(){
+    public function obtenerDatosFooter()
+    {
         // Obtener datos crudos desde el modelo
         $secciones = $this->modelo->obtenerFooterSecciones(); // Ej: [ ['id' => 1, 'titulo' => 'Acerca de'], ... ]
         $links     = $this->modelo->obtenerFooterLinks();     // Ej: [ ['texto' => 'Historia', 'url' => '...', 'seccion_id' => 1], ... ]
@@ -32,7 +33,7 @@ class PlantillaServicio {
             $id = $link['seccion_id'];
 
             if (isset($agrupado[$id])) {
-                $agrupado[$id]['links'][$link['texto']] = $link['url'];
+                $agrupado[$id]['links'][$link['texto']] = procesar_enlace($link['url']);
             }
         }
 
@@ -43,10 +44,10 @@ class PlantillaServicio {
     /**
      * Transforma los links del header en un arreglo jerarquico padre/hijo
      */
-    public function obtenerDatosHeader(){
+    public function obtenerDatosHeader()
+    {
         $links = $this->modelo->obtenerHeaderLinks(); // Todos los links, incluyendo padres e hijos
 
-        // Paso 1: Separar los links padres y los hijos
         $menu_padres = [];
         $menu_hijos  = [];
 
@@ -54,7 +55,7 @@ class PlantillaServicio {
             if (is_null($link['id_padre'])) {
                 $menu_padres[$link['id']] = [
                     'titulo'  => $link['titulo'],
-                    'url'     => $link['url'] ?? '#',
+                    'url'     => procesar_enlace($link['url']),
                     'submenu' => [],
                 ];
             } else {
@@ -62,16 +63,14 @@ class PlantillaServicio {
             }
         }
 
-        // Paso 2: Asociar los hijos a sus respectivos padres
         foreach ($menu_hijos as $link) {
             $idPadre = $link['id_padre'];
 
             if (isset($menu_padres[$idPadre])) {
-                $menu_padres[$idPadre]['submenu'][$link['titulo']] = $link['url'] ?? '#';
+                $menu_padres[$idPadre]['submenu'][$link['titulo']] = procesar_enlace($link['url']);
             }
         }
 
-        // Paso 3: Reorganizar el array en el formato deseado (clave = titulo del padre)
         $resultado = [];
         foreach ($menu_padres as $link) {
             $resultado[$link['titulo']] = [
@@ -83,3 +82,4 @@ class PlantillaServicio {
         return $resultado;
     }
 }
+

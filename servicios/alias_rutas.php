@@ -14,14 +14,14 @@ return [
         '@servicios'   => dirname(__DIR__) . '/servicios' 
     ],
     'html' => [
-        '@componentes' => '/vista/componentes',
+        // '@componentes' => '/vista/componentes',
         // '@controlador' => '/controlador',
-        '@estilos'     => '/publico/estilos',
-        '@imagenes'    => '/publico/imagenes',
+        '@estilos'     => '/estilos',
+        '@imagenes'    => '/imagenes',
         // '@modelo'      => '/modelo',
         // '@paginas'     => '/vista/paginas',
         // '@plantilla'   => '/vista/plantilla',
-        '@scripts'     => '/publico/scripts',
+        '@scripts'     => '/scripts',
         // '@vista'       => '/vista',
         // '@servicios'   => '/servicios' 
     ]

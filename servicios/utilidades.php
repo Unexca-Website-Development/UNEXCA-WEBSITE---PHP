@@ -67,3 +67,20 @@ function colocar_svg(string $alias): string {
 function colocar_enlace(string $pagina): string {
     return htmlspecialchars("index.php?pagina=" . urlencode($pagina), ENT_QUOTES, 'UTF-8');
 };
+
+function procesar_enlace(?string $url): string {
+    $url = trim($url ?? '');
+
+    // Si está vacia o es un ancla, devolver #
+    if ($url === '' || $url === '#') {
+        return '#';
+    }
+
+    // Si ya es una URL absoluta, devolverla tal cual
+    if (preg_match('/^https?:\/\//i', $url)) {
+        return $url;
+    }
+
+    // De lo contrario, usar colocar_enlace
+    return colocar_enlace($url);
+}
