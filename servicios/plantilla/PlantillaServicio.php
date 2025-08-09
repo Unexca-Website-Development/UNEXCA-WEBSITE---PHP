@@ -2,11 +2,11 @@
 require_once colocar_ruta_sistema('@modelo/plantilla/PlantillaModelo.php');
 
 class PlantillaServicio {
-    private $modelo;
+    private $modelo_plantilla;
 
     public function __construct()
     {
-        $this->modelo = new PlantillaModelo();    
+        $this->modelo_plantilla = new PlantillaModelo();    
     }
 
     /**
@@ -15,8 +15,8 @@ class PlantillaServicio {
     public function obtenerDatosFooter()
     {
         // Obtener datos crudos desde el modelo
-        $secciones = $this->modelo->obtenerFooterSecciones(); // Ej: [ ['id' => 1, 'titulo' => 'Acerca de'], ... ]
-        $links     = $this->modelo->obtenerFooterLinks();     // Ej: [ ['texto' => 'Historia', 'url' => '...', 'seccion_id' => 1], ... ]
+        $secciones = $this->modelo_plantilla->obtenerFooterSecciones(); // Ej: [ ['id' => 1, 'titulo' => 'Acerca de'], ... ]
+        $links     = $this->modelo_plantilla->obtenerFooterLinks();     // Ej: [ ['texto' => 'Historia', 'url' => '...', 'seccion_id' => 1], ... ]
 
         // Inicializar arreglo agrupador por seccion
         $agrupado = [];
@@ -46,7 +46,7 @@ class PlantillaServicio {
      */
     public function obtenerDatosHeader()
     {
-        $links = $this->modelo->obtenerHeaderLinks(); // Todos los links, incluyendo padres e hijos
+        $links = $this->modelo_plantilla->obtenerHeaderLinks(); // Todos los links, incluyendo padres e hijos
 
         $menu_padres = [];
         $menu_hijos  = [];
@@ -63,6 +63,9 @@ class PlantillaServicio {
             }
         }
 
+        // Aquí ordenas los padres por id ascendente
+        $menu_padres = ordenar_por_id_asc($menu_padres);
+
         foreach ($menu_hijos as $link) {
             $idPadre = $link['id_padre'];
 
@@ -72,6 +75,7 @@ class PlantillaServicio {
         }
 
         $resultado = [];
+        
         foreach ($menu_padres as $link) {
             $resultado[$link['titulo']] = [
                 'url'     => $link['url'],

@@ -84,3 +84,15 @@ function procesar_enlace(?string $url): string {
     // De lo contrario, usar colocar_enlace
     return colocar_enlace($url);
 }
+
+// Ordena un array asociativo por clave numérica ascendente (ID).
+function ordenar_por_id_asc(array $items): array {
+    ksort($items);
+    return $items;
+}
+
+// Ordena un array asociativo por clave numérica descendente (ID).
+function ordenar_por_id_desc(array $items): array {
+    krsort($items);
+    return $items;
+}
