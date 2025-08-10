@@ -5,7 +5,8 @@ class BaseModelo {
     private $pdo;
 
     //Tablas creadas en la base de datos de la unexca
-    private $tablasPermitidas = [
+    private $tablasPermitidas = 
+    [
         'autoridades_academicas',
         'carrera',
         'carrera_id',
@@ -28,7 +29,8 @@ class BaseModelo {
         $this->pdo = conectarBD();
     }
 
-    private function validarTabla($tabla) {
+    private function validarTabla($tabla) 
+    {
         if (!in_array($tabla, $this->tablasPermitidas)) {
             throw new Exception("Tabla '$tabla' no permitida.");
         }

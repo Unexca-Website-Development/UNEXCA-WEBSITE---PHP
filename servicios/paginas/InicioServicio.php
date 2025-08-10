@@ -7,7 +7,7 @@ class InicioServicio
 
     public function __construct()
     {
-        $this->modelo_inicio = new inicioModelo();
+        $this->modelo_inicio = new InicioModelo();
     }
 
     public function obtenerDatosCarreras()
