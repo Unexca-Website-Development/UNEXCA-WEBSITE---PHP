@@ -22,5 +22,7 @@ class AutoridadesServicio
                 "imagen" => $autoridad['imagen'],
             ];
         }
+
+        return $autoridades_array;
     }
 }

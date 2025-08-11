@@ -4,7 +4,7 @@
     margin: auto;
     background-color: var(--blanco);
     max-width: 1366px;
-    padding: 9rem;
+    padding: 9rem 12rem;
 }
 
 .titulos{
@@ -12,6 +12,7 @@
     font-family: var(--fuente-titulos);
     font-weight: 700;
     font-size: 3rem;
+    line-height: 3rem;
     padding-bottom: 1rem;
 }
 
@@ -34,4 +35,15 @@
 .imagen__texto{
     color: var(--negro);
     font-size: 1rem;
+}
+
+.lista{
+    display:flex;
+    flex-direction: column;
+}
+
+.lista__item{
+    font-size: 1.5rem;
+    list-style-type: disc;
+    list-style-position: inside;
 }

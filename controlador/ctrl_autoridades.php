@@ -1,5 +1,5 @@
 <?php
-require_once colocar_ruta_sistema('@modelo/paginas/AutoridadesServicio.php');
+require_once colocar_ruta_sistema('@servicios/paginas/AutoridadesServicio.php');
 
 $servicio = new AutoridadesServicio();
 

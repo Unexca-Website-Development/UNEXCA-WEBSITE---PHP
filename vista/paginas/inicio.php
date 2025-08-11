@@ -51,5 +51,4 @@
     </section>
 
     <script src="<?= colocar_ruta_html('@scripts/slider.js')?>"> </script>
-    <script src="<?= colocar_ruta_html('@scripts/headerScroll.js')?>"> </script>
 </main>
