@@ -86,4 +86,11 @@ class BaseModelo {
         $stmt = $this->pdo->prepare($query);
         return $stmt->execute(['id' => $id]);
     }
+
+    public function ejecutarConsultaPersonalizada($sql, $params = [])
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
