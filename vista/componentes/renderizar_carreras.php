@@ -4,7 +4,7 @@ function renderizar_carreras($data_array) {
         ?>
         <div class="carrera">
             <div class="carrera__imagen">
-                <img src="<?= colocar_ruta_html("@imagenes/") . htmlspecialchars(ltrim($carrera['img'], '/')) ?>" alt="<?= htmlspecialchars($carrera['title']) ?>">
+                <img src="<?= colocar_ruta_html("@imagenes/carreras/") . htmlspecialchars(ltrim($carrera['img'], '/')) ?>" alt="<?= htmlspecialchars($carrera['title']) ?>">
             </div>
             <div class="carrera__contenido">
                 <div class="carrera__contenedor-texto">
@@ -17,7 +17,7 @@ function renderizar_carreras($data_array) {
                 </div>
                 <a class="carrera__enlace" href="<?= htmlspecialchars($carrera['links']) ?>">
                     Más Información
-                    <?= colocar_svg('@imagenes/flecha.svg'); ?>
+                    <?= colocar_svg('@imagenes/iconos/flecha.svg'); ?>
                 </a>
             </div>
         </div>

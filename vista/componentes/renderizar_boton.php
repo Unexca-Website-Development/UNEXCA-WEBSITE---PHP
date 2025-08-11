@@ -9,7 +9,7 @@ function renderizar_boton($link = '#', $contenido = 'Más Información', $clases
     ?>
         <a href="<?= htmlspecialchars($link) ?>" class="<?= htmlspecialchars($clases) ?>"<?= $html_atributos ?>>
             <?= $contenido ?>
-            <?= colocar_svg('@imagenes/flecha.svg') ?>
+            <?= colocar_svg('@imagenes/iconos/flecha.svg') ?>
         </a>
     <?php
 }

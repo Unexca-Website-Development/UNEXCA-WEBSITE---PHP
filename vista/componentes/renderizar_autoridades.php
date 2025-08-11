@@ -4,7 +4,7 @@ function renderizar_autoridades($data_array) {
         ?>
             <div class="autoridad">
                 <div class="autoridad__imagen">
-                    <img src="<?= colocar_ruta_html("@imagenes/") . htmlspecialchars(ltrim($autoridad['imagen'], '/')) ?>" alt="Imagen de <?= htmlspecialchars($autoridad['nombre']) ?>">
+                    <img src="<?= colocar_ruta_html("@imagenes/autoridades") . htmlspecialchars(ltrim($autoridad['imagen'], '/')) ?>" alt="Imagen de <?= htmlspecialchars($autoridad['nombre']) ?>">
                 </div>
 
                 <div class="autoridad__texto">

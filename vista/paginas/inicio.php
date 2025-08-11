@@ -1,14 +1,14 @@
 <section class="banner">
     <h1 class="banner__titulo">UNEXCA</h1>
     <div class="banner__boton-contenedor">
-        <?= colocar_svg('@imagenes/decoracion_2.svg'); ?>
+        <?= colocar_svg('@imagenes/decorativos/decoracion_2.svg'); ?>
         <a class="banner__boton-link" href="#inicio">
             Explora la Unexca
-            <?= colocar_svg('@imagenes/flecha.svg'); ?>
+            <?= colocar_svg('@imagenes/iconos/flecha.svg'); ?>
         </a>
     </div>
     <div class="banner__imagen-contenedor">
-        <img id="banner__imagen" class="activo" src="<?= colocar_ruta_html('@imagenes/banner_guaira.jpeg'); ?>">
+        <img id="banner__imagen" class="activo" src="<?= colocar_ruta_html('@imagenes/nucleos/urbina.jpg'); ?>">
     </div>
 </section>
 
@@ -32,10 +32,10 @@
             </div>
             <div class="carreras__contenedor-botones">
                 <div class="carreras__boton carreras__boton--izquierda">
-                    <?= colocar_svg('@imagenes/flecha.svg'); ?>
+                    <?= colocar_svg('@imagenes/iconos/flecha.svg'); ?>
                 </div>
                 <div class="carreras__boton carreras__boton--derecha">
-                    <?= colocar_svg('@imagenes/flecha.svg'); ?>
+                    <?= colocar_svg('@imagenes/iconos/flecha.svg'); ?>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ function renderizar_noticias($data_array){
         <article class="noticia">
             <figure class="noticia__imagen">
                 <a class="noticia__enlace" href="<?= colocar_ruta_html("@imagenes/") . htmlspecialchars($noticia['link']) ?>">
-                    <img class="noticia__img" src="<?= colocar_ruta_html("@imagenes/") . htmlspecialchars(ltrim($noticia['img'], '/')) ?>" alt="<?= htmlspecialchars($noticia['title']) ?>">
+                    <img class="noticia__img" src="<?= colocar_ruta_html("@imagenes/carreras/") . htmlspecialchars(ltrim($noticia['img'], '/')) ?>" alt="<?= htmlspecialchars($noticia['title']) ?>">
                 </a>
             </figure>
 

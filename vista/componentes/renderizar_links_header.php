@@ -14,7 +14,7 @@ function renderizar_links_header($data_array) {
                 <li class="header__menu-item <?= $tiene_sub_menu ? 'header__menu-item--con-submenu' : '' ?>">
                     <a href="<?= htmlspecialchars($info['url'] ?? '#', ENT_QUOTES, 'UTF-8') ?>" class="header__menu-link">
                         <?= htmlspecialchars($nombre ?? 'Enlace', ENT_QUOTES, 'UTF-8') ?>
-                        <?= $tiene_sub_menu ? colocar_svg('@imagenes/flecha.svg') : '' ?>
+                        <?= $tiene_sub_menu ? colocar_svg('@imagenes/iconos/flecha.svg') : '' ?>
                     </a>
 
                     <?php if ($tiene_sub_menu): ?>
