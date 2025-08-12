@@ -26,7 +26,7 @@
 
     <section class="carreras">
         <div class="carreras__contenido">
-            <h2 class="carreras__titulo">Oferta Académica</h2>
+            <h2 class="carreras__titulo">Programas Académicos</h2>
             <div class="carreras__lista">
                 <?= renderizar_carreras($data_carrera); ?>
             </div>

@@ -4,7 +4,12 @@
     margin: auto;
     background-color: var(--blanco);
     max-width: 1366px;
-    padding: 9rem 12rem;
+    padding-top: 10rem;
+    padding-bottom: 5rem;
+}
+
+.seccion{
+    max-width: 800px;
 }
 
 .titulos{
@@ -22,6 +27,7 @@
     font-weight: 400;
     line-height: 2.5rem;
     padding-bottom: 3rem;
+    text-wrap: balance;
 }
 
 .imagen__contenedor{
