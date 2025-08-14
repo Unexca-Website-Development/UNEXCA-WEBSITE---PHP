@@ -76,8 +76,9 @@
 }
 
 .header__menu-link > svg{
-  width: 2rem;
+  width: 1.6rem;
   height: auto;
+  align-self: end;
 }
 
 .header__sub-menu {
