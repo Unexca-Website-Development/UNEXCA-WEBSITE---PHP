@@ -18,8 +18,9 @@ class FaqsServicio
         foreach ($faqs_lista as $faq) {
 
             $faqs_array[] = [
-                "pregunta" => $faq['pregunta'],
-                "respuesta" => $faq['respuesta'],
+                "id" => $faq['id'],
+                "titulo" => $faq['pregunta'],
+                "contenido" => $faq['respuesta'],
             ];
         }
         

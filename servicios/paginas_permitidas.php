@@ -5,4 +5,5 @@ return $paginas_permitidas = [
     'historia' => 'historia.php',
     'mision-vision-valores' => 'mision_vision_valores.php',
     'autoridades' => 'autoridades.php',
+    'faqs' => 'faqs.php',
 ];

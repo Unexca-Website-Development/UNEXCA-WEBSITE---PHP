@@ -8,6 +8,7 @@ require_once colocar_ruta_sistema('@componentes/renderizar_boton.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_carreras.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_noticias.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_autoridades.php');
+require_once colocar_ruta_sistema('@componentes/renderizar_lista_desplegable.php');
 
 require_once colocar_ruta_sistema('@componentes/renderizar_head.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_header.php');
