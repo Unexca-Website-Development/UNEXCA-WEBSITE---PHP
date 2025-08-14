@@ -6,4 +6,5 @@ return $paginas_permitidas = [
     'mision-vision-valores' => 'mision_vision_valores.php',
     'autoridades' => 'autoridades.php',
     'faqs' => 'faqs.php',
+    'servicios' => 'servicios.php',
 ];

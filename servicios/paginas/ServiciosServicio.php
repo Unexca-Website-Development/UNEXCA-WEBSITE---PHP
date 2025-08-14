@@ -18,8 +18,9 @@ class ServiciosServicio
         foreach ($servicios_lista as $servicio) {
 
             $servicios_array[] = [
-                "servicio" => $servicio['servicio'],
-                "respuesta" => $servicio['respuesta'],
+                "id" => $servicio['id'],
+                "titulo" => $servicio['servicio'],
+                "contenido" => $servicio['respuesta'],
             ];
         }
         
