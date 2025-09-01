@@ -9,7 +9,7 @@ function renderizar_carreras($data_array) {
             <div class="carrera__contenido">
                 <div class="carrera__contenedor-texto">
                     <h3 class="carrera__titulo">
-                        <?= htmlspecialchars($carrera['title']) ?>
+                        <?= htmlspecialchars($carrera['titulo']) ?>
                     </h3>
                     <p class="carrera__descripcion">
                         <?= htmlspecialchars($carrera['descripcion']) ?>

@@ -64,9 +64,10 @@ function colocar_svg(string $alias): string {
 };
 
 // Funcion para colocar enlaces en elementos <a>
-function colocar_enlace(string $pagina): string {
-    return htmlspecialchars("index.php?pagina=" . urlencode($pagina), ENT_QUOTES, 'UTF-8');
-};
+function colocar_enlace(string $pagina, array $params = []): string {
+    $query = http_build_query(array_merge(['pagina' => $pagina], $params));
+    return htmlspecialchars("index.php?$query", ENT_QUOTES, 'UTF-8');
+}
 
 function procesar_enlace(?string $url): string {
     $url = trim($url ?? '');
@@ -96,3 +97,21 @@ function ordenar_por_id_desc(array $items): array {
     krsort($items);
     return $items;
 }
+
+function normalizar_texto(string $texto, string $reemplazo = '-') : string {
+	$mapa = [
+		'á'=>'a','à'=>'a','ä'=>'a','â'=>'a',
+		'é'=>'e','è'=>'e','ë'=>'e','ê'=>'e',
+		'í'=>'i','ì'=>'i','ï'=>'i','î'=>'i',
+		'ó'=>'o','ò'=>'o','ö'=>'o','ô'=>'o',
+		'ú'=>'u','ù'=>'u','ü'=>'u','û'=>'u',
+		'ñ'=>'n','ç'=>'c'
+	];
+
+	$texto = mb_strtolower($texto, 'UTF-8');
+	$texto = strtr($texto, $mapa);
+	$texto = preg_replace('/[^a-z0-9]+/', $reemplazo, $texto);
+	$texto = trim($texto, $reemplazo);
+	return $texto;
+}
+

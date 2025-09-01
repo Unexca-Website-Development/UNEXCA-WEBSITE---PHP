@@ -18,14 +18,18 @@ class InicioServicio
 
         foreach ($carreras_lista as $carrera) {
 
+            $slug_generado = normalizar_texto($carrera['titulo']);
+            $link_carrera  = colocar_enlace('carrera', ['nombre' => $slug_generado]);
+
             $carreras_array[] = [
-                "title"       => $carrera['titulo'],
-                "descripcion" => $carrera['descripcion'],
-                "links"       => $carrera['link_malla_curricular'],
-                "img"         => $carrera['imagen'],
+                "titulo"       => $carrera['titulo'],
+                "descripcion"  => $carrera['descripcion'],
+                "links"        => $link_carrera,
+                "img"          => $carrera['imagen'],
             ];
         }
 
         return $carreras_array;
     }
-};
+}
+

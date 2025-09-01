@@ -53,10 +53,8 @@ class CarrerasServicio
             ];
         }
 
-        $slug_generado = strtolower(
-            preg_replace('/[^a-z0-9]+/', '-', iconv('UTF-8', 'ASCII//TRANSLIT', $carrera['carrera_titulo']))
-        );
-        $link_carrera  = colocar_enlace('carrera&nombre=' . $slug_generado);
+        $slug_generado = normalizar_texto($carrera['titulo']);
+        $link_carrera  = colocar_enlace('carrera', ['nombre' => $slug_generado]);
 
         return [
             'id' => $id,
