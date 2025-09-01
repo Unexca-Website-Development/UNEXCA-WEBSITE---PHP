@@ -53,6 +53,11 @@ class CarrerasServicio
             ];
         }
 
+        $slug_generado = strtolower(
+            preg_replace('/[^a-z0-9]+/', '-', iconv('UTF-8', 'ASCII//TRANSLIT', $carrera['carrera_titulo']))
+        );
+        $link_carrera  = colocar_enlace('carrera&nombre=' . $slug_generado);
+
         return [
             'id' => $id,
             'titulo' => $carrera['carrera_titulo'],
@@ -61,7 +66,9 @@ class CarrerasServicio
             'parrafos' => $parrafos_array,
             'turnos' => $turnos_array,
             'niveles' => $niveles_array,
-            'nucleos' => $nucleos_array
+            'nucleos' => $nucleos_array,
+            'slug' => $slug_generado,
+            'link' => $link_carrera
         ];
     }
 }
