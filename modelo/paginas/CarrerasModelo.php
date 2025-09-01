@@ -12,7 +12,6 @@ class CarrerasModelo extends BaseModelo
                 titulo AS carrera_titulo,
                 descripcion AS carrera_descripcion,
                 link_malla_curricular,
-                imagen AS carrera_imagen
             FROM carrera
             WHERE lower(regexp_replace(titulo, '[^a-z0-9]+', '-', 'g')) = :slug
             LIMIT 1
