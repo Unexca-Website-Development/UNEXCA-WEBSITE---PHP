@@ -1,5 +1,5 @@
 <?php
-require_once colocar_ruta_sistema('@modelo/baseModelo.php');
+require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
 
 class FaqsModelo extends BaseModelo
 {

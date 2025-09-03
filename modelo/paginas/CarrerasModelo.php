@@ -1,6 +1,5 @@
 <?php
-
-require_once colocar_ruta_sistema('@modelo/BaseModelo');
+require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
 
 class CarrerasModelo extends BaseModelo
 {
@@ -12,9 +11,10 @@ class CarrerasModelo extends BaseModelo
                 titulo AS carrera_titulo,
                 descripcion AS carrera_descripcion,
                 link_malla_curricular,
+                slug
             FROM carrera
-            WHERE lower(regexp_replace(titulo, '[^a-z0-9]+', '-', 'g')) = :slug
-            LIMIT 1
+            WHERE slug = :slug
+            LIMIT 1;
         ";
         return $this->ejecutarConsultaPersonalizada($sql, ['slug' => $slug]);
     }

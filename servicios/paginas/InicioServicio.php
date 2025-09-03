@@ -18,8 +18,7 @@ class InicioServicio
 
         foreach ($carreras_lista as $carrera) {
 
-            $slug_generado = normalizar_texto($carrera['titulo']);
-            $link_carrera  = colocar_enlace('carrera', ['nombre' => $slug_generado]);
+            $link_carrera = colocar_enlace('carrera', ['nombre' => $carrera['slug']]);
 
             $carreras_array[] = [
                 "titulo"       => $carrera['titulo'],

@@ -4,6 +4,7 @@ require_once colocar_ruta_sistema('@modelo/paginas/CarrerasModelo.php');
 class CarrerasServicio
 {
     private $modelo_carreras;
+    // public $slug = 'ing-informatica';
 
     public function __construct()
     {
@@ -53,8 +54,7 @@ class CarrerasServicio
             ];
         }
 
-        $slug_generado = normalizar_texto($carrera['titulo']);
-        $link_carrera  = colocar_enlace('carrera', ['nombre' => $slug_generado]);
+        $link_carrera = colocar_enlace('carrera', ['nombre' => $carrera['slug']]);
 
         return [
             'id' => $id,
@@ -65,7 +65,7 @@ class CarrerasServicio
             'turnos' => $turnos_array,
             'niveles' => $niveles_array,
             'nucleos' => $nucleos_array,
-            'slug' => $slug_generado,
+            'slug' => $carrera['slug'],
             'link' => $link_carrera
         ];
     }

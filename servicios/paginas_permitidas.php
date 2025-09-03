@@ -7,4 +7,6 @@ return $paginas_permitidas = [
     'autoridades' => 'autoridades.php',
     'faqs' => 'faqs.php',
     'servicios' => 'servicios.php',
+    'carrera' => 'carrera.php',
+    'test' => 'test.php',
 ];
