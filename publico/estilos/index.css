@@ -10,6 +10,8 @@
 
     --fuente-principal: "Plus Jakarta Sans", sans-serif;
     --fuente-titulos: "Jost", sans-serif;
+
+    --font-size-principal: 16px;
 }
 /* Reset */
 *{
@@ -23,6 +25,7 @@
 
 html{
   position: relative;
+  font-size: var(--font-size-principal);
   font-family: var(--fuente-principal);
   color:var(--negro);
 }
@@ -62,6 +65,8 @@ figure, img, picture {
     margin: 0;
 }
 
-.main_contenedor{
+#main{
   width: 100vw;
+  height: 100%;
+  min-height: 100vh;
 }

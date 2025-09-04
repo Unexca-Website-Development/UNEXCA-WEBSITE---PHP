@@ -1,4 +1,6 @@
 .main__general{
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -9,10 +11,14 @@
 }
 
 .seccion{
-    max-width: 800px;
+    max-width: 900px;
+    padding:0 1rem;
 }
 
 .titulos{
+    display: inline-block;
+    width: auto;
+    height: auto;
     color: var(--azul);
     font-family: var(--fuente-titulos);
     font-weight: 700;

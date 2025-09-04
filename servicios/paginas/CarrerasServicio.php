@@ -4,7 +4,6 @@ require_once colocar_ruta_sistema('@modelo/paginas/CarrerasModelo.php');
 class CarrerasServicio
 {
     private $modelo_carreras;
-    // public $slug = 'ing-informatica';
 
     public function __construct()
     {

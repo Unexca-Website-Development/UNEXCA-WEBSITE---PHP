@@ -7,7 +7,7 @@
 <body>
     <?php renderizar_header($data_header) ?>
 
-    <div class="main__contenedor">
+    <div class="main__contenedor" id="main">
         <?php include $vista_plantilla; ?>
     </div>
 

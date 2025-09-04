@@ -10,6 +10,7 @@
             <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/general.css')?>">
             <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/botones.css')?>">
             <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/autoridades.css')?>">
+            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/carrera.css')?>">
             <title>UNEXCA - Inicio</title>
         <?php
     }

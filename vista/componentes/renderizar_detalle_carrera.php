@@ -1,72 +1,74 @@
 <?php
 function renderizar_detalle_carrera($data_array) {
     ?>
-        <h2 class="titulos">
-            <?= htmlspecialchars($data_array['titulo'])?>
-        </h2>
+        <section class="detalle-carrera__seccion">
+            <h2 class="titulos">
+                <?= htmlspecialchars($data_array['titulo']) ?>
+            </h2>
 
-        <section>
-            <div>
-                <?php if (!empty($data_array['parrafos'])): ?>
-                    <?php foreach ($data_array['parrafos'] as $parrafo): ?>
-                        <p><?= htmlspecialchars($parrafo['contenido']) ?></p>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
+            <div class="detalle-carrera__contenedor">
+                <div class="detalle-carrera__descripcion">
+                    <?php if (!empty($data_array['parrafos'])): ?>
+                        <?php foreach ($data_array['parrafos'] as $parrafo): ?>
+                            <p class="detalle-carrera__parrafo"><?= htmlspecialchars($parrafo['contenido']) ?></p>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
 
-            <div>
-                <ul>
-                    <li>
+                <ul class="detalle-carrera__lista">
+
+                    <li class="detalle-carrera__item">
                         <?= colocar_svg('@imagenes/iconos/icon_duracion.svg') ?>
-                        <ul>
+                        <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['turnos'])): ?>
-                                <?php foreach ($data_array['turnos'] as $turnos): ?>
-                                    <li><?= htmlspecialchars($turnos['turno']) ?></li>
+                                <?php foreach ($data_array['turnos'] as $turno): ?>
+                                    <li class="detalle-carrera__subitem"><?= htmlspecialchars($turno) ?></li>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </ul>
                     </li>
 
-                    <li>
+                    <li class="detalle-carrera__item">
                         <?= colocar_svg('@imagenes/iconos/icon_ubicacion.svg') ?>
-                        <ul>
+                        <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['nucleos'])): ?>
-                                <?php foreach ($data_array['nucleos'] as $nucleos): ?>
-                                    <li><?= htmlspecialchars($nucleos['nombre']) ?></li>
+                                <?php foreach ($data_array['nucleos'] as $nucleo): ?>
+                                    <li class="detalle-carrera__subitem"><?= htmlspecialchars($nucleo['nombre']) ?></li>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </ul>
                     </li>
 
-                    <li>
+                    <li class="detalle-carrera__item">
                         <?= colocar_svg('@imagenes/iconos/icon_calendario.svg') ?>
-                        <ul>
+                        <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['niveles'])): ?>
-                                <?php foreach ($data_array['niveles'] as $duracion): ?>
-                                    <li><?= htmlspecialchars($duracion['nivel']) ?>: <?= htmlspecialchars($duracion['duracion']) ?></li>
+                                <?php foreach ($data_array['niveles'] as $nivel): ?>
+                                    <li class="detalle-carrera__subitem"><?= htmlspecialchars($nivel['nivel']) ?>: <?= htmlspecialchars($nivel['duracion']) ?></li>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </ul>
                     </li>
 
-                   <li>
+                    <li class="detalle-carrera__item">
                         <?= colocar_svg('@imagenes/iconos/icon_graduacion.svg') ?>
-                        <ul>
+                        <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['niveles'])): ?>
-                                <?php foreach ($data_array['niveles'] as $diplomas): ?>
-                                    <li><?= htmlspecialchars($diplomas['diploma']) ?></li>
+                                <?php foreach ($data_array['niveles'] as $diploma): ?>
+                                    <li class="detalle-carrera__subitem"><?= htmlspecialchars($diploma['diploma']) ?></li>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </ul>
                     </li>
 
-                   <li>
+                    <li class="detalle-carrera__item">
                         <?= colocar_svg('@imagenes/iconos/icon_malla.svg') ?>
-                        <a href="<?= htmlspecialchars($data_array['link_malla_curricular'] ?? '#', ENT_QUOTES, 'UTF-8')?>">Descargar Malla Curricular</a>
+                        <a class="detalle-carrera__enlace" href="<?= htmlspecialchars($data_array['link_malla_curricular'] ?? '#', ENT_QUOTES, 'UTF-8') ?>">Descargar Malla Curricular</a>
                     </li>
 
                 </ul>
             </div>
+
         </section>
     <?php
 };
