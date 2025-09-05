@@ -31,14 +31,23 @@
   fill: var(--azul);
 }
 
+.header__contenedor{
+  display: flex;
+  padding:0 2rem;
+  justify-content: center;
+  background-color: var(--azul);
+  width: 100%;
+  height: auto;
+}
+
 .header__contenedor-nav {
   display: flex;
-  background-color: var(--azul);
+  max-width: 900px;
   height: fit-content;
   width: 100%;
   gap: 1rem;
   padding: calc(1rem / 2);
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .header__nav {

@@ -1,7 +1,6 @@
     <?php
     function renderizar_head(){
         ?>
-            <meta charset="UTF-8" />
             <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/index.css')?>">
             <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/footer.css')?>">
             <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/header.css')?>">
