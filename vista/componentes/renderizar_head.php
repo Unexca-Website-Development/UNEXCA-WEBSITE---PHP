@@ -1,15 +1,18 @@
-    <?php
-    function renderizar_head(){
+<?php
+    function renderizar_head(array $data) {
         ?>
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/index.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/footer.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/header.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/desplegable.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/inicio.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/general.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/botones.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/autoridades.css')?>">
-            <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/carrera.css')?>">
-            <title>UNEXCA - Inicio</title>
-        <?php
-    }
+        <title><?= htmlspecialchars($data['title'] ?? 'UNEXCA') ?></title>
+
+        <?php if (!empty($data['meta'])): ?>
+            <?php foreach ($data['meta'] as $name => $content): ?>
+                <meta name="<?= htmlspecialchars($name) ?>" content="<?= htmlspecialchars($content) ?>">
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if (!empty($data['styles'])): ?>
+            <?php foreach ($data['styles'] as $style): ?>
+                <link rel="stylesheet" href="<?= colocar_ruta_html($style) ?>">
+            <?php endforeach; ?>
+        <?php endif; ?>
+    <?php
+}
