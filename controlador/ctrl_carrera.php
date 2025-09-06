@@ -9,3 +9,14 @@ if (!$slug) {
 
 $servicio = new CarrerasServicio();
 $data_carreras = $servicio->obtenerDatosCarrera($slug);
+
+$head_data = [
+    "title" => $data_carreras['titulo'] . " - UNEXCA",
+    "styles" => [
+        "@estilos/paginas/carrera.css",
+    ],
+    "meta" => [
+        "description" => $data_carreras['descripcion'],
+        "keywords" => "UNEXCA, universidad, carrera, " . strtolower($data_carreras['titulo']),
+    ],
+];
