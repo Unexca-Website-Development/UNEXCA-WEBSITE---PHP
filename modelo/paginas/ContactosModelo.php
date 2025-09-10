@@ -14,10 +14,8 @@ class ContactosModelo extends BaseModelo
                 ccp.email,
                 ccp.oficina,
                 ccp.horario_atencion,
-                n.nombre AS nombre_nucleo,
                 ca.titulo AS nombre_carrera
             FROM contactos_coordinadores_pnf AS ccp
-            LEFT JOIN nucleos AS n ON ccp.nucleo_id = n.id
             LEFT JOIN carrera AS ca ON ccp.carrera_id = ca.id
             ORDER BY ccp.id ASC
         ";
@@ -25,7 +23,7 @@ class ContactosModelo extends BaseModelo
         return $this->ejecutarConsultaPersonalizada($query);
     }
 
-    public function obtenerContantosDirectivos()
+    public function obtenerContactosDirectivos()
     {
         $query = "
             SELECT 
