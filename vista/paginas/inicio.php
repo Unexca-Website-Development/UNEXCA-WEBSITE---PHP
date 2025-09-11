@@ -2,7 +2,7 @@
     <h1 class="banner__titulo">UNEXCA</h1>
     <div class="banner__boton-contenedor">
         <?= colocar_svg('@imagenes/decorativos/decoracion_2.svg'); ?>
-        <a class="banner__boton-link" href="#inicio">
+        <a class="banner__boton-link" href="#main__inicio">
             Explora la Unexca
             <?= colocar_svg('@imagenes/iconos/flecha.svg'); ?>
         </a>
@@ -12,7 +12,7 @@
     </div>
 </section>
 
-<main class="main__inicio">
+<main class="main__inicio" id="main__inicio">
     
     <section class="historia">
         <div class="historia__contenido">

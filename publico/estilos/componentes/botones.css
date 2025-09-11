@@ -1,13 +1,16 @@
 .boton-principal{
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--azul);
+    color: var(--blanco);
     padding: 0.5rem 1rem;
     border: 2px var(--azul) solid;
     display: flex;
     height: fit-content;
-    gap: auto;
     align-self: flex-end;
+    background: linear-gradient(to left, var(--azul) 50%, var(--blanco) 50%);
+    background-size: 300% 100%;
+    background-position: right bottom;
+    transition: all 0.7s cubic-bezier(.11,.79,.1,1);
 }
 
 .boton-principal > svg {
@@ -17,5 +20,16 @@
 }
 
 .boton-principal > svg > path{
+    fill: var(--blanco);
+}
+
+.boton-principal:hover, 
+.boton-principal:focus{
+    background-position: left bottom;
+    color: var(--azul);
+}
+
+.boton-principal:hover > svg > path,
+.boton-principal:focus > svg > path{
     fill: var(--azul);
 }

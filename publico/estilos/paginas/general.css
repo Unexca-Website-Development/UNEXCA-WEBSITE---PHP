@@ -32,7 +32,7 @@
     color: var(--negro);
     font-size: 1.5rem;
     font-weight: 400;
-    line-height: 2.5rem;
+    line-height: 3rem;
     padding-bottom: 3rem;
     text-wrap: balance;
 }
@@ -53,12 +53,17 @@
 .lista{
     display:flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .lista__item{
     font-size: 1.5rem;
     list-style-type: disc;
     list-style-position: inside;
+}
+
+.lista__item::marker{
+    color: var(--azul);
 }
 
 .negrita{
