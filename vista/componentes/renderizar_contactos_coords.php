@@ -20,12 +20,17 @@ function renderizar_contactos_coords($data_array) {
                         );
                         if (empty($nombreCompleto)) continue;
                     ?>
-                    <li class="contactos-coords__detalle"><?= htmlspecialchars($nombreCompleto) ?></li>
-                    <?php foreach ($campos as $clave => $etiqueta): ?>
-                        <?php if (!empty($c[$clave])): ?>
-                            <li class="contactos-coords__detalle"><?= $etiqueta ?>: <?= htmlspecialchars($c[$clave]) ?></li>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                    <li class="contactos-coords__detalles">
+                        <h4 class="contactos-coords__titulo-informacion"><?= htmlspecialchars($nombreCompleto) ?></h4>
+                        <ul class="contactos-coords__informacion">
+                            <?php foreach ($campos as $clave => $etiqueta): ?>
+                                <?php if (!empty($c[$clave])): ?>
+                                    <li class="contactos-coords__detalle"><span class="negrita"><?= $etiqueta ?>:</span> <?= htmlspecialchars($c[$clave]) ?></li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+
                 <?php endforeach; ?>
             </ul>
         </div>

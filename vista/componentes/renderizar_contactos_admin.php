@@ -13,7 +13,7 @@ function renderizar_contactos_admin($data_array) {
             <ul class="contactos-admin__lista">
                 <?php foreach ($contacto as $c): ?>
                     <li class="contactos-admin__item">
-                        <h4 class="contactos-admin__cargo"><?= htmlspecialchars($c['cargo']); ?></h4>
+                        <h4 class="contactos-admin__titulo-informacion"><?= htmlspecialchars($c['cargo']); ?></h4>
                         
                         <?php if (!empty($c['nombre']) || !empty($c['telefono']) || !empty($c['email']) || !empty($c['oficina'])): ?>
                             <div class="contactos-admin__informacion">
@@ -23,7 +23,7 @@ function renderizar_contactos_admin($data_array) {
 
                                 <?php foreach ($campos as $clave => $etiqueta): ?>
                                     <?php if (!empty($c[$clave])): ?>
-                                        <span class="contactos-admin__detalle"><?= $etiqueta ?>: <?= htmlspecialchars($c[$clave]) ?></span>
+                                        <span class="contactos-admin__detalle"><span class="negrita"><?= $etiqueta ?>:</span> <?= htmlspecialchars($c[$clave]) ?></span>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
