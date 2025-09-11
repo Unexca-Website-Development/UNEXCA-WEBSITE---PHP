@@ -11,13 +11,14 @@
 }
 
 .seccion{
+    width: 100%;
     max-width: 900px;
     padding:0 1rem;
 }
 
 .titulos{
-    display: inline-block;
-    width: auto;
+    display: block;
+    width: 100%;
     height: auto;
     color: var(--azul);
     font-family: var(--fuente-titulos);
@@ -58,4 +59,8 @@
     font-size: 1.5rem;
     list-style-type: disc;
     list-style-position: inside;
+}
+
+.negrita{
+    font-weight: 700;
 }

@@ -10,6 +10,8 @@ require_once colocar_ruta_sistema('@componentes/renderizar_noticias.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_autoridades.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_lista_desplegable.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_detalle_carrera.php');
+require_once colocar_ruta_sistema('@componentes/renderizar_contactos_admin.php');
+require_once colocar_ruta_sistema('@componentes/renderizar_contactos_coords.php');
 
 require_once colocar_ruta_sistema('@componentes/renderizar_head.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_header.php');
