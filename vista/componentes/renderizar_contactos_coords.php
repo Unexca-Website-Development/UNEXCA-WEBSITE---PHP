@@ -9,9 +9,9 @@ function renderizar_contactos_coords($data_array) {
 
     foreach ($data_array as $carrera => $contactos) {
         ?>
-        <div class="contactos-coords__carrera">
-            <h3 class="contactos-coords__titulo-carrera">Coordinación de PNF <?= htmlspecialchars($carrera); ?></h3>
-            <ul class="contactos-coords__lista">
+        <div class="contactos__bloque">
+            <h3 class="contactos__titulo-bloque">Coordinación de PNF <?= htmlspecialchars($carrera); ?></h3>
+            <ul class="contactos__lista">
                 <?php foreach ($contactos as $c): ?>
                     <?php
                         $nombreCompleto = trim(
@@ -20,17 +20,16 @@ function renderizar_contactos_coords($data_array) {
                         );
                         if (empty($nombreCompleto)) continue;
                     ?>
-                    <li class="contactos-coords__detalles">
-                        <h4 class="contactos-coords__titulo-informacion"><?= htmlspecialchars($nombreCompleto) ?></h4>
-                        <ul class="contactos-coords__informacion">
+                    <li class="contactos__item">
+                        <h4 class="contactos__titulo-info"><?= htmlspecialchars($nombreCompleto) ?></h4>
+                        <ul class="contactos__info">
                             <?php foreach ($campos as $clave => $etiqueta): ?>
                                 <?php if (!empty($c[$clave])): ?>
-                                    <li class="contactos-coords__detalle"><span class="negrita"><?= $etiqueta ?>:</span> <?= htmlspecialchars($c[$clave]) ?></li>
+                                    <li class="contactos__detalle"><span class="negrita"><?= $etiqueta ?>:</span> <?= htmlspecialchars($c[$clave]) ?></li>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </ul>
                     </li>
-
                 <?php endforeach; ?>
             </ul>
         </div>

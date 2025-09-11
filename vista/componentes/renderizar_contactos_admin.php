@@ -8,22 +8,22 @@ function renderizar_contactos_admin($data_array) {
 
     foreach ($data_array as $nucleo => $contacto){
         ?>
-        <div class="contactos-admin__nucleo">
-            <h3 class="contactos-admin__titulo-nucleo">Núcleo <?= htmlspecialchars($nucleo); ?></h3>
-            <ul class="contactos-admin__lista">
+        <div class="contactos__bloque">
+            <h3 class="contactos__titulo-bloque">Núcleo <?= htmlspecialchars($nucleo); ?></h3>
+            <ul class="contactos__lista">
                 <?php foreach ($contacto as $c): ?>
-                    <li class="contactos-admin__item">
-                        <h4 class="contactos-admin__titulo-informacion"><?= htmlspecialchars($c['cargo']); ?></h4>
+                    <li class="contactos__item">
+                        <h4 class="contactos__titulo-info"><?= htmlspecialchars($c['cargo']); ?></h4>
                         
                         <?php if (!empty($c['nombre']) || !empty($c['telefono']) || !empty($c['email']) || !empty($c['oficina'])): ?>
-                            <div class="contactos-admin__informacion">
+                            <div class="contactos__info">
                                 <?php if (!empty($c['nombre'])): ?>
-                                    <div class="contactos-admin__nombre"><?= htmlspecialchars($c['nombre']); ?></div>
+                                    <div class="contactos__nombre"><?= htmlspecialchars($c['nombre']); ?></div>
                                 <?php endif; ?>
 
                                 <?php foreach ($campos as $clave => $etiqueta): ?>
                                     <?php if (!empty($c[$clave])): ?>
-                                        <span class="contactos-admin__detalle"><span class="negrita"><?= $etiqueta ?>:</span> <?= htmlspecialchars($c[$clave]) ?></span>
+                                        <span class="contactos__detalle"><span class="negrita"><?= $etiqueta ?>:</span> <?= htmlspecialchars($c[$clave]) ?></span>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>

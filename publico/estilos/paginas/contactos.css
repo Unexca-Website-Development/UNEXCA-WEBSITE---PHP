@@ -1,27 +1,26 @@
-.contactos-contenedor{
-    display: flex;
-    flex-direction: column;
-    padding-top: 2rem;
-    gap: 1.5rem;
-}
-
-.contactos-admin, .contactos-coords{
+.contactos {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
     max-width: 1366px;
 }
 
-.contactos-admin__nucleo, .contactos-coords__carrera{
+.contactos__contenedor {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    gap: 1.5rem;
+}
+
+.contactos__bloque {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 1rem;
-    padding-top: 2.5rem;
+    padding: 2.5rem 1rem 0;
     border-top: 2px solid var(--gris-claro);
     justify-content: center;
 }
 
-.contactos-admin__titulo-nucleo, .contactos-coords__titulo-carrera{
+.contactos__titulo-bloque {
     flex: 0 0 25%;
     max-width: 25%;
     font-size: 2rem;
@@ -31,47 +30,45 @@
     padding-right: 2rem;
 }
 
-.contactos-admin__lista, .contactos-coords__lista{
+.contactos__lista {
     display: flex;
     flex: 0 0 70%;
     max-width: 70%;
     flex-wrap: wrap;
 }
 
-.contactos-admin__item, .contactos-coords__detalles{
+.contactos__item {
     display: flex;
     width: 50%;
     flex-direction: column;
     gap: 1rem;
-    padding:0 1rem;
+    padding: 0 1rem;
     border-left: 2px solid var(--azul);
     margin-bottom: 2rem;
     height: fit-content;
 }
 
-.contactos-admin__item > *{
+.contactos__item > * {
     width: 100%;
 }
 
-.contactos-admin__titulo-informacion, .contactos-coords__titulo-informacion{
+.contactos__titulo-info {
     display: inline-block;
-    width: auto;
-    height: auto;
     font-size: 1rem;
     color: var(--azul);
     font-weight: 700;
 }
 
-.contactos-admin__informacion{
+.contactos__info {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-@media screen and (max-width: 1080px){
-    .contactos-admin__titulo-nucleo, .contactos-admin__lista, .contactos-coords__titulo-carrera, .contactos-coords__lista{
+@media screen and (max-width: 1080px) {
+    .contactos__titulo-bloque,
+    .contactos__lista {
         flex: 0 0 100%;
         max-width: 100%;
     }
-
 }
