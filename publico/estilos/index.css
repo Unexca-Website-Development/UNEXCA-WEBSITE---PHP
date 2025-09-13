@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
-    
+  /* colores */
     --negro: #1f1f1f;
     --azul: #022873;
     --gris-claro: #D3D9E7;
@@ -9,12 +9,30 @@
     --blanco: #F0F2F7;
     --blanco-claro: #fff;
 
+    /* medidas */
+    --mid-size:56rem;
+    --max-size:85rem;
+
+    --font-size-tn: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+
     --fuente-principal: "Plus Jakarta Sans", sans-serif;
     --fuente-titulos: "Jost", sans-serif;
 
-    --font-size-principal: 16px;
+    --font-size-principal: var(--font-size-lg);
+
+    --max-size-nav: var(--mid-size);
+    --max-size-footer: var(--mid-size);
+    --max-size-main-general: var(--max-size);
+    --max-size-seccion-general: var(--mid-size);
+    --max-size-seccion-default: var(--max-size);
+
+    --max-size-contactos: var(--max-size);
 }
-/* Reset */
+
 *{
   margin: 0;
   padding: 0;
@@ -26,7 +44,7 @@
 
 html{
   position: relative;
-  font-size: var(--font-size-principal);
+  font-size: calc(16px + (100vw - 1366px) * 0.005);
   font-family: var(--fuente-principal);
   color:var(--negro);
 }
@@ -54,7 +72,7 @@ button, input{
 }
 
 section{
-  max-width: 1366px;
+  max-width: var(--max-size-seccion-default);
   margin: auto;
 }
 
@@ -72,3 +90,16 @@ figure, img, picture {
   height: 100%;
   min-height: 100vh;
 }
+
+/* 
+@media screen and (max-width: 1280px) {
+  :root {
+    --font-size-principal: var(--font-size-md);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --font-size-principal: var(--font-size-tn);
+  }
+} */

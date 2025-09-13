@@ -5,15 +5,15 @@
     flex-direction: column;
     margin: auto;
     background-color: var(--blanco);
-    max-width: 1366px;
+    max-width: var(--max-size-main-general);
+    padding: 0 1rem;
     padding-top: 10rem;
     padding-bottom: 5rem;
 }
 
 .seccion{
     width: 100%;
-    max-width: 900px;
-    padding:0 1rem;
+    max-width: var(--max-size-seccion-general);
 }
 
 .titulos{
