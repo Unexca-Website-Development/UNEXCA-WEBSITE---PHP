@@ -9,7 +9,6 @@ class BaseModelo {
     [
         'autoridades_academicas',
         'carrera',
-        'carrera_id',
         'carrera_niveles_academicos',
         'carrera_nucleos',
         'carrera_parrafos',
