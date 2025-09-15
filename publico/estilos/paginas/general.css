@@ -5,15 +5,15 @@
     flex-direction: column;
     margin: auto;
     background-color: var(--blanco);
-    max-width: 1366px;
+    max-width: var(--max-size-main-general);
+    padding: 0 1rem;
     padding-top: 10rem;
     padding-bottom: 5rem;
 }
 
 .seccion{
     width: 100%;
-    max-width: 900px;
-    padding:0 1rem;
+    max-width: var(--max-size-seccion-general);
 }
 
 .titulos{
@@ -25,16 +25,16 @@
     font-weight: 700;
     font-size: 3rem;
     line-height: 3rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
+    margin-top: 1rem;
 }
 
 .parrafo{
     color: var(--negro);
     font-size: 1.5rem;
     font-weight: 400;
-    line-height: 2.5rem;
-    padding-bottom: 3rem;
-    text-wrap: balance;
+    line-height: 3rem;
+    padding-bottom: 2rem;
 }
 
 .imagen__contenedor{
@@ -53,12 +53,17 @@
 .lista{
     display:flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .lista__item{
     font-size: 1.5rem;
     list-style-type: disc;
     list-style-position: inside;
+}
+
+.lista__item::marker{
+    color: var(--azul);
 }
 
 .negrita{

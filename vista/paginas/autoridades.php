@@ -6,7 +6,7 @@
         </p>
     </section>
 
-    <section class="autoridades__seccion">
+    <section class="seccion">
         <?php renderizar_autoridades($data_autoridades); ?>
     </section>
 </main>

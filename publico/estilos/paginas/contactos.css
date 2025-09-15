@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    max-width: 1366px;
+    max-width: var(--max-size-contactos);
 }
 
-.contactos__contenedor {
+.contactos-contenedor {
     display: flex;
     flex-direction: column;
     padding-top: 2rem;
@@ -65,7 +65,7 @@
     gap: 0.5rem;
 }
 
-@media screen and (max-width: 1080px) {
+@media (max-width: 1080px) {
     .contactos__titulo-bloque,
     .contactos__lista {
         flex: 0 0 100%;
