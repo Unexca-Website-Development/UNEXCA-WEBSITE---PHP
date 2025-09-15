@@ -150,7 +150,7 @@
 }
 
 .historia__parrafo {
-    max-width: 956px;
+    max-width: 58rem;
     font-size: 1.5rem;
     line-height: 3rem;
     color: var(--negro);
@@ -193,7 +193,7 @@
     overflow-x: hidden;
     cursor: grab;
     user-select: none;
-    padding: 0 2rem 2rem 0;
+    margin-bottom: 2rem;
 }
 
 .carreras__lista.activado {
@@ -440,4 +440,13 @@
     grid-column: span 2 / span 2;
     grid-column-start: 3;
     grid-row-start: 2;
+}
+
+/* Resolucion de telefono */
+
+@media (max-width: 480px) {
+    .historia__contenido, .carreras__contenido, .noticias__contenido{
+        border: none;
+        padding: 0;
+    }
 }

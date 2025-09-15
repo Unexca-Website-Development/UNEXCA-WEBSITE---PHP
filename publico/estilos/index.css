@@ -13,8 +13,8 @@
     --mid-size:56rem;
     --max-size:85rem;
 
-    --font-size-tn: 12px;
-    --font-size-sm: 14px;
+    --font-size-tn: 10px;
+    --font-size-sm: 12px;
     --font-size-md: 16px;
     --font-size-lg: 18px;
     --font-size-xl: 20px;
@@ -22,7 +22,7 @@
     --fuente-principal: "Plus Jakarta Sans", sans-serif;
     --fuente-titulos: "Jost", sans-serif;
 
-    --font-size-principal: var(--font-size-lg);
+    --font-size-principal: var(--font-size-tn);
 
     --max-size-nav: var(--mid-size);
     --max-size-footer: var(--mid-size);
@@ -44,7 +44,7 @@
 
 html{
   position: relative;
-  font-size: calc(16px + (100vw - 1366px) * 0.005);
+  font-size: var(--font-size-principal);
   font-family: var(--fuente-principal);
   color:var(--negro);
 }
@@ -76,12 +76,9 @@ section{
   margin: auto;
 }
 
-figure, img, picture {
-  width: auto;
-  height: auto;
+img, picture, video, canvas, svg, figure {
+  display: block;
   max-width: 100%;
-  max-height: none;
-  margin: 0;
 }
 
 #main{
@@ -91,15 +88,18 @@ figure, img, picture {
   min-height: 100vh;
 }
 
-/* 
-@media screen and (max-width: 1280px) {
-  :root {
-    --font-size-principal: var(--font-size-md);
-  }
+@media (min-width: 480px) {
+  :root { --font-size-principal: var(--font-size-sm); }
 }
 
-@media screen and (max-width: 768px) {
-  :root {
-    --font-size-principal: var(--font-size-tn);
-  }
-} */
+@media (min-width: 768px) {
+  :root { --font-size-principal: var(--font-size-md); }
+}
+
+@media (min-width: 1280px) {
+  :root { --font-size-principal: var(--font-size-lg); }
+}
+
+@media (min-width: 1600px) {
+  :root { --font-size-principal: var(--font-size-xl); }
+}

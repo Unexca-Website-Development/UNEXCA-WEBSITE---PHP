@@ -65,7 +65,7 @@
     gap: 0.5rem;
 }
 
-@media screen and (max-width: 1080px) {
+@media (max-width: 1080px) {
     .contactos__titulo-bloque,
     .contactos__lista {
         flex: 0 0 100%;

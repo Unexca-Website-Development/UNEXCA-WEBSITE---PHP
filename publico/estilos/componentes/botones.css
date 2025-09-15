@@ -1,5 +1,5 @@
 .boton-principal{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--blanco);
     padding: 0.5rem 1rem;
@@ -15,7 +15,7 @@
 
 .boton-principal > svg {
     transform: rotate(-90deg);
-    width: 2.5rem;
+    width: 2rem;
     height: auto;
 }
 

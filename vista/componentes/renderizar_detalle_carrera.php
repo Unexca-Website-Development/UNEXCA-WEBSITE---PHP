@@ -18,7 +18,9 @@ function renderizar_detalle_carrera($data_array) {
                 <ul class="detalle-carrera__lista">
 
                     <li class="detalle-carrera__item">
-                        <?= colocar_svg('@imagenes/iconos/icon_duracion.svg') ?>
+                        <div class="detalle-carrera__icono">
+                            <?= colocar_svg('@imagenes/iconos/icon_duracion.svg') ?>
+                        </div>
                         <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['turnos'])): ?>
                                 <?php foreach ($data_array['turnos'] as $turno): ?>
@@ -29,7 +31,9 @@ function renderizar_detalle_carrera($data_array) {
                     </li>
 
                     <li class="detalle-carrera__item">
-                        <?= colocar_svg('@imagenes/iconos/icon_ubicacion.svg') ?>
+                        <div class="detalle-carrera__icono">
+                            <?= colocar_svg('@imagenes/iconos/icon_ubicacion.svg') ?>
+                        </div>
                         <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['nucleos'])): ?>
                                 <?php foreach ($data_array['nucleos'] as $nucleo): ?>
@@ -40,7 +44,9 @@ function renderizar_detalle_carrera($data_array) {
                     </li>
 
                     <li class="detalle-carrera__item">
-                        <?= colocar_svg('@imagenes/iconos/icon_calendario.svg') ?>
+                        <div class="detalle-carrera__icono">
+                            <?= colocar_svg('@imagenes/iconos/icon_calendario.svg') ?>
+                        </div>
                         <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['niveles'])): ?>
                                 <?php foreach ($data_array['niveles'] as $nivel): ?>
@@ -51,7 +57,9 @@ function renderizar_detalle_carrera($data_array) {
                     </li>
 
                     <li class="detalle-carrera__item">
-                        <?= colocar_svg('@imagenes/iconos/icon_graduacion.svg') ?>
+                        <div class="detalle-carrera__icono">
+                            <?= colocar_svg('@imagenes/iconos/icon_graduacion.svg') ?>
+                        </div>
                         <ul class="detalle-carrera__sublista">
                             <?php if (!empty($data_array['niveles'])): ?>
                                 <?php foreach ($data_array['niveles'] as $diploma): ?>
@@ -62,7 +70,9 @@ function renderizar_detalle_carrera($data_array) {
                     </li>
 
                     <li class="detalle-carrera__item">
-                        <?= colocar_svg('@imagenes/iconos/icon_malla.svg') ?>
+                        <div class="detalle-carrera__icono">
+                            <?= colocar_svg('@imagenes/iconos/icon_malla.svg') ?>
+                        </div>
                         <a class="detalle-carrera__enlace" href="<?= htmlspecialchars($data_array['link_malla_curricular'] ?? '#', ENT_QUOTES, 'UTF-8') ?>">Descargar Malla Curricular</a>
                     </li>
 
