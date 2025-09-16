@@ -1,0 +1,5 @@
+# archivos relacionados a API keys
+.env
+
+# archivos utilitarios en la raiz
+# arbol.php
