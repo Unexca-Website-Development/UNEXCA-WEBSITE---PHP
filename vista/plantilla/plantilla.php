@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/index.css')?>">
     <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/paginas/general.css')?>">
     <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/footer.css')?>">
-    <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/header.css')?>">
+    <link rel="stylesheet" href="<?= colocar_ruta_html('@estilos/componentes/headerTelefono.css')?>">
 
     <!-- Iconos de las paginas -->
     <link rel="shortcut icon" href="<?= colocar_ruta_html('@imagenes/iconos/favicon.ico') ?>">
@@ -19,7 +19,7 @@
     <?php renderizar_head($head_data ?? []); ?>
 </head>
 <body>
-    <?php renderizar_header($data_header) ?>
+    <?php renderizar_header_telefono($data_header) ?>
 
     <div class="main__contenedor" id="main">
         <?php include $vista_plantilla; ?>
@@ -28,5 +28,6 @@
     <?php renderizar_footer($data_footer) ?>
     
     <script src="<?= colocar_ruta_html('@scripts/headerScroll.js')?>"></script>
+    <script src="<?= colocar_ruta_html('@scripts/desplegablesHeader.js')?>"></script>
 </body>
 </html>
