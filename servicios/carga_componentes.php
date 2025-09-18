@@ -15,5 +15,4 @@ require_once colocar_ruta_sistema('@componentes/renderizar_contactos_coords.php'
 
 require_once colocar_ruta_sistema('@componentes/renderizar_head.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_header.php');
-require_once colocar_ruta_sistema('@componentes/renderizar_header_telefono.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_footer.php');
