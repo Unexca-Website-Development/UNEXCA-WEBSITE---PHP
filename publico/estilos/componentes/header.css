@@ -69,6 +69,9 @@
 
 .header__boton-menu {
 	justify-self: start;
+	padding: 1rem;
+	height: fit-content;
+	width: auto;
 }
 
 /* Estado activo */
@@ -109,7 +112,7 @@
 	border-bottom: 0.1rem solid var(--gris-oscuro);
 }
 
-.header__menu-item--con-submenu.activo .header__sub-menu {
+.header__menu-item--con-submenu.activo .header__sub-menu{
 	max-height: 1000rem;
 	padding: 0.6rem;
 }
@@ -168,9 +171,9 @@
 }
 
 .header__menu-item--con-submenu > .header__menu-link:hover,
-.header__menu-item--con-submenu > .header__menu-link:focus,
+.header__menu-item--con-submenu > .header__menu-link:focus-within,
 .header__sub-menu-link:hover,
-.header__sub-menu-link:focus,
+.header__sub-menu-link:focus-within,
 .header__menu-item--con-submenu.activo > .header__menu-link {
 	color: var(--blanco);
 	background-color: var(--azul);
@@ -179,13 +182,13 @@
 
 .header__menu-item--con-submenu.activo > .header__menu-link > svg,
 .header__menu-link:hover > svg,
-.header__menu-link:focus > svg {
+.header__menu-link:focus-within > svg {
 	transform: rotate(0deg);
 }
 
 .header__menu-item--con-submenu.activo > .header__menu-link > svg > path,
 .header__menu-link:hover > svg > path,
-.header__menu-link:focus > svg > path {
+.header__menu-link:focus-within > svg > path {
 	fill: var(--blanco);
 }
 
@@ -229,7 +232,8 @@
 		border-bottom: none;
 	}
 
-	.header__menu-item--con-submenu:hover > .header__sub-menu {
+	.header__menu-item--con-submenu:hover > .header__sub-menu,
+	.header__menu-item--con-submenu:focus-within > .header__sub-menu{
 		opacity: 1;
 		pointer-events: all;
 	}
@@ -273,18 +277,21 @@
 		list-style: none;
 	}
 
-  .header__sub-menu-link{
-    font-size: 1rem;
-  }
+	.header__sub-menu-link{
+    	font-size: 1rem;
+	}
+
 	.header__menu-item--con-submenu.activo .header__sub-menu {
 		padding: 1rem;
 	}
 
-	.header__menu-link > svg > path {
-		fill: var(--blanco);
+	.header__menu-item--con-submenu:hover > .header__menu-link > svg,
+	.header__menu-item--con-submenu:focus-within > .header__menu-link > svg,
+	.header__menu-link:focus > svg {
+		transform: rotate(0deg);
 	}
 
-	.header__menu-item--con-submenu.activo > .header__menu-link > svg {
-		transform: translateY(10%);
+	.header__menu-link > svg > path {
+		fill: var(--blanco);
 	}
 }
