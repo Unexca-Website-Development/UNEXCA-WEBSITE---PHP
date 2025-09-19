@@ -2,7 +2,7 @@
 .main__inicio {
     position: relative;
     background-color: var(--blanco);
-    z-index: 3;
+    z-index: 0;
     width: 100%;
 }
 

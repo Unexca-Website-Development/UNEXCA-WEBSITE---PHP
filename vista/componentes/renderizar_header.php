@@ -12,6 +12,8 @@ function renderizar_header(array $data_array = []){
                         <?= colocar_svg('@imagenes/logos/logo_menu.svg') ?>
                     </a> 
                     <?php renderizar_links_header($data_array) ?>
+
+                    <div class="overlay"></div>
                 </div>
             </div>
             <?= colocar_svg('@imagenes/decorativos/decoracion.svg') ?>
