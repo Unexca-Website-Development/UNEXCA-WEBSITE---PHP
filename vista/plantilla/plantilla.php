@@ -27,6 +27,6 @@
 
     <?php renderizar_footer($data_footer) ?>
     
-    <script src="<?= colocar_ruta_html('@scripts/headerScroll.js')?>"></script>
+    <script src="<?= colocar_ruta_html('@scripts/header.js')?>"></script>
 </body>
 </html>
