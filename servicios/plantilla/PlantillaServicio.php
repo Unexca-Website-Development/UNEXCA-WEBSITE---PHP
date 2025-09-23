@@ -1,89 +1,68 @@
 <?php
 require_once colocar_ruta_sistema('@modelo/plantilla/PlantillaModelo.php');
 
-class PlantillaServicio {
-    private $modelo_plantilla;
+class PlantillaServicio
+{
+    private $modelo;
 
     public function __construct()
     {
-        $this->modelo_plantilla = new PlantillaModelo();    
+        $this->modelo = new PlantillaModelo();
     }
 
-    /**
-     * Transforma los datos del footer en un arreglo agrupado por secciones
-     */
-    public function obtenerDatosFooter()
+    public function obtenerDatosMenu($nombre)
     {
-        // Obtener datos crudos desde el modelo
-        $secciones = $this->modelo_plantilla->obtenerFooterSecciones(); // Ej: [ ['id' => 1, 'titulo' => 'Acerca de'], ... ]
-        $links     = $this->modelo_plantilla->obtenerFooterLinks();     // Ej: [ ['texto' => 'Historia', 'url' => '...', 'seccion_id' => 1], ... ]
+        $menu = $this->modelo->obtenerMenuPorNombre($nombre);
+        if (!$menu) return [];
 
-        // Inicializar arreglo agrupador por seccion
-        $agrupado = [];
-
-        foreach ($secciones as $seccion) {
-            $agrupado[$seccion['id']] = [
-                'title' => $seccion['titulo'],
-                'links' => [], // Se llenara con los links de esa seccion
-            ];
-        }
-
-        // Asociar cada link a su seccion correspondiente
-        foreach ($links as $link) {
-            $id = $link['seccion_id'];
-
-            if (isset($agrupado[$id])) {
-                $agrupado[$id]['links'][$link['texto']] = procesar_enlace($link['url']);
-            }
-        }
-
-        // Reindexar el array (convertir claves numericas secuenciales)
-        return array_values($agrupado);
-    }
-
-    /**
-     * Transforma los links del header en un arreglo jerarquico padre/hijo
-     */
-    public function obtenerDatosHeader()
-    {
-        $links = $this->modelo_plantilla->obtenerHeaderLinks(); // Todos los links, incluyendo padres e hijos
-
-        $menu_padres = [];
-        $menu_hijos  = [];
-
-        foreach ($links as $link) {
-            if (is_null($link['id_padre'])) {
-                $menu_padres[$link['id']] = [
-                    'titulo'  => $link['titulo'],
-                    'url'     => procesar_enlace($link['url']),
-                    'submenu' => [],
-                ];
-            } else {
-                $menu_hijos[] = $link;
-            }
-        }
-
-        // Aquí ordenas los padres por id ascendente
-        $menu_padres = ordenar_por_id_asc($menu_padres);
-
-        foreach ($menu_hijos as $link) {
-            $idPadre = $link['id_padre'];
-
-            if (isset($menu_padres[$idPadre])) {
-                $menu_padres[$idPadre]['submenu'][$link['titulo']] = procesar_enlace($link['url']);
-            }
-        }
-
+        $enlaces = $this->modelo->obtenerEnlacesJerarquicos($menu['id']);
         $resultado = [];
-        
-        foreach ($menu_padres as $link) {
-            $resultado[$link['titulo']] = [
-                'url'     => $link['url'],
-                'submenu' => $link['submenu'],
+
+        // Enlaces estáticos
+        foreach ($enlaces['estaticos'] as $fila) {
+            $id = 'e_' . $fila['padre_id'];
+            if (!isset($resultado[$id])) {
+                $resultado[$id] = [
+                    'titulo'  => $fila['padre_titulo'] ?? '',
+                    'url'     => !empty($fila['padre_url']) ? colocar_enlace($fila['padre_url']) : '#',
+                    'submenu' => []
+                ];
+            }
+
+            if (!empty($fila['hijo_id'])) {
+                $resultado[$id]['submenu'][$fila['hijo_titulo'] ?? ''] = !empty($fila['hijo_url']) ? colocar_enlace($fila['hijo_url']) : '#';
+            }
+        }
+
+        // Enlaces dinámicos
+        foreach ($enlaces['dinamicos'] as $fila) {
+            $id = 'd_' . $fila['id'];
+            $padre_id = $fila['padre_id'] ? 'e_' . $fila['padre_id'] : null;
+
+            $url = !empty($fila['url'])
+                ? colocar_enlace($fila['tabla_origen'], ['nombre' => $fila['url']])
+                : '#';
+
+            if ($padre_id && isset($resultado[$padre_id])) {
+                $resultado[$padre_id]['submenu'][$fila['titulo'] ?? '#'] = $url;
+            } else {
+                $resultado[$id] = [
+                    'titulo'  => $fila['titulo'] ?? '#',
+                    'url'     => $url,
+                    'submenu' => []
+                ];
+            }
+        }
+
+        // Reindexar por título
+        $final = [];
+        foreach ($resultado as $item) {
+            $final[$item['titulo']] = [
+                'url'     => $item['url'],
+                'submenu' => $item['submenu']
             ];
         }
 
-        return $resultado;
+        return $final;
     }
 }
-
