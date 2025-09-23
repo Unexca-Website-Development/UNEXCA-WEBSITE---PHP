@@ -8,16 +8,15 @@ function renderizar_links_header($data_array) {
             ?>
                 <li class="header__menu-item <?= $tiene_sub_menu ? 'header__menu-item--con-submenu' : '' ?>">
                     <?php if ($tiene_sub_menu): ?>
-                        <button class="header__menu-link header__link-boton" aria-expanded="false" aria-controls="<?= htmlspecialchars($nombre ?? 'Enlace', ENT_QUOTES, 'UTF-8') ?>">
-                            
+                        <button class="header__menu-link header__link-boton" aria-expanded="false" aria-controls="<?= htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') ?>">
                             <span class="header__link-boton-texto">
-                                <?= htmlspecialchars($nombre ?? 'Enlace', ENT_QUOTES, 'UTF-8') ?>
+                                <?= htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') ?>
                             </span>
                             <?= colocar_svg('@imagenes/iconos/flecha.svg') ?>
                         </button>
                     <?php else: ?>
-                        <a href="<?= htmlspecialchars($info['url'] ?? '#', ENT_QUOTES, 'UTF-8') ?>" class="header__menu-link">
-                            <?= htmlspecialchars($nombre ?? 'Enlace', ENT_QUOTES, 'UTF-8') ?>
+                        <a href="<?= htmlspecialchars($info['url'], ENT_QUOTES, 'UTF-8') ?>" class="header__menu-link">
+                            <?= htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') ?>
                         </a>
                     <?php endif; ?>
 
@@ -25,8 +24,8 @@ function renderizar_links_header($data_array) {
                         <ul class="header__sub-menu">
                             <?php foreach ($info['submenu'] as $texto => $url): ?>
                                 <li class="header__sub-menu-item">
-                                    <a href="<?= htmlspecialchars($url ?? '#', ENT_QUOTES, 'UTF-8') ?>" class="header__sub-menu-link">
-                                        <?= htmlspecialchars($texto ?? 'Default', ENT_QUOTES, 'UTF-8') ?>
+                                    <a href="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>" class="header__sub-menu-link">
+                                        <?= htmlspecialchars($texto, ENT_QUOTES, 'UTF-8') ?>
                                     </a>
                                 </li>
                             <?php endforeach; ?>

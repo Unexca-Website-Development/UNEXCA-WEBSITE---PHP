@@ -21,6 +21,9 @@ class BaseModelo {
         'header_links',
         'nucleos',
         'servicios',
+        'menus',
+        'menu_enlaces_estaticos',
+        'menu_enlaces_dinamicos'
     ];
 
     public function __construct()
