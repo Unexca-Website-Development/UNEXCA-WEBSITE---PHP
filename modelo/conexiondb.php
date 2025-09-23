@@ -1,5 +1,7 @@
 <?php
 require_once colocar_ruta_sistema('@servicios/cargar_env.php');
+// Cargar primero variables locales (.env) y luego valores por defecto (.env.default)
+cargar_env(__DIR__ . '/../.env');
 cargar_env(__DIR__ . '/../.env.default');
 
 function conectarBD() {
