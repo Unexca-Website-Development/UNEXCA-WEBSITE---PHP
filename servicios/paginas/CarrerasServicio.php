@@ -53,8 +53,6 @@ class CarrerasServicio
             ];
         }
 
-        $link_carrera = colocar_enlace('carrera', ['nombre' => $carrera['slug']]);
-
         return [
             'id' => $id,
             'titulo' => $carrera['carrera_titulo'],
@@ -64,8 +62,6 @@ class CarrerasServicio
             'turnos' => $turnos_array,
             'niveles' => $niveles_array,
             'nucleos' => $nucleos_array,
-            'slug' => $carrera['slug'],
-            'link' => $link_carrera
         ];
     }
 }
