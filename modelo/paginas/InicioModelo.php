@@ -23,4 +23,4 @@ class InicioModelo extends \Modelo\BaseModelo
     {
         return $this->obtenerTodos('carrera');
     }
-}
+};
