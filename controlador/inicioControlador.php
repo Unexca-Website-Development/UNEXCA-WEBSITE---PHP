@@ -1,6 +1,8 @@
 <?php
 require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/InicioServicio.php');
+require_once colocar_ruta_sistema('@modelo/paginas/obtener_noticias.php');
+
 
 class InicioControlador extends BaseControlador {
 

@@ -52,3 +52,4 @@ class InicioServicio
         return $carreras_array;
     }
 }
+
