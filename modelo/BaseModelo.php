@@ -42,7 +42,9 @@ class BaseModelo {
         'servicios',
         'menus',
         'menu_enlaces_estaticos',
-        'menu_enlaces_dinamicos'
+        'menu_enlaces_dinamicos',
+        'noticias',
+        'noticias_contenido',
     ];
 
     /**
