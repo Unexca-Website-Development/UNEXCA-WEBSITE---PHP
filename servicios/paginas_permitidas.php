@@ -10,4 +10,6 @@ return $paginas_permitidas = [
     'carrera' => 'carrera.php',
     'contactos' => 'contactos.php',
     'test' => 'test.php',
+    'noticias' => 'noticias.php',
+    'noticias-editor' => 'noticicas_editor' //OJO con este porque maneja la DB
 ];
