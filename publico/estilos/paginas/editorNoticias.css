@@ -1,0 +1,310 @@
+.principal {
+    display: flex;
+}
+
+/* ==============================
+   ESTRUCTURA GENERAL
+============================== */
+.editor-noticia {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    --padding-general: 1rem;
+
+    padding: calc(5*var(--padding-general));
+}
+
+/* ==============================
+   SECCIONES DESPLEGABLES
+============================== */
+.editor-noticia__seccion {
+    width: 100%;
+    max-width: var(--max-size-seccion-general);
+}
+
+.editor-noticia__boton-desplegable {
+    display: flex;
+    align-items: center;
+    padding: var(--padding-general);
+    cursor: pointer;
+}
+
+.editor-noticia__titulo-seccion {   
+    display: block;
+    width: 100%;
+    color: var(--azul);
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+.editor-noticia__contenido-desplegable {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ==============================
+   BLOQUES GENERALES
+============================== */
+.editor-noticia__bloque {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--padding-general);
+    border: 0.1rem solid var(--gris-oscuro);
+}
+
+.editor-noticia__bloque--fechas {
+    border-color: var(--gris-oscuro);
+}
+
+/* ==============================
+   TITULOS DE BLOQUES
+============================== */
+.bloque-titulo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bloque-titulo > svg {
+    height: 1.25rem;
+    width: auto;
+}
+
+.bloque-titulo > svg path {
+    fill: var(--gris-oscuro);
+}
+
+.bloque-titulo__texto {
+    font-size: 1rem;
+    color: var(--gris-oscuro);
+    font-weight: 700;
+}
+
+.bloque-titulo--accion {
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* ==============================
+   CAMPOS Y TEXTOS
+============================== */
+.editor-noticia__campo-texto,
+.editor-noticia__campo-archivo {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-family: var(--fuente-principal);
+    background-color: var(--blanco-claro);
+    border: none;
+}
+
+.editor-noticia__campo-texto--titulo {
+    font-size: 1.5rem;
+    font-family: var(--fuente-titulos);
+    color: var(--azul);
+}
+
+/* ==============================
+   GRUPO DE FECHAS
+============================== */
+.editor-noticia__grupo-fechas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.editor-noticia__campo-fecha {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==============================
+   AGREGAR BLOQUES
+============================== */
+.agregar-bloque__boton {
+    justify-content: center;
+    cursor: pointer;
+}
+
+.agregar-bloque__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.agregar-bloque__opcion {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.agregar-bloque__opcion > svg {
+    height: 1.25rem;
+    width: auto;
+}
+
+.agregar-bloque__opcion > svg path {
+    fill: var(--gris-oscuro);
+}
+
+.agregar-bloque__texto {
+    font-size: 1rem;
+    color: var(--gris-oscuro);
+}
+
+/* ==============================
+   MENÚ LATERAL
+============================== */
+.menu-editor {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    border-left: 0.1rem solid var(--gris-oscuro);
+}
+
+.menu-editor__boton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.menu-editor__boton > svg {
+    height: 1.25rem;
+    width: auto;
+}
+
+.menu-editor__boton > svg path {
+    fill: var(--azul);
+}
+
+.menu-editor__texto {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--azul);
+}
+
+.menu-editor__boton:hover {
+    background-color: var(--azul);
+}
+
+.menu-editor__boton:hover .menu-editor__texto {
+    color: var(--blanco);
+}
+
+.menu-editor__boton:hover > svg path {
+    fill: var(--blanco);
+}
+
+/* ==============================
+   NOTICIAS RECIENTES
+============================== */
+.menu-editor__grupo--recientes {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-editor__boton--recientes {
+    justify-content: space-between;
+}
+
+.menu-editor__contenedor-recientes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* ==============================
+   CONTENEDOR DE ARTICULOS
+============================== */
+
+.editor-noticia__contenido-bloques{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.editor-noticia__bloque-campos{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+/* ==============================
+   LISTA EDITABLE
+============================== */
+.editor-noticia__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.editor-noticia__lista-item {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.editor-noticia__campo-texto--lista {
+    flex: 1;
+}
+
+/* ==============================
+   CONTROLES DE BLOQUE
+============================== */
+.editor-noticia__bloque-control {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: max-content;
+    transform: translateX(0.5rem); 
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.editor-noticia__bloque-control-contenedor {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.editor-noticia__boton-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.editor-noticia__boton-control.-subir {
+    transform: rotate(180deg);
+}
+
+.editor-noticia__boton-control > svg {
+    height: 1.25rem;
+    width: auto;
+}
+
+.editor-noticia__boton-control > svg path {
+    fill: var(--gris-oscuro);
+}
+
+/* Control interno */
+.editor-noticia__bloque-control--interno {
+    position: relative;
+    inset: auto;
+    transform: none;
+}
+
+/* ==============================
+   BOTÓN AGREGAR BLOQUE
+============================== */
+.editor-noticia__boton-agregar-bloque {
+    justify-content: center;
+    cursor: pointer;
+}

@@ -35,4 +35,4 @@ if (file_exists($rutaControlador)) {
 }
 
 // Cargar la plantilla base
-include colocar_ruta_sistema("@plantilla/plantilla.php");
+include colocar_ruta_sistema("@plantilla/noticias_editor.php");
