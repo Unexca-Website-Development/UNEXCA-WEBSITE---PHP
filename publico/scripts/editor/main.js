@@ -1,12 +1,10 @@
+// editarNoticias.js (archivo de entrada para la página de edición)
 import { EditorNoticias } from './EditorNoticias.js'
 import { normalizarTexto } from './utilidades.js'
 
-document.addEventListener('DOMContentLoaded', async () => {
-	const contenedorDinamico = document.querySelector('.editor-noticia__contenido-bloques.-dinamicos')
-	const contenedorCabecera = document.querySelector('.editor-noticia__contenido-bloques.-estaticos')
-
-	const editor = new EditorNoticias(contenedorCabecera, contenedorDinamico)
-	await editor.inicializarCabecera()
+document.addEventListener('DOMContentLoaded', () => {
+	const contenedorBloques = document.querySelector('.editor-noticia__contenido-bloques.-dinamicos')
+	const editor = new EditorNoticias(contenedorBloques)
 
 	const botones = document.querySelectorAll('.agregar-bloque__opcion')
 	botones.forEach(boton => {
@@ -34,19 +32,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 					return
 			}
 
-			await editor.agregarBloque(tipo, boton.textContent.trim(), iconoRuta, true)
+			await editor.agregarBloque(tipo, boton.textContent.trim(), iconoRuta)
 		})
 	})
 
+	// === BLOQUE DE PRUEBA TEMPORAL ===
 	window.editorDebug = editor
 
 	console.log('🧩 EditorNoticias inicializado:', editor)
 
 	document.addEventListener('keydown', async e => {
 		if (e.key === 'g') {
-			const data = editor.obtenerJSON()
+			const data = editor.guardarNoticia()
 			console.log('💾 JSON guardado:', data)
-			window.ultimoGuardado = data
 		}
 		if (e.key === 'c') {
 			await editor.cargarNoticia(window.ultimoGuardado || {})
@@ -57,4 +55,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 			console.log('🚀 Publicación:', publicada)
 		}
 	})
+
 })
