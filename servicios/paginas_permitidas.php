@@ -11,5 +11,5 @@ return $paginas_permitidas = [
     'contactos' => 'contactos.php',
     'test' => 'test.php',
     'noticias' => 'noticias.php',
-    'noticias-editor' => 'noticicas_editor' //OJO con este porque maneja la DB
+    'noticias-editor' => 'noticias_editor.php' //OJO con este porque maneja la DB
 ];
