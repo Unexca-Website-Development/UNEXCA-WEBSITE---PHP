@@ -30,58 +30,7 @@
 
                 <div class="editor-noticia__contenido-desplegable">
                     <div class="editor-noticia__contenido-bloques -estaticos">
-                        <!-- Bloque de Fechas -->
-                        <div class="editor-noticia__bloque editor-noticia__bloque--fechas">
-                            <label class="bloque-titulo">
-                                <?= colocar_svg('@imagenes/iconos/icon_fecha.svg') ?>
-                                <span class="bloque-titulo__texto">Información de la noticia</span>
-                            </label>
-
-                            <div class="editor-noticia__grupo-fechas">
-                                <div class="editor-noticia__campo-fecha">
-                                    <label for="fecha_creacion">Fecha de creación:</label>
-                                    <input type="date" id="fecha_creacion" name="fecha_creacion" readonly>
-                                </div>
-
-                                <div class="editor-noticia__campo-fecha">
-                                    <label for="fecha_publicacion">Fecha de publicación:</label>
-                                    <input type="date" id="fecha_publicacion" name="fecha_publicacion">
-                                </div>
-
-                                <div class="editor-noticia__campo-fecha">
-                                    <label for="fecha_modificacion">Última modificación:</label>
-                                    <input type="date" id="fecha_modificacion" name="fecha_modificacion" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Bloque: Título -->
-                        <div class="editor-noticia__bloque">
-                            <label class="bloque-titulo" for="titulo">
-                                <?= colocar_svg('@imagenes/iconos/icon_h1.svg') ?>
-                                <span class="bloque-titulo__texto">Título de la noticia:</span>
-                            </label>
-                            <textarea class="editor-noticia__campo-texto editor-noticia__campo-texto--titulo" id="titulo" placeholder="Escribe el título aquí..." required></textarea>
-                        </div>
-
-                        <!-- Bloque: Descripción -->
-                        <div class="editor-noticia__bloque">
-                            <label class="bloque-titulo" for="descripcion">
-                                <?= colocar_svg('@imagenes/iconos/icon_descripcion.svg') ?>
-                                <span class="bloque-titulo__texto">Descripción de la noticia:</span>
-                            </label>
-                            <textarea class="editor-noticia__campo-texto" id="descripcion" name="descripcion" placeholder="Escribe la descripción aquí..." required></textarea>
-                        </div>
-
-                        <!-- Bloque: Imagen principal -->
-                        <div class="editor-noticia__bloque">
-                            <label class="bloque-titulo" for="imagen">
-                                <?= colocar_svg('@imagenes/iconos/icon_imagen.svg') ?>
-                                <span class="bloque-titulo__texto">Imagen principal:</span>
-                            </label>
-                            <input class="editor-noticia__campo-archivo" id="imagen" type="file" accept=".png,.jpg,.jpeg,.webp" required>
-                            <textarea class="editor-noticia__campo-texto" id="descripcion_imagen" name="descripcion_imagen" placeholder="Escribe la descripción de la imagen aquí..." required></textarea>
-                        </div>
+                        <!-- Contenido Estatico -->
                     </div>
                 </div>
             </section>
