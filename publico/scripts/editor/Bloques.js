@@ -8,14 +8,28 @@ import {
 
 // Clase base
 class Bloque {
-	constructor(tipo, texto, icono, editor) {
+	constructor(tipo, texto, icono, editor, controles = true) {
 		this.tipo = tipo
 		this.texto = texto
 		this.icono = icono
 		this.editor = editor
+		this.controles = controles
 		this.id = generarId(tipo)
 		this.elemento = null
 		this.campos = []
+	}
+
+	get arrayPadre() {
+		if (!this.elemento) return []
+		if (this.elemento.parentElement.classList.contains('-estaticos')) {
+			return this.editor.bloquesCabecera
+		} else {
+			return this.editor.bloquesDinamicos
+		}
+	}
+
+	get contenedorPadre() {
+		return this.elemento?.parentElement
 	}
 
 	async renderizar() {
@@ -38,8 +52,11 @@ class Bloque {
 		div.appendChild(label)
 		div.appendChild(contenido)
 
-		const control = await this.crearControl()
-		div.appendChild(control)
+		if (this.controles){
+			const control = await this.crearControl()
+			if(control) div.appendChild(control)
+		}
+
 		this.elemento = div
 		return div
 	}
@@ -49,6 +66,8 @@ class Bloque {
 	}
 
 	async crearControl() {
+		if (!this.controles) return null
+
 		const controlDiv = document.createElement('div')
 		controlDiv.className = 'editor-noticia__bloque-control'
 
@@ -59,21 +78,21 @@ class Bloque {
 		botonSubir.className = 'editor-noticia__boton-control -subir'
 		botonSubir.type = 'button'
 		botonSubir.appendChild(await crearSVG('/imagenes/iconos/flecha.svg'))
-		botonSubir.addEventListener('click', () => moverElementoArriba(this.editor.bloques, this, this.editor.contenedor, this.elemento))
+		botonSubir.addEventListener('click', () => moverElementoArriba(this.arrayPadre, this, this.contenedorPadre, this.elemento))
 		botonesDiv.appendChild(botonSubir)
 
 		const botonBajar = document.createElement('button')
 		botonBajar.className = 'editor-noticia__boton-control -bajar'
 		botonBajar.type = 'button'
 		botonBajar.appendChild(await crearSVG('/imagenes/iconos/flecha.svg'))
-		botonBajar.addEventListener('click', () => moverElementoAbajo(this.editor.bloques, this, this.editor.contenedor, this.elemento))
+		botonBajar.addEventListener('click', () => moverElementoAbajo(this.arrayPadre, this, this.contenedorPadre, this.elemento))
 		botonesDiv.appendChild(botonBajar)
 
 		const botonBorrar = document.createElement('button')
 		botonBorrar.className = 'editor-noticia__boton-control -borrar'
 		botonBorrar.type = 'button'
 		botonBorrar.appendChild(await crearSVG('/imagenes/iconos/icon_borrar.svg'))
-		botonBorrar.addEventListener('click', () => eliminarElemento(this.editor.bloques, this, this.elemento))
+		botonBorrar.addEventListener('click', () => eliminarElemento(this.arrayPadre, this, this.elemento))
 		botonesDiv.appendChild(botonBorrar)
 
 		controlDiv.appendChild(botonesDiv)
@@ -262,4 +281,66 @@ class BloqueCita extends Bloque {
 	}
 }
 
-export {Bloque, BloqueCita, BloqueImagen, BloqueLista, BloqueTexto};
+class BloqueFechas extends Bloque {
+	async renderizar() {
+		const div = document.createElement('div')
+		div.className = 'editor-noticia__bloque editor-noticia__bloque--fechas'
+
+		const labelPrincipal = document.createElement('label')
+		labelPrincipal.className = 'bloque-titulo'
+
+		const svg = await crearSVG(this.icono || '/imagenes/iconos/icon_calendario.svg')
+		labelPrincipal.appendChild(svg)
+
+		const span = document.createElement('span')
+		span.className = 'bloque-titulo__texto'
+		span.textContent = this.texto || 'Información de la noticia'
+		labelPrincipal.appendChild(span)
+
+		div.appendChild(labelPrincipal)
+		div.appendChild(this.crearContenido())
+
+		if (this.controles) {
+			const control = await this.crearControl()
+			div.appendChild(control)
+		}
+
+		this.elemento = div
+		return div
+	}
+
+	crearContenido() {
+		const contenedor = document.createElement('div')
+		contenedor.className = 'editor-noticia__grupo-fechas'
+
+		const campos = [
+			{ id: 'fecha_creacion', nombre: 'Fecha de creación', readonly: true },
+			{ id: 'fecha_publicacion', nombre: 'Fecha de publicación', readonly: false },
+			{ id: 'fecha_modificacion', nombre: 'Última modificación', readonly: true }
+		]
+
+		campos.forEach(c => {
+			const grupo = document.createElement('div')
+			grupo.className = 'editor-noticia__campo-fecha'
+
+			const label = document.createElement('label')
+			label.setAttribute('for', c.id)
+			label.textContent = c.nombre
+			grupo.appendChild(label)
+
+			const input = document.createElement('input')
+			input.type = 'date'
+			input.id = c.id
+			input.name = c.id
+			input.readOnly = c.readonly
+			this.campos.push(input)
+			grupo.appendChild(input)
+
+			contenedor.appendChild(grupo)
+		})
+
+		return contenedor
+	}
+}
+
+export {Bloque, BloqueCita, BloqueImagen, BloqueLista, BloqueTexto, BloqueFechas};
