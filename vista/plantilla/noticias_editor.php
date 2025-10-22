@@ -31,6 +31,7 @@
                 <div class="editor-noticia__contenido-desplegable">
                     <div class="editor-noticia__contenido-bloques -estaticos">
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <!-- Contenido Estatico -->
 =======
                         <!-- Bloque de Fechas -->
@@ -86,6 +87,9 @@
                             <textarea class="editor-noticia__campo-texto" id="descripcion_imagen" name="descripcion_imagen" placeholder="Escribe la descripción de la imagen aquí..." required></textarea>
                         </div>
 >>>>>>> c30902c (Implementación del nuevo editor de noticias con bloques dinámicos)
+=======
+                        <!-- Contenido Estatico -->
+>>>>>>> 62652ca (Refactor: Implementar el bloque de fechas en el editor de noticias y ajustar la inicialización de bloques en EditorNoticias)
                     </div>
                 </div>
             </section>
