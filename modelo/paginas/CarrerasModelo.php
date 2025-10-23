@@ -74,4 +74,40 @@ class CarrerasModelo extends BaseModelo
         ";
         return $this->ejecutarConsultaPersonalizada($sql, ['carreraId' => $carreraId]);
     }
+
+    public function obtenerCarreraCompletaPorSlug($slug)
+    {
+        $sql = "
+            SELECT 
+                c.id,
+                c.titulo AS carrera_titulo,
+                c.descripcion AS carrera_descripcion,
+                c.link_malla_curricular,
+                c.slug,
+                cp.id AS parrafo_id,
+                cp.numero_parrafo,
+                cp.contenido AS parrafo_contenido,
+                ct.id AS turno_id,
+                ct.turno,
+                cna.id AS nivel_id,
+                cna.nivel,
+                cna.duracion,
+                cna.diploma,
+                n.id AS nucleo_id,
+                n.nombre AS nucleo_nombre
+            FROM carrera c
+            LEFT JOIN carrera_parrafos cp ON c.id = cp.carrera_id
+            LEFT JOIN carrera_turnos ct ON c.id = ct.carrera_id
+            LEFT JOIN carrera_niveles_academicos cna ON c.id = cna.carrera_id
+            LEFT JOIN carrera_nucleos cn ON c.id = cn.carrera_id
+            LEFT JOIN nucleos n ON cn.nucleo_id = n.id
+            WHERE c.slug = :slug
+            ORDER BY 
+                cp.numero_parrafo ASC,
+                ct.id ASC,
+                cna.id ASC,
+                n.id ASC
+        ";
+        return $this->ejecutarConsultaPersonalizada($sql, ['slug' => $slug]);
+    }
 };
