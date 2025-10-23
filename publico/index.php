@@ -23,13 +23,13 @@ if (!file_exists($vista_plantilla)) {
 }
 
 // Cargar controlador de la plantilla
-$ctrlPlantilla = colocar_ruta_sistema("@controlador/ctrl_plantilla.php");
+$ctrlPlantilla = colocar_ruta_sistema("@controlador/plantillaControlador.php");
 if (file_exists($ctrlPlantilla)) {
     require_once $ctrlPlantilla;
 }
 
 // Cargar controlador específico de la página
-$rutaControlador = colocar_ruta_sistema("@controlador/ctrl_{$pagina}.php");
+$rutaControlador = colocar_ruta_sistema("@controlador/{$pagina}Controlador.php");
 if (file_exists($rutaControlador)) {
     require_once $rutaControlador;
 }
