@@ -184,6 +184,6 @@ La estructura modular de la documentación permite a cada usuario encontrar exac
 
 ---
 
-**Última actualización**: Diciembre 2024  
+**Última actualización**: Octubre 2025  
 **Versión**: 1.0  
 **Mantenido por**: Equipo de Desarrollo UNEXCA
