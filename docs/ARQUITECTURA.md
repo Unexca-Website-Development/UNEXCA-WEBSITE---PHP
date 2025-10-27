@@ -12,7 +12,7 @@ El siguiente diagrama ilustra cómo viaja una petición a través del sistema, d
 graph TD
     A[Usuario solicita ?pagina=X] --> B{publico/index.php};
     B --> C{Valida 'X' en paginas_permitidas.php};
-    C -- Válido --> D[Carga controlador/ctrl_X.php];
+    C -- Válido --> D[Carga controlador/XControlador.php];
     D --> E{Pide datos a servicios/XServicio.php};
     E --> F{Pide datos a modelo/XModelo.php};
     F --> G[Hereda de BaseModelo];
@@ -20,7 +20,7 @@ graph TD
     H --> I[Retorna datos a XModelo];
     I --> J[Retorna datos a XServicio];
     J --> K[Formatea/transforma datos];
-    K --> L[Retorna datos a ctrl_X.php];
+    K --> L[Retorna datos a XControlador.php];
     L --> M[Datos disponibles para la Vista];
     M --> N{vista/plantilla/plantilla.php renderiza la página};
     N --> O[HTML es enviado al Usuario];
@@ -33,7 +33,7 @@ La estructura de directorios es fundamental para entender la organización del c
 
 -   `\publico`: Es el directorio raíz del servidor web y el único accesible públicamente. Contiene el punto de entrada `index.php`, así como los assets (CSS, JS, imágenes). Para más detalles, consulta la [documentación de Frontend](./FRONTEND.md).
 
--   `\controlador`: Contiene los controladores. Cada controlador es responsable de manejar una página específica (ej: `ctrl_autoridades.php` para la página de autoridades). Su función es ser un intermediario: recibe la petición, le pide a la capa de servicios los datos que necesita y finalmente se los pasa a la vista.
+-   `\controlador`: Contiene los controladores. Cada controlador es responsable de manejar una página específica (ej: `autoridadesControlador.php` para la página de autoridades). Su función es ser un intermediario: recibe la petición, le pide a la capa de servicios los datos que necesita y finalmente se los pasa a la vista.
 
 -   `\servicios`: Contiene la lógica de negocio de la aplicación. Las clases de servicio orquestan la obtención y transformación de datos, actuando como un puente entre los controladores y los modelos.
 

@@ -12,56 +12,61 @@ class CarrerasServicio
 
     public function obtenerDatosCarrera($slug)
     {
-        $carrera_data = $this->modelo_carreras->obtenerCarrerasPorSlug($slug);
-        if (!$carrera_data) return null;
+        $datos_carrera = $this->modelo_carreras->obtenerCarreraCompletaPorSlug($slug);
+        if (!$datos_carrera) return null;
 
-        $carrera = $carrera_data[0];
-        $id = $carrera['id'];
+        $informacion_carrera = null;
+        $arreglo_parrafos = [];
+        $arreglo_turnos = [];
+        $arreglo_niveles = [];
+        $arreglo_nucleos = [];
 
-        $parrafos = $this->modelo_carreras->obtenerParrafosPorCarrera($id);
-        $turnos   = $this->modelo_carreras->obtenerTurnosPorCarrera($id);
-        $niveles  = $this->modelo_carreras->obtenerNivelesPorCarrera($id);
-        $nucleos  = $this->modelo_carreras->obtenerNucleosPorCarrera($id);
+        foreach ($datos_carrera as $fila) {
+            if ($informacion_carrera === null) {
+                $informacion_carrera = [
+                    'id' => $fila['id'],
+                    'titulo' => $fila['carrera_titulo'],
+                    'descripcion' => $fila['carrera_descripcion'],
+                    'link_malla_curricular' => $fila['link_malla_curricular']
+                ];
+            }
 
-        $parrafos_array = [];
-        foreach ($parrafos as $p) {
-            $parrafos_array[] = [
-                'numero_parrafo' => $p['numero_parrafo'],
-                'contenido' => $p['parrafo_contenido']
-            ];
-        }
+            if ($fila['parrafo_id'] !== null && !isset($arreglo_parrafos[$fila['parrafo_id']])) {
+                $arreglo_parrafos[$fila['parrafo_id']] = [
+                    'numero_parrafo' => $fila['numero_parrafo'],
+                    'contenido' => $fila['parrafo_contenido']
+                ];
+            }
 
-        $turnos_array = [];
-        foreach ($turnos as $t) {
-            $turnos_array[] = $t['turno'];
-        }
+            if ($fila['turno_id'] !== null && !in_array($fila['turno'], $arreglo_turnos)) {
+                $arreglo_turnos[] = $fila['turno'];
+            }
 
-        $niveles_array = [];
-        foreach ($niveles as $n) {
-            $niveles_array[] = [
-                'nivel' => $n['nivel'],
-                'duracion' => $n['duracion'],
-                'diploma' => $n['diploma']
-            ];
-        }
+            if ($fila['nivel_id'] !== null && !isset($arreglo_niveles[$fila['nivel_id']])) {
+                $arreglo_niveles[$fila['nivel_id']] = [
+                    'nivel' => $fila['nivel'],
+                    'duracion' => $fila['duracion'],
+                    'diploma' => $fila['diploma']
+                ];
+            }
 
-        $nucleos_array = [];
-        foreach ($nucleos as $n) {
-            $nucleos_array[] = [
-                'id' => $n['nucleo_id'],
-                'nombre' => $n['nucleo_nombre']
-            ];
+            if ($fila['nucleo_id'] !== null && !isset($arreglo_nucleos[$fila['nucleo_id']])) {
+                $arreglo_nucleos[$fila['nucleo_id']] = [
+                    'id' => $fila['nucleo_id'],
+                    'nombre' => $fila['nucleo_nombre']
+                ];
+            }
         }
 
         return [
-            'id' => $id,
-            'titulo' => $carrera['carrera_titulo'],
-            'descripcion' => $carrera['carrera_descripcion'],
-            'link_malla_curricular' => $carrera['link_malla_curricular'],
-            'parrafos' => $parrafos_array,
-            'turnos' => $turnos_array,
-            'niveles' => $niveles_array,
-            'nucleos' => $nucleos_array,
+            'id' => $informacion_carrera['id'],
+            'titulo' => $informacion_carrera['titulo'],
+            'descripcion' => $informacion_carrera['descripcion'],
+            'link_malla_curricular' => $informacion_carrera['link_malla_curricular'],
+            'parrafos' => array_values($arreglo_parrafos),
+            'turnos' => $arreglo_turnos,
+            'niveles' => array_values($arreglo_niveles),
+            'nucleos' => array_values($arreglo_nucleos),
         ];
     }
 }

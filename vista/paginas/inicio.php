@@ -41,14 +41,5 @@
         </div>
     </section>
 
-    <section class="noticias">
-        <div class="noticias__contenido">
-            <h2 class="noticias__titulo">Noticias</h2>
-            <div class="noticias__lista">
-                <?= renderizar_noticias($data_noticias); ?>
-            </div>
-        </div>
-    </section>
-
     <script src="<?= colocar_ruta_html('@scripts/slider.js')?>"> </script>
 </main>

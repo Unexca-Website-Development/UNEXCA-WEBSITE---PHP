@@ -54,7 +54,7 @@ Para añadir una nueva página, por ejemplo, "eventos", sigue estos pasos:
 
 2.  **Crear el Servicio:** Crea `servicios/paginas/EventosServicio.php` para manejar la lógica de negocio.
 
-3.  **Crear el Controlador:** Crea `controlador/ctrl_eventos.php` para conectar el modelo/servicio con la vista.
+3.  **Crear el Controlador:** Crea `controlador/eventosControlador.php` para conectar el modelo/servicio con la vista.
 
 4.  **Crear la Vista:** Crea el archivo `vista/paginas/eventos.php` con el contenido HTML de la página.
 
