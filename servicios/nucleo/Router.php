@@ -6,7 +6,7 @@ use Servicios\Nucleo\ControladorErroresHTTP;
 
 class Router {
 
-    public static function dispatch() {
+    public static function enrutar() {
         $ruta = $_GET['ruta'] ?? '';
         $ruta = trim($ruta, '/');
         $segmentos = explode('/', $ruta);
