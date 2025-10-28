@@ -1,4 +1,6 @@
 <?php
+namespace Servicios\Plantilla;
+
 require_once colocar_ruta_sistema('@modelo/plantilla/PlantillaModelo.php');
 
 class PlantillaServicio
@@ -7,7 +9,7 @@ class PlantillaServicio
 
     public function __construct()
     {
-        $this->modelo = new PlantillaModelo();
+        $this->modelo = new \Modelo\Plantilla\PlantillaModelo();
     }
 
     public function obtenerDatosMenu($nombre)

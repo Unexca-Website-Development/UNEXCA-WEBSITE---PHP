@@ -17,7 +17,7 @@ if ($slug_normalizado !== normalizar_texto($slug_normalizado, '-') || strpos($sl
 
 $slug = $slug_normalizado;
 
-$servicio = new CarrerasServicio();
+$servicio = new \Servicios\Paginas\CarrerasServicio();
 $data_carreras = $servicio->obtenerDatosCarrera($slug);
 
 if (!$data_carreras) {

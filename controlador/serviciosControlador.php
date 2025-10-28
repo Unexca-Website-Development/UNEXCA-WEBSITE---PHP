@@ -1,7 +1,7 @@
 <?php
 require_once colocar_ruta_sistema('@servicios/paginas/ServiciosServicio.php');
 
-$servicio = new ServiciosServicio();
+$servicio = new \Servicios\Paginas\ServiciosServicio();
 
 $data_servicios = $servicio->obtenerDatosServicios();
 

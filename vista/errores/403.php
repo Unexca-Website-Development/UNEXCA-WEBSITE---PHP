@@ -1,3 +1,3 @@
 <?php
 
-echo "prueba";
+echo "403";

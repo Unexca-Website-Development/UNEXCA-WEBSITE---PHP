@@ -1,4 +1,6 @@
 <?php
+namespace Servicios\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/paginas/AutoridadesModelo.php');
 
 class AutoridadesServicio
@@ -7,7 +9,7 @@ class AutoridadesServicio
 
     public function __construct()
     {
-        $this->modelo_autoridades = new AutoridadesModelo();
+        $this->modelo_autoridades = new \Modelo\Paginas\AutoridadesModelo();
     }
 
     public function obtenerDatosAutoridades()

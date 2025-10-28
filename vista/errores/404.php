@@ -1,3 +1,3 @@
 nd<?php
 
-echo "prueba";
+echo "404";
