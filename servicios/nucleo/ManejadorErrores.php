@@ -18,12 +18,12 @@ class ManejadorErrores {
             self::mostrarError500();
             exit;
         }
-        return true; // evita que PHP continúe con su manejo normal
+        return true;
     }
 
     public static function manejarExcepcion($excepcion) {
         Logger::registrar('EXCEPCION', $excepcion->getMessage(), $excepcion->getFile(), $excepcion->getLine());
-        self::mostrarError500();
+        self::mostrarError500($excepcion);
         exit;
     }
 
@@ -59,13 +59,27 @@ class ManejadorErrores {
         return in_array($numeroError, [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE]);
     }
 
-    private static function mostrarError500() {
-        if (getenv('APP_ENV') === 'production') {
+    // Nueva versión: acepta una excepción opcional
+    private static function mostrarError500($excepcion = null) {
+        $app_env = isset($_ENV['APP_ENV']) ? $_ENV['APP_ENV'] : 'desarrollo';
+        if ($app_env === 'produccion') {
             http_response_code(500);
-            include colocar_ruta_sistema('@vista/errors/500.php');
+            include colocar_ruta_sistema('@vista/errores/500.php');
         } else {
+            echo '<h3>Ha ocurrido un error en la aplicación (modo desarrollo).</h3>';
             echo '<pre>';
-            print_r(error_get_last());
+            if ($excepcion) {
+                echo 'Excepción: ' . $excepcion->getMessage() . "\n";
+                echo $excepcion->getFile() . ':' . $excepcion->getLine() . "\n";
+                echo $excepcion->getTraceAsString();
+            } else {
+                $error = error_get_last();
+                if ($error) {
+                    print_r($error);
+                } else {
+                    echo 'Sin información adicional disponible.';
+                }
+            }
             echo '</pre>';
         }
     }

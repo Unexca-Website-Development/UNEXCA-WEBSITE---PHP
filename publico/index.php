@@ -1,4 +1,7 @@
 <?php
+require_once dirname(__DIR__) . '/servicios/cargar_env.php';
+cargar_env(dirname(__DIR__) . '/.env');
+
 require_once dirname(__DIR__) . '/servicios/utilidades.php';
 require_once dirname(__DIR__) . '/servicios/alias_rutas.php';
 require_once dirname(__DIR__) . '/servicios/paginas_permitidas.php';
