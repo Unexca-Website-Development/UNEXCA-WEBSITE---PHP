@@ -1,7 +1,9 @@
 <?php
+namespace Modelo\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
 
-class ContactosModelo extends BaseModelo
+class ContactosModelo extends \Modelo\BaseModelo
 {
     public function obtenerContactosCoordinadores()
     {

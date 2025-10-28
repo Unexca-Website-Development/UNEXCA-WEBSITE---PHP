@@ -1,7 +1,7 @@
 <?php
 require_once colocar_ruta_sistema('@servicios/paginas/InicioServicio.php');
 
-$servicio = new InicioServicio();
+$servicio = new \Servicios\Paginas\InicioServicio();
 
 $data_carrera = $servicio->obtenerDatosCarreras();
 

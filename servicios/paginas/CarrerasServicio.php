@@ -1,4 +1,6 @@
 <?php
+namespace Servicios\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/paginas/CarrerasModelo.php');
 
 class CarrerasServicio
@@ -7,7 +9,7 @@ class CarrerasServicio
 
     public function __construct()
     {
-        $this->modelo_carreras = new CarrerasModelo();
+        $this->modelo_carreras = new \Modelo\Paginas\CarrerasModelo();
     }
 
     public function obtenerDatosCarrera($slug)

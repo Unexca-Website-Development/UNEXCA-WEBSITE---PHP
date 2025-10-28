@@ -1,4 +1,6 @@
 <?php
+namespace Servicios\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/paginas/ContactosModelo.php');
 
 class ContactosServicio
@@ -7,7 +9,7 @@ class ContactosServicio
 
     public function __construct()
     {
-        $this->modelo_contactos = new ContactosModelo();
+        $this->modelo_contactos = new \Modelo\Paginas\ContactosModelo();
     }
 
     public function obtenerContactosDirectivos()

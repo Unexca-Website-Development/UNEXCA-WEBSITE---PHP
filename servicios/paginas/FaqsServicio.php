@@ -1,4 +1,6 @@
 <?php
+namespace Servicios\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/paginas/FaqsModelo.php');
 
 class FaqsServicio
@@ -7,7 +9,7 @@ class FaqsServicio
 
     public function __construct()
     {
-        $this->modelo_faqs = new FaqsModelo();
+        $this->modelo_faqs = new \Modelo\Paginas\FaqsModelo();
     }
 
     public function obtenerDatosFaqs()

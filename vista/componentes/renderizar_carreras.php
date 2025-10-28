@@ -4,7 +4,7 @@ function renderizar_carreras($data_array) {
         ?>
         <div class="carrera">
             <div class="carrera__imagen">
-                <img src="<?= colocar_ruta_html("@imagenes/carreras/") . htmlspecialchars(ltrim($carrera['img'], '/')) ?>" alt="<?= htmlspecialchars($carrera['title']) ?>">
+                <img src="<?= colocar_ruta_html("@imagenes/carreras/") . htmlspecialchars(ltrim($carrera['img'], '/')) ?>" alt="<?= htmlspecialchars($carrera['titulo']) ?>">
             </div>
             <div class="carrera__contenido">
                 <div class="carrera__contenedor-texto">

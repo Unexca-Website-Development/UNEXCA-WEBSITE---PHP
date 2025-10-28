@@ -1,7 +1,7 @@
 <?php
 require_once colocar_ruta_sistema('@servicios/paginas/ContactosServicio.php');
 
-$servicio = new ContactosServicio();
+$servicio = new \Servicios\Paginas\ContactosServicio();
 
 $data_contactos_admin = $servicio->obtenerContactosDirectivos();
 $data_contactos_coords = $servicio->obtenerContactosCoordinadores();

@@ -1,7 +1,9 @@
 <?php
-require_once colocar_ruta_sistema('@modelo/baseModelo.php');
+namespace Modelo\Plantilla;
 
-class PlantillaModelo extends BaseModelo
+require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
+
+class PlantillaModelo extends \Modelo\BaseModelo
 {
     public function obtenerMenuPorNombre($nombre)
     {

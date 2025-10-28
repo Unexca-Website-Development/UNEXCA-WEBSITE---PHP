@@ -1,4 +1,6 @@
 <?php
+namespace Servicios\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/paginas/InicioModelo.php');
 
 class InicioServicio
@@ -7,7 +9,7 @@ class InicioServicio
 
     public function __construct()
     {
-        $this->modelo_inicio = new InicioModelo();
+        $this->modelo_inicio = new \Modelo\Paginas\InicioModelo();
     }
 
     public function obtenerDatosCarreras()

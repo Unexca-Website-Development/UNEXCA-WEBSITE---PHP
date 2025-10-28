@@ -1,4 +1,6 @@
 <?php
+namespace Servicios\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/paginas/ServiciosModelo.php');
 
 class ServiciosServicio
@@ -7,7 +9,7 @@ class ServiciosServicio
 
     public function __construct()
     {
-        $this->modelo_servicios = new ServiciosModelo();
+        $this->modelo_servicios = new \Modelo\Paginas\ServiciosModelo();
     }
 
     public function obtenerDatosServicios()

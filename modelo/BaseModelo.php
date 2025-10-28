@@ -1,4 +1,6 @@
 <?php
+namespace Modelo;
+
 require_once colocar_ruta_sistema('@modelo/conexionDB.php');
 
 class BaseModelo {
@@ -34,7 +36,7 @@ class BaseModelo {
     private function validarTabla($tabla) 
     {
         if (!in_array($tabla, $this->tablasPermitidas)) {
-            throw new Exception("Tabla '$tabla' no permitida.");
+            throw new \Exception("Tabla '$tabla' no permitida.");
         }
     }
 
@@ -44,7 +46,7 @@ class BaseModelo {
         $query = "SELECT * FROM {$tabla}";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function obtenerPorId($tabla, $id)
@@ -53,7 +55,7 @@ class BaseModelo {
         $query = "SELECT * FROM {$tabla} WHERE id = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function insertar($tabla, $data)
@@ -93,6 +95,6 @@ class BaseModelo {
     {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
