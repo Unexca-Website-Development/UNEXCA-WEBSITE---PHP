@@ -11,7 +11,8 @@ return [
         '@plantilla'   => dirname(__DIR__) . '/vista/plantilla',
         '@scripts'     => dirname(__DIR__) . '/publico/scripts',
         '@vista'       => dirname(__DIR__) . '/vista',
-        '@servicios'   => dirname(__DIR__) . '/servicios' 
+        '@servicios'   => dirname(__DIR__) . '/servicios',
+        '@logs'        => dirname(__DIR__) . '/logs'
     ],
     'html' => [
         // '@componentes' => '/vista/componentes',

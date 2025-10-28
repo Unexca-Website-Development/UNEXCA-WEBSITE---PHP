@@ -65,8 +65,11 @@ function colocar_svg(string $alias): string {
 
 // Funcion para colocar enlaces en elementos <a>
 function colocar_enlace(string $pagina, array $params = []): string {
-    $query = http_build_query(array_merge(['pagina' => $pagina], $params));
-    return "index.php?$query";
+    $url = '/' . $pagina;
+    if (!empty($params)) {
+        $url .= '/' . implode('/', array_map('urlencode', $params));
+    }
+    return $url;
 }
 
 function procesar_enlace(?string $url): string {
