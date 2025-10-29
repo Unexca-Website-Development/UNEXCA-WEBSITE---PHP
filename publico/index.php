@@ -17,6 +17,12 @@ use Servicios\Nucleo\Router;
 // Registrar manejador global de errores
 ManejadorErrores::registrarManejadores();
 
-// Todas las peticiones pasan por el router
+// Cargar controlador de plantilla global (header, footer)
+$ctrlPlantilla = colocar_ruta_sistema("@controlador/plantillaControlador.php");
+if (file_exists($ctrlPlantilla)) {
+    require_once $ctrlPlantilla;
+}
+
+// Router resuelve ruta y carga controlador + vista específica
 Router::enrutar();
 exit;
