@@ -72,6 +72,19 @@ function colocar_enlace(string $pagina, array $params = []): string {
     return $url;
 }
 
+// Devuelve el array de páginas permitidas (lista blanca)
+function obtener_paginas_permitidas(): array {
+	$archivo = colocar_ruta_sistema('@servicios/paginas_permitidas.php');
+	if (!file_exists($archivo)) {
+		throw new Exception('Archivo de paginas_permitidas.php no encontrado');
+	}
+	$resultado = require $archivo; // retorna el array
+	if (!is_array($resultado)) {
+		throw new Exception('El archivo paginas_permitidas.php no retornó un array');
+	}
+	return $resultado;
+}
+
 function procesar_enlace(?string $url): string {
     $url = trim($url ?? '');
 
@@ -116,5 +129,16 @@ function normalizar_texto(string $texto, string $reemplazo = '-') : string {
 	$texto = preg_replace('/[^a-z0-9]+/', $reemplazo, $texto);
 	$texto = trim($texto, $reemplazo);
 	return $texto;
+}
+
+function convertir_slug_a_snake(string $slug): string {
+	$slug = strtolower(trim($slug));
+	return str_replace('-', '_', $slug);
+}
+
+function convertir_snake_a_camel(string $snake): string {
+	$partes = explode('_', strtolower($snake));
+	$primera = array_shift($partes);
+	return $primera . implode('', array_map('ucfirst', $partes));
 }
 

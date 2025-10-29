@@ -4,7 +4,6 @@ cargar_env(dirname(__DIR__) . '/.env');
 
 require_once dirname(__DIR__) . '/servicios/utilidades.php';
 require_once dirname(__DIR__) . '/servicios/alias_rutas.php';
-require_once dirname(__DIR__) . '/servicios/paginas_permitidas.php';
 require_once colocar_ruta_sistema('@servicios/carga_componentes.php');
 require_once colocar_ruta_sistema('@servicios/nucleo/Logger.php');
 require_once colocar_ruta_sistema('@servicios/nucleo/ManejadorErrores.php');

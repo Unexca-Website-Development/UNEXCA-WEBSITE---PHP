@@ -1,3 +1,3 @@
-nd<?php
+<?php
 
 echo "404";
