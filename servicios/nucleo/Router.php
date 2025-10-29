@@ -16,9 +16,13 @@ class Router {
 
         $archivoControlador = colocar_ruta_sistema("@controlador/{$controlador}Controlador.php");
         $vista_plantilla = colocar_ruta_sistema("@paginas/{$controlador}.php");
+        $ctrlPlantilla = colocar_ruta_sistema("@controlador/plantillaControlador.php");
 
         if (file_exists($archivoControlador)) {
             $_GET['nombre'] = $slug;
+            if (file_exists($ctrlPlantilla)) {
+                require_once $ctrlPlantilla;
+            }
             require_once $archivoControlador;
             if (file_exists($vista_plantilla)) {
                 include colocar_ruta_sistema("@plantilla/plantilla.php");
