@@ -12,6 +12,9 @@ class Logger {
         $fechaHora = date('Y-m-d H:i:s');
         $detalles = $archivo ? " ($archivo" . ($linea ? ":$linea" : "") . ")" : "";
         $entrada = "[$fechaHora] $tipo: $mensaje$detalles" . PHP_EOL;
+
+        //Esta linea de codigo puede dar error en linux si no tiene los permisos para modificar carpetas
+        //En ese caso, corregir los permisos o comentar esta linea
         file_put_contents(self::obtenerRutaLog(), $entrada, FILE_APPEND | LOCK_EX);
     }
 }

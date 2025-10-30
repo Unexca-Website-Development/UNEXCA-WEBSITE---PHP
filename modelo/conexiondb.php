@@ -1,8 +1,4 @@
 <?php
-//require_once colocar_ruta_sistema('@servicios/cargar_env.php');
-//cargar_env(__DIR__ . '/../.env');
-//cargar_env(__DIR__ . '/../.env.default');
-
 function conectarBD() {
     $host     = $_ENV['DB_HOST'] ?? 'localhost';
     $puerto   = $_ENV['DB_PORT'] ?? '5432';

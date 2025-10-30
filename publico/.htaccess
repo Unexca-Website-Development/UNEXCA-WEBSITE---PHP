@@ -1,3 +1,6 @@
+#Este modulo es obligatorio activarlo en linux a traves del comando
+#"sudo a2enmod rewrite"
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
