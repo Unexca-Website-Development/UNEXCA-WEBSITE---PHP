@@ -1,5 +1,6 @@
 import { EditorNoticias } from './EditorNoticias.js'
 import { normalizarTexto } from './utilidades.js'
+import { obtenerIcono, esTipoValido } from './ConstructorBloques.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
 	const contenedorDinamico = document.querySelector('.editor-noticia__contenido-bloques.-dinamicos')
@@ -12,29 +13,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 	botones.forEach(boton => {
 		boton.addEventListener('click', async () => {
 			const tipo = normalizarTexto(boton.textContent.trim())
-			let iconoRuta
-
-			switch (tipo) {
-				case 'subtitulo':
-					iconoRuta = '/imagenes/iconos/icon_h2.svg'
-					break
-				case 'parrafo':
-					iconoRuta = '/imagenes/iconos/icon_parrafo.svg'
-					break
-				case 'imagen':
-					iconoRuta = '/imagenes/iconos/icon_imagen.svg'
-					break
-				case 'cita':
-					iconoRuta = '/imagenes/iconos/icon_cita.svg'
-					break
-				case 'lista':
-					iconoRuta = '/imagenes/iconos/icon_lista.svg'
-					break
-				default:
-					return
+			
+			if (!esTipoValido(tipo)) {
+				console.warn(`Tipo de bloque no válido: ${tipo}`)
+				return
 			}
 
-			await editor.agregarBloque(tipo, boton.textContent.trim(), iconoRuta, true)
+			const iconoRuta = obtenerIcono(tipo)
+			await editor.agregarBloque(tipo, boton.textContent.trim(), iconoRuta)
 		})
 	})
 
