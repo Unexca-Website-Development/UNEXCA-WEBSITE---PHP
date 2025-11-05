@@ -1,4 +1,4 @@
-import { BloqueTexto, BloqueLista, BloqueImagen, BloqueCita, BloqueFechas } from './Bloques.js'
+import { crearBloque } from './ConstructorBloques.js'
 
 class EditorNoticias {
 	constructor(contenedorCabecera, contenedorDinamico) {
@@ -12,42 +12,22 @@ class EditorNoticias {
 	}
 
 	async inicializarCabecera() {
-		const bloqueFechas = new BloqueFechas('fechas', 'Información de la noticia', '/imagenes/iconos/icon_calendario.svg', this, false)
-		this.bloquesCabecera.push(bloqueFechas)
-		this.contenedorCabecera.appendChild(await bloqueFechas.renderizar())
+		const bloquesCabecera = [
+			{ tipo: 'fechas', texto: 'Información de la noticia', icono: '/imagenes/iconos/icon_calendario.svg' },
+			{ tipo: 'parrafo', texto: 'Título de la noticia', icono: '/imagenes/iconos/icon_h1.svg' },
+			{ tipo: 'parrafo', texto: 'Descripción de la noticia', icono: '/imagenes/iconos/icon_descripcion.svg' },
+			{ tipo: 'imagen', texto: 'Imagen principal', icono: '/imagenes/iconos/icon_imagen.svg' }
+		]
 
-		const bloqueTitulo = new BloqueTexto('titulo', 'Título de la noticia', '/imagenes/iconos/icon_h1.svg', this, false)
-		this.bloquesCabecera.push(bloqueTitulo)
-		this.contenedorCabecera.appendChild(await bloqueTitulo.renderizar())
-
-		const bloqueDescripcion = new BloqueTexto('descripcion', 'Descripción de la noticia', '/imagenes/iconos/icon_descripcion.svg', this, false)
-		this.bloquesCabecera.push(bloqueDescripcion)
-		this.contenedorCabecera.appendChild(await bloqueDescripcion.renderizar())
-
-		const bloqueImagen = new BloqueImagen('imagen', 'Imagen principal', '/imagenes/iconos/icon_imagen.svg', this, false)
-		this.bloquesCabecera.push(bloqueImagen)
-		this.contenedorCabecera.appendChild(await bloqueImagen.renderizar())
+		for (const config of bloquesCabecera) {
+			const bloque = crearBloque(config.tipo, config.texto, config.icono, this, false)
+			this.bloquesCabecera.push(bloque)
+			this.contenedorCabecera.appendChild(await bloque.renderizar())
+		}
 	}
 
 	async agregarBloque(tipo, texto, icono) {
-		let bloque
-		switch(tipo){
-			case 'subtitulo':
-			case 'parrafo':
-				bloque = new BloqueTexto(tipo, texto, icono, this)
-				break
-			case 'lista':
-				bloque = new BloqueLista(tipo, texto, icono, this)
-				break
-			case 'imagen':
-				bloque = new BloqueImagen(tipo, texto, icono, this)
-				break
-			case 'cita':
-				bloque = new BloqueCita(tipo, texto, icono, this)
-				break
-			default:
-				bloque = new BloqueTexto(tipo, texto, icono, this)
-		}
+		const bloque = crearBloque(tipo, texto, icono, this)
 		this.bloquesDinamicos.push(bloque)
 		this.contenedorDinamico.appendChild(await bloque.renderizar())
 		return bloque
