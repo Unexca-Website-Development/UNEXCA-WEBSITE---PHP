@@ -3,7 +3,12 @@ import {
 	generarId, 
 	moverElementoAbajo, 
 	moverElementoArriba, 
-	eliminarElemento 
+	eliminarElemento,
+	crearLabel,
+	crearSpan,
+	crearTextarea,
+	crearInput,
+	crearContenedorControl
 } from './utilidades.js'
 
 // Clase base
@@ -36,25 +41,15 @@ class Bloque {
 		const div = document.createElement('div')
 		div.className = 'editor-noticia__bloque'
 
-		const label = document.createElement('label')
-		label.className = 'bloque-titulo'
-		label.setAttribute('for', this.id)
-
-		const svg = await crearSVG(this.icono)
-		label.appendChild(svg)
-
-		const span = document.createElement('span')
-		span.className = 'bloque-titulo__texto'
-		span.textContent = this.texto
-		label.appendChild(span)
-
-		const contenido = this.crearContenido()
+		const label = await crearLabel(this.texto, this.icono, this.id)
 		div.appendChild(label)
+
+		const contenido = await Promise.resolve(this.crearContenido())
 		div.appendChild(contenido)
 
-		if (this.controles){
+		if (this.controles) {
 			const control = await this.crearControl()
-			if(control) div.appendChild(control)
+			if (control) div.appendChild(control)
 		}
 
 		this.elemento = div
@@ -65,38 +60,32 @@ class Bloque {
 		return document.createElement('div')
 	}
 
-	async crearControl() {
+	async crearControl(array = null, elemento = null, contenedor = null, className = 'editor-noticia__bloque-control') {
 		if (!this.controles) return null
 
-		const controlDiv = document.createElement('div')
-		controlDiv.className = 'editor-noticia__bloque-control'
+		const arrayUsar = array || this.arrayPadre
+		const elementoUsar = elemento || this.elemento
+		const contenedorUsar = contenedor || this.contenedorPadre
 
-		const botonesDiv = document.createElement('div')
-		botonesDiv.className = 'editor-noticia__bloque-control-contenedor'
+		const botones = [
+			{
+				tipo: 'subir',
+				icono: '/imagenes/iconos/flecha.svg',
+				onClick: () => moverElementoArriba(arrayUsar, this, contenedorUsar, elementoUsar)
+			},
+			{
+				tipo: 'bajar',
+				icono: '/imagenes/iconos/flecha.svg',
+				onClick: () => moverElementoAbajo(arrayUsar, this, contenedorUsar, elementoUsar)
+			},
+			{
+				tipo: 'borrar',
+				icono: '/imagenes/iconos/icon_borrar.svg',
+				onClick: () => eliminarElemento(arrayUsar, this, elementoUsar)
+			}
+		]
 
-		const botonSubir = document.createElement('button')
-		botonSubir.className = 'editor-noticia__boton-control -subir'
-		botonSubir.type = 'button'
-		botonSubir.appendChild(await crearSVG('/imagenes/iconos/flecha.svg'))
-		botonSubir.addEventListener('click', () => moverElementoArriba(this.arrayPadre, this, this.contenedorPadre, this.elemento))
-		botonesDiv.appendChild(botonSubir)
-
-		const botonBajar = document.createElement('button')
-		botonBajar.className = 'editor-noticia__boton-control -bajar'
-		botonBajar.type = 'button'
-		botonBajar.appendChild(await crearSVG('/imagenes/iconos/flecha.svg'))
-		botonBajar.addEventListener('click', () => moverElementoAbajo(this.arrayPadre, this, this.contenedorPadre, this.elemento))
-		botonesDiv.appendChild(botonBajar)
-
-		const botonBorrar = document.createElement('button')
-		botonBorrar.className = 'editor-noticia__boton-control -borrar'
-		botonBorrar.type = 'button'
-		botonBorrar.appendChild(await crearSVG('/imagenes/iconos/icon_borrar.svg'))
-		botonBorrar.addEventListener('click', () => eliminarElemento(this.arrayPadre, this, this.elemento))
-		botonesDiv.appendChild(botonBorrar)
-
-		controlDiv.appendChild(botonesDiv)
-		return controlDiv
+		return await crearContenedorControl({ botones, className })
 	}
 
 	obtenerContenido() {
@@ -121,18 +110,17 @@ class Bloque {
 // Subclases de bloques específicos
 class BloqueTexto extends Bloque {
 	crearContenido() {
-		const textarea = document.createElement('textarea')
-		textarea.className = 'editor-noticia__campo-texto'
-		textarea.id = this.id
-		textarea.placeholder = `Escribe ${this.texto.toLowerCase()} aquí...`
-		textarea.required = true
+		const textarea = crearTextarea({
+			id: this.id,
+			placeholder: `Escribe ${this.texto.toLowerCase()} aquí...`
+		})
 		this.campos.push(textarea)
 		return textarea
 	}
 }
 
 class BloqueLista extends Bloque {
-	crearContenido() {
+	async crearContenido() {
 		const contenedor = document.createElement('div')
 		contenedor.className = 'editor-noticia__bloque-campos'
 
@@ -140,7 +128,7 @@ class BloqueLista extends Bloque {
 		ul.className = 'editor-noticia__lista'
 
 		// Agregar un item inicial
-		const primerItem = this.crearItem(ul)
+		const primerItem = await this.crearItem(ul)
 		ul.appendChild(primerItem)
 
 		contenedor.appendChild(ul)
@@ -149,15 +137,15 @@ class BloqueLista extends Bloque {
 		const botonAgregar = document.createElement('button')
 		botonAgregar.className = 'bloque-titulo bloque-titulo--accion editor-noticia__boton-agregar-bloque'
 		botonAgregar.type = 'button'
-		crearSVG('/imagenes/iconos/icon_mas.svg').then(svg => botonAgregar.appendChild(svg))
-
-		const span = document.createElement('span')
-		span.className = 'bloque-titulo__texto'
-		span.textContent = 'Agregar elemento'
+		
+		const svgMas = await crearSVG('/imagenes/iconos/icon_mas.svg')
+		botonAgregar.appendChild(svgMas)
+		
+		const span = crearSpan('Agregar elemento')
 		botonAgregar.appendChild(span)
 
-		botonAgregar.addEventListener('click', () => {
-			const nuevoItem = this.crearItem(ul)
+		botonAgregar.addEventListener('click', async () => {
+			const nuevoItem = await this.crearItem(ul)
 			ul.appendChild(nuevoItem)
 			this.actualizarControlesLista(ul)
 		})
@@ -170,56 +158,58 @@ class BloqueLista extends Bloque {
 		return contenedor
 	}
 
-	crearItem(ul) {
+	async crearItem(ul) {
 		const li = document.createElement('li')
 		li.className = 'editor-noticia__lista-item'
 
-		const textarea = document.createElement('textarea')
-		textarea.className = 'editor-noticia__campo-texto editor-noticia__campo-texto--lista'
-		textarea.placeholder = 'Escribe cada elemento en una línea separada...'
-		textarea.required = true
+		const textarea = crearTextarea({
+			className: 'editor-noticia__campo-texto editor-noticia__campo-texto--lista',
+			placeholder: 'Escribe cada elemento en una línea separada...'
+		})
 		this.campos.push(textarea)
 		li.appendChild(textarea)
 
-		const controlInterno = this.crearControlInterno(li, ul)
+		// Crear control con array temporal (se reemplazarán los onClick)
+		const arrayTemporal = []
+		const controlInterno = await this.crearControl(
+			arrayTemporal,
+			li,
+			ul,
+			'editor-noticia__bloque-control editor-noticia__bloque-control--interno'
+		)
+		
+		// Reemplazar los onClick para usar el array dinámico y actualizar controles
+		if (controlInterno) {
+			const botonSubir = controlInterno.querySelector('.-subir')
+			const botonBajar = controlInterno.querySelector('.-bajar')
+			const botonBorrar = controlInterno.querySelector('.-borrar')
+			
+			if (botonSubir) {
+				botonSubir.onclick = () => {
+					const arrayItems = Array.from(ul.children)
+					moverElementoArriba(arrayItems, li, ul, li)
+				}
+			}
+			
+			if (botonBajar) {
+				botonBajar.onclick = () => {
+					const arrayItems = Array.from(ul.children)
+					moverElementoAbajo(arrayItems, li, ul, li)
+				}
+			}
+			
+			if (botonBorrar) {
+				botonBorrar.onclick = () => {
+					const arrayItems = Array.from(ul.children)
+					eliminarElemento(arrayItems, li, li)
+					this.actualizarControlesLista(ul)
+				}
+			}
+		}
+		
 		li.appendChild(controlInterno)
 
 		return li
-	}
-
-	crearControlInterno(item, ul) {
-		const controlDiv = document.createElement('div')
-		controlDiv.className = 'editor-noticia__bloque-control editor-noticia__bloque-control--interno'
-
-		const botonesDiv = document.createElement('div')
-		botonesDiv.className = 'editor-noticia__bloque-control-contenedor'
-
-		const botonSubir = document.createElement('button')
-		botonSubir.type = 'button'
-		botonSubir.className = 'editor-noticia__boton-control -subir'
-		crearSVG('/imagenes/iconos/flecha.svg').then(svg => botonSubir.appendChild(svg))
-		botonSubir.addEventListener('click', () => moverElementoArriba(Array.from(ul.children), item, ul, item))
-		botonesDiv.appendChild(botonSubir)
-
-		const botonBajar = document.createElement('button')
-		botonBajar.type = 'button'
-		botonBajar.className = 'editor-noticia__boton-control -bajar'
-		crearSVG('/imagenes/iconos/flecha.svg').then(svg => botonBajar.appendChild(svg))
-		botonBajar.addEventListener('click', () => moverElementoAbajo(Array.from(ul.children), item, ul, item))
-		botonesDiv.appendChild(botonBajar)
-
-		const botonBorrar = document.createElement('button')
-		botonBorrar.type = 'button'
-		botonBorrar.className = 'editor-noticia__boton-control -borrar'
-		crearSVG('/imagenes/iconos/icon_borrar.svg').then(svg => botonBorrar.appendChild(svg))
-		botonBorrar.addEventListener('click', () => {
-			eliminarElemento(Array.from(ul.children), item, item)
-			this.actualizarControlesLista(ul)
-		})
-		botonesDiv.appendChild(botonBorrar)
-
-		controlDiv.appendChild(botonesDiv)
-		return controlDiv
 	}
 
 	actualizarControlesLista(ul) {
@@ -233,51 +223,50 @@ class BloqueLista extends Bloque {
 
 class BloqueImagen extends Bloque {
 	crearContenido() {
-		const fragmento = document.createDocumentFragment()
-		const inputArchivo = document.createElement('input')
-		inputArchivo.className = 'editor-noticia__campo-archivo'
-		inputArchivo.type = 'file'
-		inputArchivo.id = this.id
-		inputArchivo.accept = '.png,.jpg,.jpeg,.webp'
-		inputArchivo.required = true
+		const contenedor = document.createElement('div')
+		
+		const inputArchivo = crearInput({
+			type: 'file',
+			id: this.id,
+			className: 'editor-noticia__campo-archivo',
+			accept: '.png,.jpg,.jpeg,.webp',
+			required: true
+		})
 		this.campos.push(inputArchivo)
-		fragmento.appendChild(inputArchivo)
+		contenedor.appendChild(inputArchivo)
 
-		const textareaDesc = document.createElement('textarea')
-		textareaDesc.className = 'editor-noticia__campo-texto'
-		textareaDesc.id = generarId(`${this.tipo}_descripcion`)
-		textareaDesc.name = textareaDesc.id
-		textareaDesc.placeholder = 'Escribe la descripción de la imagen aquí...'
-		textareaDesc.required = true
+		const textareaDesc = crearTextarea({
+			id: generarId(`${this.tipo}_descripcion`),
+			name: generarId(`${this.tipo}_descripcion`),
+			placeholder: 'Escribe la descripción de la imagen aquí...'
+		})
 		this.campos.push(textareaDesc)
-		fragmento.appendChild(textareaDesc)
+		contenedor.appendChild(textareaDesc)
 
-		return fragmento
+		return contenedor
 	}
 }
 
 class BloqueCita extends Bloque {
 	crearContenido() {
-		const fragmento = document.createDocumentFragment()
+		const contenedor = document.createElement('div')
 
-		const textareaCita = document.createElement('textarea')
-		textareaCita.className = 'editor-noticia__campo-texto'
-		textareaCita.id = this.id
-		textareaCita.placeholder = 'Escribe la cita aquí...'
-		textareaCita.required = true
+		const textareaCita = crearTextarea({
+			id: this.id,
+			placeholder: 'Escribe la cita aquí...'
+		})
 		this.campos.push(textareaCita)
-		fragmento.appendChild(textareaCita)
+		contenedor.appendChild(textareaCita)
 
-		const textareaAutor = document.createElement('textarea')
-		textareaAutor.className = 'editor-noticia__campo-texto'
-		textareaAutor.id = generarId(`${this.tipo}_autor`)
-		textareaAutor.name = textareaAutor.id
-		textareaAutor.placeholder = 'Escribe el autor de la cita aquí...'
-		textareaAutor.required = true
+		const textareaAutor = crearTextarea({
+			id: generarId(`${this.tipo}_autor`),
+			name: generarId(`${this.tipo}_autor`),
+			placeholder: 'Escribe el autor de la cita aquí...'
+		})
 		this.campos.push(textareaAutor)
-		fragmento.appendChild(textareaAutor)
+		contenedor.appendChild(textareaAutor)
 
-		return fragmento
+		return contenedor
 	}
 }
 
@@ -286,18 +275,11 @@ class BloqueFechas extends Bloque {
 		const div = document.createElement('div')
 		div.className = 'editor-noticia__bloque editor-noticia__bloque--fechas'
 
-		const labelPrincipal = document.createElement('label')
-		labelPrincipal.className = 'bloque-titulo'
-
-		const svg = await crearSVG(this.icono || '/imagenes/iconos/icon_calendario.svg')
-		labelPrincipal.appendChild(svg)
-
-		const span = document.createElement('span')
-		span.className = 'bloque-titulo__texto'
-		span.textContent = this.texto || 'Información de la noticia'
-		labelPrincipal.appendChild(span)
-
+		const icono = this.icono || '/imagenes/iconos/icon_calendario.svg'
+		const texto = this.texto || 'Información de la noticia'
+		const labelPrincipal = await crearLabel(texto, icono)
 		div.appendChild(labelPrincipal)
+		
 		div.appendChild(this.crearContenido())
 
 		if (this.controles) {
@@ -328,11 +310,12 @@ class BloqueFechas extends Bloque {
 			label.textContent = c.nombre
 			grupo.appendChild(label)
 
-			const input = document.createElement('input')
-			input.type = 'date'
-			input.id = c.id
-			input.name = c.id
-			input.readOnly = c.readonly
+			const input = crearInput({
+				type: 'date',
+				id: c.id,
+				name: c.id,
+				readOnly: c.readonly
+			})
 			this.campos.push(input)
 			grupo.appendChild(input)
 
