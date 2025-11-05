@@ -102,15 +102,15 @@ function colocar_enlace(string $pagina, array $params = []): string {
  * @throws Exception Si el archivo no existe o no retorna un array.
  */
 function obtener_paginas_permitidas(): array {
-    $archivo = colocar_ruta_sistema('@servicios/paginas_permitidas.php');
-    if (!file_exists($archivo)) {
-        throw new Exception('Archivo de paginas_permitidas.php no encontrado');
-    }
-    $resultado = require $archivo;
-    if (!is_array($resultado)) {
-        throw new Exception('El archivo paginas_permitidas.php no retornó un array');
-    }
-    return $resultado;
+	$archivo = colocar_ruta_sistema('@servicios/paginas_permitidas.php');
+	if (!file_exists($archivo)) {
+		throw new Exception('Archivo de paginas_permitidas.php no encontrado');
+	}
+	$resultado = require $archivo; // retorna el array
+	if (!is_array($resultado)) {
+		throw new Exception('El archivo paginas_permitidas.php no retornó un array');
+	}
+	return $resultado;
 }
 
 /**
