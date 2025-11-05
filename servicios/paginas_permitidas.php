@@ -1,6 +1,6 @@
 <?php
 
-return $paginas_permitidas = [
+$paginas_permitidas = [
     'inicio' => 'inicio.php',
     'historia' => 'historia.php',
     'mision-vision-valores' => 'mision_vision_valores.php',
@@ -9,7 +9,14 @@ return $paginas_permitidas = [
     'servicios' => 'servicios.php',
     'carrera' => 'carrera.php',
     'contactos' => 'contactos.php',
-    'test' => 'test.php',
     'noticias' => 'noticias.php',
-    'noticias-editor' => 'noticias_editor.php' //OJO con este porque maneja la DB
+];
+
+$paginas_desarrollo = [
+    'noticias-editor' => 'noticias_editor.php',
+];
+
+return [
+    'paginas' => $paginas_permitidas,
+    'desarrollo' => $paginas_desarrollo,
 ];

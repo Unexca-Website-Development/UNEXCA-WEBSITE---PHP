@@ -78,11 +78,20 @@ function obtener_paginas_permitidas(): array {
 	if (!file_exists($archivo)) {
 		throw new Exception('Archivo de paginas_permitidas.php no encontrado');
 	}
-	$resultado = require $archivo; // retorna el array
-	if (!is_array($resultado)) {
-		throw new Exception('El archivo paginas_permitidas.php no retornó un array');
+	$config = require $archivo;
+	if (!is_array($config) || !isset($config['paginas'])) {
+		throw new Exception('El archivo paginas_permitidas.php no tiene la estructura correcta');
 	}
-	return $resultado;
+	
+	$paginas = $config['paginas'];
+	$app_env = isset($_ENV['APP_ENV']) ? $_ENV['APP_ENV'] : 'desarrollo';
+	
+	// En desarrollo, incluir páginas de desarrollo
+	if ($app_env === 'desarrollo' && isset($config['desarrollo'])) {
+		$paginas = array_merge($paginas, $config['desarrollo']);
+	}
+	
+	return $paginas;
 }
 
 function procesar_enlace(?string $url): string {
