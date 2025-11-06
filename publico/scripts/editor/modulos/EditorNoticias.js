@@ -1,4 +1,4 @@
-import { crearBloque } from './ConstructorBloques.js'
+import { crearBloque } from '../bloques/ConstructorBloques.js'
 
 class EditorNoticias {
 	constructor(contenedorCabecera, contenedorDinamico) {

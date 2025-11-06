@@ -9,7 +9,7 @@ import {
 	crearTextarea,
 	crearInput,
 	crearContenedorControl
-} from './utilidades.js'
+} from '../utilidades.js'
 
 // Clase base
 class Bloque {
