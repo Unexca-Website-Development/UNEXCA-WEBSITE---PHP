@@ -63,37 +63,37 @@
 
     <!-- Menú lateral -->
     <nav class="menu-editor">
-        <button class="menu-editor__boton">
+        <button id="btn-menu-abrir" class="menu-editor__boton">
             <?= colocar_svg('@imagenes/iconos/icon_menu_open.svg') ?>
         </button>
 
-        <button class="menu-editor__boton">
+        <button id="btn-nueva-noticia" class="menu-editor__boton">
             <?= colocar_svg('@imagenes/iconos/icon_nueva.svg') ?>
             <span class="menu-editor__texto">Nueva noticia</span>
         </button>
-        
-        <button class="menu-editor__boton">
+
+        <button id="btn-buscar-noticia" class="menu-editor__boton">
             <?= colocar_svg('@imagenes/iconos/icon_buscar.svg') ?>
             <span class="menu-editor__texto">Buscar noticia</span>
         </button>
 
         <div class="menu-editor__grupo menu-editor__grupo--recientes">
-            <button class="menu-editor__boton menu-editor__boton--recientes">
+            <button id="btn-noticias-recientes" class="menu-editor__boton menu-editor__boton--recientes">
                 <?= colocar_svg('@imagenes/iconos/flecha.svg') ?>
                 <span class="menu-editor__texto">Noticias recientes</span>
             </button>
             <div class="menu-editor__contenedor-recientes"></div>
         </div>
 
-        <button class="menu-editor__boton">
+        <button id="btn-guardar-noticia" class="menu-editor__boton">
             <?= colocar_svg('@imagenes/iconos/icon_guardar.svg') ?>
             <span class="menu-editor__texto">Guardar noticia</span>
         </button>
 
-        <button class="menu-editor__boton">
+        <button id="btn-publicar-noticia" class="menu-editor__boton">
             <?= colocar_svg('@imagenes/iconos/icon_publicar.svg') ?>
             <span class="menu-editor__texto">Publicar noticia</span>
-        </button> 
+        </button>
     </nav>
 </div>
 
