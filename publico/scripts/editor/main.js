@@ -1,6 +1,8 @@
-import { EditorNoticias } from './EditorNoticias.js'
+import { EditorNoticias } from './modulos/EditorNoticias.js'
 import { normalizarTexto } from './utilidades.js'
-import { obtenerIcono, esTipoValido } from './ConstructorBloques.js'
+import { obtenerIcono, esTipoValido } from './bloques/ConstructorBloques.js'
+import { menuLateral } from './menu/MenuLateral.js'
+import { ControladorMenu } from './menu/ControladorMenu.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
 	const contenedorDinamico = document.querySelector('.editor-noticia__contenido-bloques.-dinamicos')
@@ -9,16 +11,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const editor = new EditorNoticias(contenedorCabecera, contenedorDinamico)
 	await editor.inicializarCabecera()
 
+	window.editorNoticias = editor
+
+	// Crear instancia del controlador pasando editor y menú lateral
+	const controladorMenu = new ControladorMenu(editor, menuLateral)
+	controladorMenu.inicializar()
+
 	const botones = document.querySelectorAll('.agregar-bloque__opcion')
 	botones.forEach(boton => {
 		boton.addEventListener('click', async () => {
 			const tipo = normalizarTexto(boton.textContent.trim())
-			
 			if (!esTipoValido(tipo)) {
 				console.warn(`Tipo de bloque no válido: ${tipo}`)
 				return
 			}
-
 			const iconoRuta = obtenerIcono(tipo)
 			await editor.agregarBloque(tipo, boton.textContent.trim(), iconoRuta)
 		})
