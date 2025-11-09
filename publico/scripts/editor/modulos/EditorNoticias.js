@@ -32,28 +32,57 @@ class EditorNoticias {
 		const bloque = crearBloque(tipo, texto, icono, this)
 		this.bloquesDinamicos.push(bloque)
 		this.contenedorDinamico.appendChild(await bloque.renderizar())
-		this._notificarModificacion('bloqueAgregado')
+		this._emitirEvento('bloqueAgregado')
 		return bloque
 	}
 
-	actualizarEstado(nuevoEstado) {
-		const permitidos = ['borrador', 'publicado', 'archivado']
-		if (!permitidos.includes(nuevoEstado)) {
-			console.warn(`Estado inválido: ${nuevoEstado}`)
-			return
+	validar() {
+		// Obtener bloques de cabecera por tipo
+		const bloqueTitulo = this.bloquesCabecera.find(b => b.texto === 'Título de la noticia')
+		const bloqueDescripcion = this.bloquesCabecera.find(b => b.texto === 'Descripción de la noticia')
+		const bloqueImagen = this.bloquesCabecera.find(b => b.tipo === 'imagen')
+
+		if (!bloqueTitulo) throw new Error('No se encontró el bloque de título.')
+		const titulo = bloqueTitulo.obtenerContenido()
+		if (!titulo.contenido || !titulo.contenido[0] || !titulo.contenido[0].trim()) {
+			throw new Error('El título no puede estar vacío.')
 		}
 
-		if (this.estado === nuevoEstado) return
+		if (!bloqueDescripcion) throw new Error('No se encontró el bloque de descripción.')
+		const descripcion = bloqueDescripcion.obtenerContenido()
+		if (!descripcion.contenido || !descripcion.contenido[0] || !descripcion.contenido[0].trim()) {
+			throw new Error('La descripción no puede estar vacía.')
+		}
 
-		this.estado = nuevoEstado
+		if (bloqueImagen) {
+			const imagen = bloqueImagen.obtenerContenido()
+			if (!imagen.contenido || !imagen.contenido[0] || !imagen.contenido[0].trim()) {
+				throw new Error('Debe haber una imagen principal.')
+			}
+		} else {
+			throw new Error('No se encontró el bloque de imagen.')
+		}
+
+		if (this.bloquesDinamicos.length === 0) {
+			throw new Error('Debe haber al menos un bloque de contenido.')
+		}
+
+		return true
+	}
+
+	publicarNoticia() {
+		if (this.estado === 'publicado') return
+		this.estado = 'publicado'
+		if (!this.fechaPublicacion) this.fechaPublicacion = new Date()
+		this._emitirEvento('noticiaPublicada')
+	}
+
+	marcarComoEditado() {
 		this.fechaModificacion = new Date()
-
-		if (nuevoEstado === 'publicado' && !this.fechaPublicacion) {
-			this.fechaPublicacion = new Date()
-		}
-
-		console.log(`🧩 Estado actualizado a: ${nuevoEstado}`)
-		administradorEventos.notificar('noticiaModificada', { estado: nuevoEstado })
+		administradorEventos.notificar('noticiaModificada', { 
+			estado: this.estado, 
+			fecha: this.fechaModificacion 
+		})
 	}
 
 	obtenerJSON() {
@@ -70,74 +99,69 @@ class EditorNoticias {
 	}
 
 	async cargarNoticia(data) {
-		this.contenedorCabecera.innerHTML = ''
-		this.contenedorDinamico.innerHTML = ''
-		this.bloquesCabecera = []
-		this.bloquesDinamicos = []
+		try {
+			// Limpiar todo
+			this.contenedorCabecera.innerHTML = ''
+			this.contenedorDinamico.innerHTML = ''
+			this.bloquesCabecera = []
+			this.bloquesDinamicos = []
 
-		await this.inicializarCabecera()
+			// Reinicializar cabecera
+			await this.inicializarCabecera()
 
-		if (data.estado) this.estado = data.estado
-		if (data.fechas) {
-			this.fechaCreacion = new Date(data.fechas.creacion)
-			this.fechaModificacion = data.fechas.modificacion ? new Date(data.fechas.modificacion) : null
-			this.fechaPublicacion = data.fechas.publicacion ? new Date(data.fechas.publicacion) : null
-		}
-
-		if (data.cabecera) {
-			for (const bloque of this.bloquesCabecera) {
-				if (data.cabecera[bloque.tipo]) bloque.asignarContenido(data.cabecera[bloque.tipo])
+			// Cargar estado y fechas
+			if (data.estado) this.estado = data.estado
+			if (data.fechas) {
+				this.fechaCreacion = data.fechas.creacion ? new Date(data.fechas.creacion) : new Date()
+				this.fechaModificacion = data.fechas.modificacion ? new Date(data.fechas.modificacion) : null
+				this.fechaPublicacion = data.fechas.publicacion ? new Date(data.fechas.publicacion) : null
 			}
-		}
 
-		if (data.bloques) {
-			for (const b of data.bloques) {
-				const bloque = await this.agregarBloque(b.tipo, b.texto, b.icono)
-				if (b.contenido) bloque.asignarContenido(b.contenido)
+			// Cargar cabecera - buscar por texto o tipo
+			if (data.cabecera) {
+				for (const bloque of this.bloquesCabecera) {
+					// Buscar por tipo primero
+					if (data.cabecera[bloque.tipo]) {
+						const contenido = data.cabecera[bloque.tipo]
+						// Si viene como objeto con contenido, usar contenido, sino usar directamente
+						if (contenido && typeof contenido === 'object' && contenido.contenido) {
+							bloque.asignarContenido(contenido.contenido)
+						} else if (Array.isArray(contenido)) {
+							bloque.asignarContenido(contenido)
+						}
+					}
+				}
 			}
+
+			// Cargar bloques dinámicos
+			if (data.bloques && Array.isArray(data.bloques)) {
+				for (const b of data.bloques) {
+					const tipo = b.tipo || 'parrafo'
+					const texto = b.texto || 'Contenido'
+					const icono = b.icono || '/imagenes/iconos/icon_parrafo.svg'
+					
+					const bloque = await this.agregarBloque(tipo, texto, icono)
+					
+					// Asignar contenido si existe
+					if (b.contenido && Array.isArray(b.contenido)) {
+						bloque.asignarContenido(b.contenido)
+					}
+				}
+			}
+
+			this._emitirEvento('noticiaCargada')
+		} catch (error) {
+			console.error('Error al cargar noticia:', error)
+			throw error
 		}
 	}
 
-	validar() {
-		const cabecera = Object.fromEntries(this.bloquesCabecera.map(b => [b.tipo, b.obtenerContenido()]))
-
-		if (!cabecera.parrafo || !cabecera.parrafo.trim()) {
-			throw new Error('El título no puede estar vacío.')
-		}
-
-		if (!cabecera.descripcion || !cabecera.descripcion.trim()) {
-			throw new Error('La descripción no puede estar vacía.')
-		}
-
-		if (!cabecera.imagen || !cabecera.imagen.url) {
-			throw new Error('Debe haber una imagen principal.')
-		}
-
-		if (this.bloquesDinamicos.length === 0) {
-			throw new Error('Debe haber al menos un bloque de contenido.')
-		}
-
-		return true
-	}
-
-	marcarComoEditado() {
-		this.fechaModificacion = new Date()
-		administradorEventos.notificar('noticiaModificada', { fecha: this.fechaModificacion })
-	}
-
-	publicarNoticia() {
-		if (this.estado === 'publicado') return
-		this.estado = 'publicado'
-
-		if (!this.fechaPublicacion) this.fechaPublicacion = new Date()
-		this._notificarModificacion('noticiaPublicada')
-	
-		return { estado: this.estado, fechaPublicacion: this.fechaPublicacion }
-	}
-
-	_notificarModificacion(evento) {
-		this.fechaModificacion = new Date()
-		administradorEventos.notificar(evento, { fecha: this.fechaModificacion })
+	_emitirEvento(evento, datos = {}) {
+		administradorEventos.notificar(evento, { 
+			estado: this.estado, 
+			fechaModificacion: this.fechaModificacion,
+			...datos 
+		})
 	}
 }
 
