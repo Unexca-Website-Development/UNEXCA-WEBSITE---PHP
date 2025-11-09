@@ -60,28 +60,95 @@ class Bloque {
 		return document.createElement('div')
 	}
 
+	/**
+	 * Obtiene el array y contenedor correctos para este bloque.
+	 * Si se pasan parámetros explícitos (para items de lista), los usa.
+	 * Si no, los obtiene dinámicamente del DOM en el momento de la llamada.
+	 */
+	_obtenerContextoMovimiento(array = null, elemento = null, contenedor = null) {
+		// Si se pasan parámetros explícitos, usarlos (para items de lista)
+		if (array !== null && elemento !== null && contenedor !== null) {
+			return { arrayUsar: array, elementoUsar: elemento, contenedorUsar: contenedor }
+		}
+
+		// Para bloques principales, obtener del DOM actual
+		if (!this.elemento) {
+			console.warn('Bloque no tiene elemento asignado')
+			return null
+		}
+
+		const elementoUsar = this.elemento
+		const contenedorUsar = this.elemento.parentElement
+		
+		if (!contenedorUsar) {
+			console.warn('Bloque no tiene contenedor padre')
+			return null
+		}
+
+		// Determinar el array correcto basado en el contenedor
+		let arrayUsar
+		if (contenedorUsar.classList.contains('-estaticos')) {
+			arrayUsar = this.editor.bloquesCabecera
+		} else if (contenedorUsar.classList.contains('-dinamicos')) {
+			arrayUsar = this.editor.bloquesDinamicos
+		} else {
+			console.warn('Contenedor padre no reconocido:', contenedorUsar)
+			return null
+		}
+
+		return { arrayUsar, elementoUsar, contenedorUsar }
+	}
+
 	async crearControl(array = null, elemento = null, contenedor = null, className = 'editor-noticia__bloque-control') {
 		if (!this.controles) return null
 
-		const arrayUsar = array || this.arrayPadre
-		const elementoUsar = elemento || this.elemento
-		const contenedorUsar = contenedor || this.contenedorPadre
+		const esBloquePrincipal = !array // Si no se pasa array, es un bloque principal
 
 		const botones = [
 			{
 				tipo: 'subir',
 				icono: '/imagenes/iconos/flecha.svg',
-				onClick: () => moverElementoArriba(arrayUsar, this, contenedorUsar, elementoUsar)
+				onClick: () => {
+					const contexto = this._obtenerContextoMovimiento(array, elemento, contenedor)
+					if (!contexto) return
+
+					moverElementoArriba(contexto.arrayUsar, this, contexto.contenedorUsar, contexto.elementoUsar)
+					
+					// Notificar al editor si es un bloque principal
+					if (esBloquePrincipal && this.editor) {
+						this.editor.marcarComoEditado()
+					}
+				}
 			},
 			{
 				tipo: 'bajar',
 				icono: '/imagenes/iconos/flecha.svg',
-				onClick: () => moverElementoAbajo(arrayUsar, this, contenedorUsar, elementoUsar)
+				onClick: () => {
+					const contexto = this._obtenerContextoMovimiento(array, elemento, contenedor)
+					if (!contexto) return
+
+					moverElementoAbajo(contexto.arrayUsar, this, contexto.contenedorUsar, contexto.elementoUsar)
+					
+					// Notificar al editor si es un bloque principal
+					if (esBloquePrincipal && this.editor) {
+						this.editor.marcarComoEditado()
+					}
+				}
 			},
 			{
 				tipo: 'borrar',
 				icono: '/imagenes/iconos/icon_borrar.svg',
-				onClick: () => eliminarElemento(arrayUsar, this, elementoUsar)
+				onClick: () => {
+					const contexto = this._obtenerContextoMovimiento(array, elemento, contenedor)
+					if (!contexto) return
+
+					eliminarElemento(contexto.arrayUsar, this, contexto.elementoUsar)
+					
+					// Notificar al editor si es un bloque principal
+					if (esBloquePrincipal && this.editor) {
+						this.editor.marcarComoEditado()
+					}
+				}
 			}
 		]
 
@@ -100,10 +167,26 @@ class Bloque {
 	}
 
 	asignarContenido(datos) {
-		this.campos.forEach((c, i) => {
-			if (c.type === 'file') return
-			c.value = datos[i] || ''
-		})
+		// Si datos es un array, asignar por índice
+		if (Array.isArray(datos)) {
+			this.campos.forEach((c, i) => {
+				if (c.type === 'file') return
+				c.value = datos[i] || ''
+			})
+		} 
+		// Si datos es un string, asignar al primer campo
+		else if (typeof datos === 'string') {
+			if (this.campos.length > 0 && this.campos[0].type !== 'file') {
+				this.campos[0].value = datos
+			}
+		}
+		// Si datos es un objeto, intentar extraer valores
+		else if (typeof datos === 'object' && datos !== null) {
+			// Si tiene propiedad contenido, usar esa
+			if (Array.isArray(datos.contenido)) {
+				this.asignarContenido(datos.contenido)
+			}
+		}
 	}
 }
 
