@@ -33,8 +33,13 @@ export function moverElementoAbajo(array, elemento, contenedor, nodo) {
 	const index = array.indexOf(elemento)
 	if (index > -1 && index < array.length - 1) {
 		[array[index], array[index + 1]] = [array[index + 1], array[index]]
-		const siguiente = nodo.nextElementSibling.nextElementSibling
-		contenedor.insertBefore(nodo, siguiente)
+		const siguiente = nodo.nextElementSibling
+		if (siguiente && siguiente.nextElementSibling) {
+			contenedor.insertBefore(nodo, siguiente.nextElementSibling)
+		} else {
+			// Si no hay siguiente después del siguiente, mover al final
+			contenedor.appendChild(nodo)
+		}
 	}
 }
 
