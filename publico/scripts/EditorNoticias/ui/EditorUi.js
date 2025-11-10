@@ -1,36 +1,17 @@
-import EditorNoticiaUI from './secciones/EditorNoticiaUI.js'
-import MenuLateralUI from './secciones/MenuLateralUI.js'
-
 export default class EditorUI {
 	constructor(contenedorRaiz) {
 		this.contenedorRaiz = contenedorRaiz
-		this.dom = {}
-		this.menuLateral = new MenuLateralUI()
-		this.editorNoticia = new EditorNoticiaUI()
+		this.editor = null
 	}
 
-	async renderizarBase() {
+	inicializar() {
+		this.editor = document.createElement('div')
+		this.editor.className = 'editor'
 		this.contenedorRaiz.innerHTML = ''
-
-		const principal = document.createElement('div')
-		principal.className = 'principal'
-		principal.id = 'principal'
-
-		const editorNoticiaElemento = await this.editorNoticia.renderizar()
-		const menuLateralElemento = await this.menuLateral.renderizar()
-
-		principal.append(editorNoticiaElemento, menuLateralElemento)
-		this.contenedorRaiz.appendChild(principal)
-
-		this.dom = {
-			principal,
-			editorNoticia: editorNoticiaElemento,
-			menuLateral: menuLateralElemento,
-			...this.editorNoticia.obtenerReferencias()
-		}
+		this.contenedorRaiz.appendChild(this.editor)
 	}
-	
-	obtenerReferencias() {
-		return this.dom
+
+	obtenerContenedor() {
+		return this.editor
 	}
 }
