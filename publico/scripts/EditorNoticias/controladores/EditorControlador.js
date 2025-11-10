@@ -1,0 +1,45 @@
+import ModeloDocumento from '../nucleo/ModeloDocumento.js'
+import { administradorEventos } from '../utilidades/AdministradorEventos.js'
+
+export default class EditorControlador {
+	constructor() {
+		this.modelo = new ModeloDocumento()
+	}
+
+	agregarBloque(bloque, indice = null) {
+		this.modelo.agregarBloque(bloque, indice)
+		administradorEventos.notificar('bloquesActualizados', this.modelo.bloques)
+	}
+
+	eliminarBloque(id) {
+		this.modelo.eliminarBloquePorId(id)
+		administradorEventos.notificar('bloquesActualizados', this.modelo.bloques)
+	}
+
+	moverBloque(id, nuevaPosicion) {
+		this.modelo.moverBloque(id, nuevaPosicion)
+		administradorEventos.notificar('bloquesActualizados', this.modelo.bloques)
+	}
+
+	actualizarBloque(id, contenido) {
+		const bloque = this.modelo.bloques.find(b => b.id === id)
+		if (!bloque) return
+		bloque.asignar(contenido)
+		administradorEventos.notificar('bloquesActualizados', this.modelo.bloques)
+	}
+
+	establecerEstado(estado) {
+		this.modelo.establecerEstado(estado)
+		administradorEventos.notificar('estadoActualizado', this.modelo.estado)
+	}
+
+	obtenerDatos() {
+		return this.modelo.obtenerDatos()
+	}
+
+	cargarDatos(datos) {
+		this.modelo.cargarDatos(datos)
+		administradorEventos.notificar('bloquesActualizados', this.modelo.bloques)
+		administradorEventos.notificar('estadoActualizado', this.modelo.estado)
+	}
+}
