@@ -1,4 +1,4 @@
-import IconoSVG from './IconoSVG.js'
+import { crearIcono } from '../utilidadesUI.js'
 
 export default class BotonAgregarBloque {
 	constructor(rutaIcono, texto, tipo) {
@@ -11,8 +11,7 @@ export default class BotonAgregarBloque {
 	}
 
 	async renderizar() {
-		const icono = new IconoSVG(this.rutaIcono)
-		await icono.cargar()
+		const icono = await crearIcono(this.rutaIcono)
 		this.boton.appendChild(icono.renderizar())
 
 		const span = document.createElement('span')
