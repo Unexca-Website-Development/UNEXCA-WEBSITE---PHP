@@ -1,4 +1,4 @@
-import Contenedor from '../componentes/Contenedor.js'
+import Contenedor from './Contenedor.js'
 import { crearBoton } from '../utilidadesUI.js'
 
 export default class ContenedorSeccion {
