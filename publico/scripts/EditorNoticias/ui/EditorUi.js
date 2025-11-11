@@ -42,8 +42,8 @@ export default class EditorUI {
 		seccionDinamicos.agregarContenido(await agregarBloque.renderizar())
 
 		// Agregar secciones al editor
-		editorNoticia.appendChild(seccionEstaticos.renderizar())
-		editorNoticia.appendChild(seccionDinamicos.renderizar())
+		editorNoticia.appendChild(await seccionEstaticos.renderizar())
+		editorNoticia.appendChild(await seccionDinamicos.renderizar())
 
 		principal.appendChild(editorNoticia)
 		this.contenedorRaiz.appendChild(principal)
