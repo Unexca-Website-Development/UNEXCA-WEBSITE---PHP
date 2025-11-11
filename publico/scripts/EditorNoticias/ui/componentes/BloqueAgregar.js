@@ -1,5 +1,5 @@
 import MenuAgregarBloques from './MenuAgregarBloques.js'
-import IconoSVG from './IconoSVG.js'
+import { crearIcono } from '../utilidadesUI.js'
 
 export default class BloqueAgregar {
 	constructor(opciones = [], textoBoton = 'Agregar bloque', rutaIcono = '') {
@@ -17,8 +17,7 @@ export default class BloqueAgregar {
 	async renderizar() {
 		// Renderizar el SVG en el botón principal
 		if (this.rutaIcono) {
-			const icono = new IconoSVG(this.rutaIcono)
-			await icono.cargar()
+			const icono = await crearIcono(this.rutaIcono)
 			this.boton.appendChild(icono.renderizar())
 		}
 
