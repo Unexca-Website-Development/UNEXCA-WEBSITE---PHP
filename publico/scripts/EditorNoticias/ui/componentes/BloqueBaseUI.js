@@ -2,13 +2,14 @@ import { crearLabelBloque, crearTextareaBloque, crearInputArchivo, crearBoton } 
 import ControlBloque from './ControlBloque.js'
 
 export default class BloqueBaseUI {
-	constructor(bloque, configuracionUI = {}) {
-		this.bloque = bloque
+	constructor(bloqueAdaptado) {
+		this.bloque = bloqueAdaptado
 		this.config = {
-			placeholder: configuracionUI.placeholder || '',
-			requerido: configuracionUI.requerido || false,
-			tipoInput: configuracionUI.tipoInput || 'textarea',
-			icono: configuracionUI.icono || `/iconos/${bloque.tipo}.svg`
+			placeholder: bloqueAdaptado.placeholder || '',
+			requerido: bloqueAdaptado.requerido || false,
+			tipoInput: bloqueAdaptado.tipoInput || 'textarea',
+			icono: bloqueAdaptado.icono || `/iconos/${bloqueAdaptado.tipo}.svg`,
+			inputs: bloqueAdaptado.inputs || []
 		}
 		this.elemento = null
 		this.control = new ControlBloque()
