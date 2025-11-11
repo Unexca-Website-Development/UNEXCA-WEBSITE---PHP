@@ -1,11 +1,13 @@
 import { generarId, asignarDatosBloque } from "../utilidades/utilidades.js"
+import { CONFIG_BLOQUES } from "../config/configBloques.js"
 
 export default class BloqueBase {
-	constructor(tipo, texto = '') {
+	constructor(tipo) {
 		this.tipo = tipo
 		this.id = generarId(this.tipo)
-		this.texto = texto
-		this.campos = {}
+		const config = CONFIG_BLOQUES[tipo] || {}
+		this.texto = config.texto || ''
+		this.campos = { ...config.campos }
 	}
 
 	obtenerDatos() {
@@ -13,7 +15,7 @@ export default class BloqueBase {
 			id: this.id,
 			tipo: this.tipo,
 			texto: this.texto,
-			contenido: {...this.campos}
+			contenido: { ...this.campos }
 		}
 	}
 
