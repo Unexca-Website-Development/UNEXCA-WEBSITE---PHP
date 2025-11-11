@@ -6,8 +6,8 @@ export default class EditorControlador {
 		this.modelo = new ModeloDocumento()
 	}
 
-	agregarBloque(bloque, indice = null) {
-		this.modelo.agregarBloque(bloque, indice)
+	agregarBloque(tipo, contenido = {}, indice = null) {
+		this.modelo.agregarBloque(tipo, contenido, indice)
 		administradorEventos.notificar('bloquesActualizados', this.modelo.bloques)
 	}
 
