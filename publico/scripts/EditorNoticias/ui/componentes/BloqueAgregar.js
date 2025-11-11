@@ -1,13 +1,11 @@
 import MenuAgregarBloques from './MenuAgregarBloques.js'
-import { crearIcono } from '../utilidadesUI.js'
+import { crearBoton } from '../utilidadesUI.js'
 
 export default class BloqueAgregar {
 	constructor(opciones = [], textoBoton = 'Agregar bloque', rutaIcono = '') {
 		this.contenedor = document.createElement('div')
 		this.contenedor.className = 'editor-noticia__bloque'
 
-		this.boton = document.createElement('button')
-		this.boton.className = 'bloque-titulo bloque-titulo--accion agregar-bloque__boton'
 		this.textoBoton = textoBoton
 		this.rutaIcono = rutaIcono
 
@@ -15,20 +13,17 @@ export default class BloqueAgregar {
 	}
 
 	async renderizar() {
-		// Renderizar el SVG en el botón principal
-		if (this.rutaIcono) {
-			const icono = await crearIcono(this.rutaIcono)
-			this.boton.appendChild(icono.renderizar())
-		}
-
-		const span = document.createElement('span')
-		span.className = 'bloque-titulo__texto'
-		span.textContent = this.textoBoton
-		this.boton.appendChild(span)
+		// Renderizar el botón principal
+		const boton = await crearBoton({
+			rutaIcono: this.rutaIcono,
+			texto: this.textoBoton,
+			clase: 'bloque-titulo bloque-titulo--accion agregar-bloque__boton',
+			claseSpan: 'bloque-titulo__texto'
+		})
 
 		// Renderizar el menú de opciones
 		const menuRenderizado = await this.menu.renderizar()
-		this.contenedor.appendChild(this.boton)
+		this.contenedor.appendChild(boton)
 		this.contenedor.appendChild(menuRenderizado)
 
 		return this.contenedor
