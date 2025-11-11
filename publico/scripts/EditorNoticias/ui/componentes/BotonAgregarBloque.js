@@ -1,27 +1,25 @@
-import { crearBoton } from '../utilidadesUI.js'
-import EditorControlador from '../../controladores/EditorControlador.js'
+import IconoSVG from './IconoSVG.js'
 
 export default class BotonAgregarBloque {
 	constructor(rutaIcono, texto, tipo) {
+		this.boton = document.createElement('button')
+		this.boton.type = 'button'
+		this.boton.className = 'agregar-bloque__opcion'
 		this.tipo = tipo
 		this.rutaIcono = rutaIcono
 		this.texto = texto
-		this.controlador = new EditorControlador()
 	}
 
 	async renderizar() {
-		const boton = await crearBoton({
-			rutaIcono: this.rutaIcono,
-			texto: this.texto,
-			clase: 'agregar-bloque__opcion',
-			tipo: 'button',
-			claseSpan: 'agregar-bloque__texto'
-		})
+		const icono = new IconoSVG(this.rutaIcono)
+		await icono.cargar()
+		this.boton.appendChild(icono.renderizar())
 
-		boton.addEventListener('click', () => {
-			this.controlador.agregarBloque(this.tipo)
-		})
+		const span = document.createElement('span')
+		span.className = 'agregar-bloque__texto'
+		span.textContent = this.texto
+		this.boton.appendChild(span)
 
-		return boton
+		return this.boton
 	}
 }
