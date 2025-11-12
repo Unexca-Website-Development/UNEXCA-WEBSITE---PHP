@@ -1,6 +1,7 @@
 import ContenedorSeccion from '../componentes/ContenedorSeccion.js'
 import Contenedor from '../componentes/Contenedor.js'
 import BloqueAgregar from '../componentes/BloqueAgregar.js'
+import { RenderizadorBloquesEstaticosUI } from '../renderizador/RenderizarBloquesUI.js'
 
 export default class EditorNoticiaUI {
 	constructor() {
@@ -13,12 +14,16 @@ export default class EditorNoticiaUI {
 
 		// Sección bloques estáticos
 		const seccionEstaticos = new ContenedorSeccion('Titular de la noticia')
-		const bloquesEstaticos = new Contenedor('editor-noticia__contenido-bloques -estaticos')
-		seccionEstaticos.agregarContenido(bloquesEstaticos.renderizar())
+		const contenedorEstaticos = new Contenedor('editor-noticia__contenido-bloques -estaticos')
+		const renderBloquesEstaticos = new RenderizadorBloquesEstaticosUI(contenedorEstaticos.renderizar())
+		const elementosEstaticos = await renderBloquesEstaticos.renderizar()
+		seccionEstaticos.agregarContenido(elementosEstaticos)
 
 		// Sección bloques dinámicos
 		const seccionDinamicos = new ContenedorSeccion('Contenido del artículo')
-		const bloquesDinamicos = new Contenedor('editor-noticia__contenido-bloques -dinamicos')
+		const contenedorDinamicos = new Contenedor('editor-noticia__contenido-bloques -dinamicos')
+		const renderBloquesDinamicos = new RenderizadorBloquesEstaticosUI(contenedorDinamicos.renderizar()) 
+		const elementosDinamicos = await renderBloquesDinamicos.renderizar()
 
 		// Opciones para el menú de agregar bloques
 		const opcionesBloques = [
@@ -30,10 +35,11 @@ export default class EditorNoticiaUI {
 		]
 
 		const agregarBloque = new BloqueAgregar(opcionesBloques, 'Agregar bloque', '/imagenes/iconos/icon_mas.svg')
+		const elementoAgregar = await agregarBloque.renderizar()
 
 		// Agregar el contenedor de bloques y el botón de agregar a la sección dinámica
-		seccionDinamicos.agregarContenido(bloquesDinamicos.renderizar())
-		seccionDinamicos.agregarContenido(await agregarBloque.renderizar())
+		seccionDinamicos.agregarContenido(elementosDinamicos)
+		seccionDinamicos.agregarContenido(elementoAgregar)
 
 		// Agregar secciones al editor
 		editorNoticia.appendChild(await seccionEstaticos.renderizar())
@@ -43,8 +49,8 @@ export default class EditorNoticiaUI {
 			editorNoticia,
 			seccionEstaticos,
 			seccionDinamicos,
-			bloquesEstaticos,
-			bloquesDinamicos,
+			contenedorEstaticos,
+			contenedorDinamicos,
 			agregarBloque
 		}
 
