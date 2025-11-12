@@ -22,7 +22,7 @@ class MenuLateral {
         this.botones.guardar.addEventListener('click', () => this.seleccionarOpcion('guardar'))
         this.botones.publicar.addEventListener('click', () => this.seleccionarOpcion('publicar'))
 
-        administradorEventos.suscribir('cerrarMenu', () => this.cerrar())
+        administradorEventos.suscrito('cerrarMenu', () => this.cerrar())
     }
 
     toggleMenu() {

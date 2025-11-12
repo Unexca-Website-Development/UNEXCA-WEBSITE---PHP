@@ -3,12 +3,12 @@ import BloqueBase from '../bloques/BloqueBase.js'
 export default class ModeloDocumento {
 	constructor() {
 		this.estado = 'borrador'
-		this.cabecera = {
-			titulo: new BloqueBase('titulo'),
-			fechas: new BloqueBase('fechas'),
-			parrafo: new BloqueBase('parrafo'),
-			imagen: new BloqueBase('imagen')
-		}
+		this.cabecera = [
+			new BloqueBase('titulo'),
+			new BloqueBase('fechas'),
+			new BloqueBase('parrafo'),
+			new BloqueBase('imagen')
+		]
 		this.bloques = []
 	}
 
@@ -42,7 +42,7 @@ export default class ModeloDocumento {
 		return {
 			estado: this.estado,
 			cabecera: Object.fromEntries(
-				Object.entries(this.cabecera).map(([k, v]) => [k, v.obtenerDatos()])
+				this.cabecera.map(b => [b.tipo, b.obtenerDatos()])
 			),
 			bloques: this.bloques.map(b => b.obtenerDatos())
 		}
@@ -53,8 +53,11 @@ export default class ModeloDocumento {
 		this.estado = datos.estado || this.estado
 
 		if (datos.cabecera) {
-			for (const key in datos.cabecera) {
-				if (this.cabecera[key]) this.cabecera[key].asignar(datos.cabecera[key].contenido || {})
+			for (const bloque of this.cabecera) {
+				const key = bloque.tipo
+				if (datos.cabecera[key]) {
+					bloque.asignar(datos.cabecera[key].contenido || {})
+				}
 			}
 		}
 

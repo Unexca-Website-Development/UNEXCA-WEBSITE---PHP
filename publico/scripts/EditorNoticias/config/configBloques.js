@@ -6,7 +6,7 @@ const CONFIG_BLOQUES = {
 			texto: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/imagen/iconos/icon_h1.svg',
+			icono: '/imagenes/iconos/icon_h1.svg',
 			placeholder: 'Escribe el título aquí...',
 			inputs: [
 				{
@@ -24,7 +24,7 @@ const CONFIG_BLOQUES = {
 			texto: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/imagen/iconos/icon_h2.svg',
+			icono: '/imagenes/iconos/icon_h2.svg',
 			placeholder: 'Escribe el Subtítulo aquí...',
 			inputs: [
 				{
@@ -44,7 +44,7 @@ const CONFIG_BLOQUES = {
 			publicacion: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/imagen/iconos/icon_calendario.svg',
+			icono: '/imagenes/iconos/icon_calendario.svg',
 			inputs: [
 				{
 					tipo: 'date',
@@ -61,7 +61,7 @@ const CONFIG_BLOQUES = {
 			texto: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/imagen/iconos/icon_parrafo.svg',
+			icono: '/imagenes/iconos/icon_parrafo.svg',
 			placeholder: 'Escribe el párrafo aquí...',
 			inputs: [
 				{
@@ -80,7 +80,7 @@ const CONFIG_BLOQUES = {
 			autor: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/imagen/iconos/icon_cita.svg',
+			icono: '/imagenes/iconos/icon_cita.svg',
 			placeholder: 'Escribe la cita aquí...',
 			inputs: [
 				{
@@ -104,7 +104,7 @@ const CONFIG_BLOQUES = {
 			items: { valorInicial: [], requerido: true }
 		},
 		ui: {
-			icono: '/imagen/iconos/icon_lista.svg',
+			icono: '/imagenes/iconos/icon_lista.svg',
 			placeholder: 'Agrega elementos de la lista...',
 			inputs: [
 				{
@@ -116,14 +116,14 @@ const CONFIG_BLOQUES = {
 		}
 	},
 	imagen: {
-		tipo: 'imagen',
-		texto: 'Imagen',
+		tipo: 'imagenes',
+		texto: 'imagenes',
 		campos: {
 			archivo: { valorInicial: null, requerido: true },
 			descripcion: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/imagen/iconos/icon_imagen.svg',
+			icono: '/imagenes/iconos/icon_imagen.svg',
 			inputs: [
 				{
 					tipo: 'file',
@@ -133,7 +133,7 @@ const CONFIG_BLOQUES = {
 				},
 				{
 					tipo: 'textarea',
-					placeholder: 'Descripción de la imagen...',
+					placeholder: 'Descripción de la imagenes...',
 					requerido: true,
 					className: 'editor-noticia__campo-texto'
 				}
