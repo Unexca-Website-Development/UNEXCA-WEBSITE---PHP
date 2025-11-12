@@ -1,5 +1,4 @@
 import EditorControlador from './EditorControlador.js'
-import BloqueAdaptadorUI from '../adaptadores/BloqueAdaptadorUI.js'
 import BloqueAdaptadorModelo from '../adaptadores/BloqueAdaptadorModelo.js'
 import { CONFIG_BLOQUES } from '../config/configBloques.js'
 

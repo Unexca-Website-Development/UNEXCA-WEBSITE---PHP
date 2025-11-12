@@ -43,7 +43,6 @@ export default class EditorControlador {
 
 	establecerEstado(estado) {
 		this.modelo.establecerEstado(estado)
-		administradorEventos.notificar('estadoActualizado', this.modelo.estado)
 	}
 
 	obtenerDatos() {
