@@ -5,9 +5,14 @@ export default class BloqueAdaptadorModelo {
 	}
 
 	generarConfigModelo() {
-		const contenidoConfig = this.config.campos || {}
-		const contenido = Object.keys(contenidoConfig).reduce((acc, clave) => {
-			acc[clave] = this.bloqueUI.contenido?.[clave] ?? ''
+		const camposConfig = this.config.campos || {}
+
+		const campos = Object.keys(camposConfig).reduce((acc, clave) => {
+			const valorUI = this.bloqueUI.contenido?.[clave]
+			acc[clave] = {
+				valorInicial: valorUI ?? camposConfig[clave].valorInicial ?? '',
+				requerido: camposConfig[clave].requerido ?? false
+			}
 			return acc
 		}, {})
 
@@ -15,7 +20,7 @@ export default class BloqueAdaptadorModelo {
 			id: this.bloqueUI.id,
 			tipo: this.bloqueUI.tipo,
 			texto: this.config.texto || this.bloqueUI.texto || '',
-			contenido
+			campos
 		}
 	}
 }
