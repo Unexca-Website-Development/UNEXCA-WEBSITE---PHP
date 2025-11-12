@@ -34,8 +34,3 @@ export default class EditorUI {
 		return this.dom
 	}
 }
-
-// Para probar
-const contenedor = document.getElementById('editor-principal')
-const ui = new EditorUI(contenedor)
-ui.renderizarBase()

@@ -6,8 +6,26 @@ const CONFIG_BLOQUES = {
 			texto: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/iconos/titulo.svg',
+			icono: '/imagen/iconos/icon_h1.svg',
 			placeholder: 'Escribe el título aquí...',
+			inputs: [
+				{
+					tipo: 'textarea',
+					requerido: true,
+					className: 'editor-noticia__campo-texto'
+				}
+			]
+		}
+	},
+	subtitulo: {
+		tipo: 'subtitulo',
+		texto: 'Subtítulo',
+		campos: {
+			texto: { valorInicial: '', requerido: true }
+		},
+		ui: {
+			icono: '/imagen/iconos/icon_h2.svg',
+			placeholder: 'Escribe el Subtítulo aquí...',
 			inputs: [
 				{
 					tipo: 'textarea',
@@ -26,7 +44,7 @@ const CONFIG_BLOQUES = {
 			publicacion: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/iconos/fecha.svg',
+			icono: '/imagen/iconos/icon_calendario.svg',
 			inputs: [
 				{
 					tipo: 'date',
@@ -43,7 +61,7 @@ const CONFIG_BLOQUES = {
 			texto: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/iconos/parrafo.svg',
+			icono: '/imagen/iconos/icon_parrafo.svg',
 			placeholder: 'Escribe el párrafo aquí...',
 			inputs: [
 				{
@@ -62,7 +80,7 @@ const CONFIG_BLOQUES = {
 			autor: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/iconos/cita.svg',
+			icono: '/imagen/iconos/icon_cita.svg',
 			placeholder: 'Escribe la cita aquí...',
 			inputs: [
 				{
@@ -86,7 +104,7 @@ const CONFIG_BLOQUES = {
 			items: { valorInicial: [], requerido: true }
 		},
 		ui: {
-			icono: '/iconos/lista.svg',
+			icono: '/imagen/iconos/icon_lista.svg',
 			placeholder: 'Agrega elementos de la lista...',
 			inputs: [
 				{
@@ -105,7 +123,7 @@ const CONFIG_BLOQUES = {
 			descripcion: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/iconos/imagen.svg',
+			icono: '/imagen/iconos/icon_imagen.svg',
 			inputs: [
 				{
 					tipo: 'file',
@@ -123,6 +141,5 @@ const CONFIG_BLOQUES = {
 		}
 	}
 }
-
 
 export { CONFIG_BLOQUES };
