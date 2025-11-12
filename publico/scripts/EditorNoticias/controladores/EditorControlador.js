@@ -1,7 +1,8 @@
 import ModeloDocumento from '../nucleo/ModeloDocumento.js'
 import { administradorEventos } from '../utilidades/AdministradorEventos.js'
-import BloqueAdaptador from '../adaptadores/BloqueAdaptador.js'
-import configBloques from '../config/configBloques.js'
+import BloqueAdaptadorUI from '../adaptadores/BloqueAdaptadorUI.js'
+import BloqueAdaptadorModelo from '../adaptadores/BloqueAdaptadorModelo.js'
+import { CONFIG_BLOQUES } from '../config/configBloques.js'
 
 export default class EditorControlador {
 	constructor() {
@@ -9,11 +10,16 @@ export default class EditorControlador {
 	}
 
 	convertirParaUI(bloques) {
-		return bloques.map(b => new BloqueAdaptador(b, configBloques).generarConfigUI())
+		return bloques.map(b => new BloqueAdaptadorUI(b, CONFIG_BLOQUES).generarConfigUI())
+	}
+
+	convertirParaModelo(bloquesUI) {
+		return bloquesUI.map(b => new BloqueAdaptadorModelo(b, CONFIG_BLOQUES).generarConfigModelo())
 	}
 
 	agregarBloque(tipo, contenido = {}, indice = null) {
-		this.modelo.agregarBloque(tipo, contenido, indice)
+		const contenidoModelo = new BloqueAdaptadorModelo(contenido, CONFIG_BLOQUES).generarConfigModelo()
+		this.modelo.agregarBloque(tipo, contenidoModelo, indice)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
 
@@ -27,10 +33,11 @@ export default class EditorControlador {
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
 
-	actualizarBloque(id, contenido) {
+	actualizarBloque(id, contenidoUI) {
 		const bloque = this.modelo.bloques.find(b => b.id === id)
 		if (!bloque) return
-		bloque.asignar(contenido)
+		const contenidoModelo = new BloqueAdaptadorModelo(contenidoUI, CONFIG_BLOQUES).generarConfigModelo()
+		bloque.asignar(contenidoModelo)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
 
@@ -43,8 +50,9 @@ export default class EditorControlador {
 		return this.modelo.obtenerDatos()
 	}
 
-	cargarDatos(datos) {
-		this.modelo.cargarDatos(datos)
+	cargarDatos(datosUI) {
+		const datosModelo = this.convertirParaModelo(datosUI)
+		this.modelo.cargarDatos(datosModelo)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 		administradorEventos.notificar('estadoActualizado', this.modelo.estado)
 	}
