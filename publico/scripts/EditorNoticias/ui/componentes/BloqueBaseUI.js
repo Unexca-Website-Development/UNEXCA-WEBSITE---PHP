@@ -1,4 +1,4 @@
-import { crearLabelBloque, crearTextareaBloque, crearInputArchivo, crearBoton } from '../utilidadesUI.js'
+import { crearLabelBloque, crearTextareaBloque, crearInputBloque } from '../utilidadesUI.js'
 import ControlBloque from './ControlBloque.js'
 
 export default class BloqueBaseUI {
@@ -8,7 +8,7 @@ export default class BloqueBaseUI {
 			placeholder: bloqueAdaptado.placeholder || '',
 			requerido: bloqueAdaptado.requerido || false,
 			tipoInput: bloqueAdaptado.tipoInput || 'textarea',
-			icono: bloqueAdaptado.icono || `/iconos/${bloqueAdaptado.tipo}.svg`,
+			icono: bloqueAdaptado.icono || `/imagenes/iconos/${bloqueAdaptado.tipo}.svg`,
 			inputs: bloqueAdaptado.inputs || []
 		}
 		this.elemento = null
@@ -24,7 +24,7 @@ export default class BloqueBaseUI {
 
 		let campo
 		if (this.config.tipoInput === 'file') {
-			campo = crearInputArchivo(this.bloque.id, this.config.requerido)
+			campo = crearInputBloque(this.bloque.id, this.config.requerido)
 		} else {
 			campo = crearTextareaBloque(this.bloque.id, this.config.placeholder, this.config.requerido)
 		}

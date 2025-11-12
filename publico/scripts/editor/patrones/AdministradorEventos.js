@@ -3,7 +3,7 @@ class AdministradorEventos {
 		this.eventos = {};
 	}
 
-	suscribir(evento, callback) {
+	suscrito(evento, callback) {
 		if (!this.eventos[evento]) {
 			this.eventos[evento] = [];
 		}

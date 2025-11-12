@@ -25,7 +25,6 @@ async function iniciarEditor() {
 	btnGuardar.addEventListener('click', () => {
 		const datos = controlador.obtenerDatos()
 		console.log('Guardar datos:', datos)
-		// Aquí puedes hacer fetch o guardar localStorage según necesites
 	})
 	btnPublicar.addEventListener('click', () => {
 		controlador.establecerEstado('publicado')
@@ -42,17 +41,6 @@ async function iniciarEditor() {
 		const contenedorRecientes = menuLateral.querySelector('.menu-editor__contenedor-recientes')
 		contenedorRecientes.classList.toggle('activo')
 		console.log('Mostrar noticias recientes')
-	})
-
-	// Suscripción a eventos para actualizar la UI
-	administradorEventos.suscribir('bloquesActualizados', bloquesUI => {
-		const { editorNoticia } = ui.obtenerReferencias()
-		editorNoticia.innerHTML = ''
-		bloquesUI.forEach(b => editorNoticia.appendChild(b))
-	})
-
-	administradorEventos.suscribir('estadoActualizado', estado => {
-		console.log('Estado actualizado:', estado)
 	})
 }
 
