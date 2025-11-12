@@ -14,16 +14,16 @@ class EditorControlador {
 
 	_suscribirEventos() {
 		// Eventos del editor
-		administradorEventos.suscribir('bloqueAgregado', () => this.marcarEditado())
+		administradorEventos.suscrito('bloqueAgregado', () => this.marcarEditado())
 		// El evento 'noticiaModificada' se emite desde marcarComoEditado(),
 		// por lo que no debemos suscribirnos a él aquí para evitar un bucle infinito
-		administradorEventos.suscribir('noticiaPublicada', () => {
+		administradorEventos.suscrito('noticiaPublicada', () => {
 			this.ultimoGuardado = this.editor.obtenerJSON()
 			console.log('Noticia publicada y guardada', this.ultimoGuardado)
 		})
 
 		// Eventos del menú lateral
-		administradorEventos.suscribir('opcionMenuSeleccionada', (opcion) => {
+		administradorEventos.suscrito('opcionMenuSeleccionada', (opcion) => {
 			switch (opcion) {
 				case 'nueva':
 					this.nuevaNoticia()
