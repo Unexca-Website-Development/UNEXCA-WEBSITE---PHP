@@ -5,8 +5,12 @@ import BloqueAdaptadorModelo from '../adaptadores/BloqueAdaptadorModelo.js'
 import { CONFIG_BLOQUES } from '../config/configBloques.js'
 
 export default class EditorControlador {
+	static instancia = null
+
 	constructor() {
+		if (EditorControlador.instancia) return EditorControlador.instancia
 		this.modelo = new ModeloDocumento()
+		EditorControlador.instancia = this
 	}
 
 	convertirParaUI(bloques) {
