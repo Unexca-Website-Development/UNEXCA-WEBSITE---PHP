@@ -16,17 +16,29 @@ export default class ControlBloque {
 		contenedor.className = 'editor-noticia__bloque-control-contenedor'
 
 		if (this.mostrarSubir) {
-			const btnSubir = await crearBoton({ rutaIcono: '/imagenes/iconos/flecha.svg', clase: '-subir' })
+			const btnSubir = await crearBoton({
+				rutaIcono: '/imagenes/iconos/flecha.svg',
+				clase: 'editor-noticia__boton-control -subir',
+				tipo: 'button'
+			})
 			contenedor.appendChild(btnSubir)
 		}
 
 		if (this.mostrarBajar) {
-			const btnBajar = await crearBoton({ rutaIcono: '/imagenes/iconos/flecha.svg', clase: '-bajar' })
+			const btnBajar = await crearBoton({
+				rutaIcono: '/imagenes/iconos/flecha.svg',
+				clase: 'editor-noticia__boton-control -bajar',
+				tipo: 'button'
+			})
 			contenedor.appendChild(btnBajar)
 		}
 
 		if (this.mostrarBorrar) {
-			const btnBorrar = await crearBoton({ rutaIcono: '/imagenes/iconos/icon_borrar.svg', clase: '-borrar' })
+			const btnBorrar = await crearBoton({
+				rutaIcono: '/imagenes/iconos/icon_borrar.svg',
+				clase: 'editor-noticia__boton-control -borrar',
+				tipo: 'button'
+			})
 			contenedor.appendChild(btnBorrar)
 		}
 
