@@ -9,8 +9,6 @@ export default class BloqueBaseUI {
 	}
 
 	async renderizar() {
-		console.log('BloqueBaseUI renderizar - config actual:', this.bloque)
-		
 		const contenedor = document.createElement('div')
 		contenedor.className = 'editor-noticia__bloque'
 
