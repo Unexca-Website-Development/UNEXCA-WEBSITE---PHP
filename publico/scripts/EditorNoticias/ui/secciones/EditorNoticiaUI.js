@@ -22,9 +22,9 @@ export default class EditorNoticiaUI {
 		// Sección bloques dinámicos
 		const seccionDinamicos = new ContenedorSeccion('Contenido del artículo')
 		const contenedorDinamicos = new Contenedor('editor-noticia__contenido-bloques -dinamicos')
-		const renderBloquesDinamicos = new RenderizadorBloquesDinamicosUI(contenedorDinamicos.renderizar()) 
-		const elementosDinamicos = await renderBloquesDinamicos.renderizar()
-		seccionDinamicos.agregarContenido(elementosDinamicos)
+		seccionDinamicos.agregarContenido(await contenedorDinamicos.renderizar())
+		const renderBloquesDinamicos = new RenderizadorBloquesDinamicosUI(contenedorDinamicos.renderizar())
+
 
 		// Opciones para el menú de agregar bloques
 		const opcionesBloques = [
@@ -39,7 +39,6 @@ export default class EditorNoticiaUI {
 		const elementoAgregar = await agregarBloque.renderizar()
 
 		// Agregar el contenedor de bloques y el botón de agregar a la sección dinámica
-		seccionDinamicos.agregarContenido(elementosDinamicos)
 		seccionDinamicos.agregarContenido(elementoAgregar)
 
 		// Agregar secciones al editor
