@@ -10,7 +10,7 @@ console.log('\nPaso 1: Estado inicial')
 console.log(editor.obtenerDatos())
 
 console.log('\nPaso 2: Agregar bloques (modelo)')
-editor.agregarBloque('titulo', { texto: 'Hola Mundo' })
+editor.agregarBloque('titulo',)
 editor.agregarBloque('parrafo', { texto: 'Este es un párrafo de prueba' })
 console.log(editor.obtenerDatos())
 
