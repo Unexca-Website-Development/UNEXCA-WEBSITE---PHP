@@ -7,11 +7,11 @@ const CONFIG_BLOQUES = {
 		},
 		ui: {
 			icono: '/imagenes/iconos/icon_h1.svg',
-			placeholder: 'Escribe el título aquí...',
 			inputs: [
 				{
 					tipo: 'textarea',
 					requerido: true,
+					placeholder: 'Escribe el título aquí...',
 					className: 'editor-noticia__campo-texto'
 				}
 			]
@@ -25,11 +25,11 @@ const CONFIG_BLOQUES = {
 		},
 		ui: {
 			icono: '/imagenes/iconos/icon_h2.svg',
-			placeholder: 'Escribe el Subtítulo aquí...',
 			inputs: [
 				{
 					tipo: 'textarea',
 					requerido: true,
+					placeholder: 'Escribe el Subtítulo aquí...',
 					className: 'editor-noticia__campo-texto'
 				}
 			]
@@ -62,11 +62,11 @@ const CONFIG_BLOQUES = {
 		},
 		ui: {
 			icono: '/imagenes/iconos/icon_parrafo.svg',
-			placeholder: 'Escribe el párrafo aquí...',
 			inputs: [
 				{
 					tipo: 'textarea',
 					requerido: true,
+					placeholder: 'Escribe el párrafo aquí...',
 					className: 'editor-noticia__campo-texto'
 				}
 			]
@@ -80,12 +80,12 @@ const CONFIG_BLOQUES = {
 			autor: { valorInicial: '', requerido: true }
 		},
 		ui: {
-			icono: '/imagenes/iconos/icon_cita.svg',
-			placeholder: 'Escribe la cita aquí...',
+			icono: '/imagenes/iconos/icon_cita.svg',	
 			inputs: [
 				{
 					tipo: 'textarea',
 					requerido: true,
+					placeholder: 'Escribe la cita aquí...',
 					className: 'editor-noticia__campo-texto'
 				},
 				{
@@ -105,11 +105,11 @@ const CONFIG_BLOQUES = {
 		},
 		ui: {
 			icono: '/imagenes/iconos/icon_lista.svg',
-			placeholder: 'Agrega elementos de la lista...',
 			inputs: [
 				{
 					tipo: 'textarea',
 					requerido: true,
+					placeholder: 'Agrega elementos de la lista...',
 					className: 'editor-noticia__campo-texto'
 				}
 			]
@@ -133,8 +133,8 @@ const CONFIG_BLOQUES = {
 				},
 				{
 					tipo: 'textarea',
-					placeholder: 'Descripción de la imagenes...',
 					requerido: true,
+					placeholder: 'Descripción de la imagenes...',
 					className: 'editor-noticia__campo-texto'
 				}
 			]
