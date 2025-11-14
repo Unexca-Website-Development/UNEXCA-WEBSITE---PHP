@@ -1,11 +1,13 @@
 import { crearLabelBloque, crearTextareaBloque, crearInputBloque } from '../utilidadesUI.js'
 import ControlBloque from './ControlBloque.js'
+import EditorControlador from '../../controladores/EditorControlador.js'
 
 export default class BloqueBaseUI {
 	constructor(bloqueAdaptado) {
 		this.bloque = bloqueAdaptado
 		this.elemento = null
 		this.control = new ControlBloque()
+		this.controlador = new EditorControlador()
 	}
 
 	async renderizar() {
@@ -15,15 +17,25 @@ export default class BloqueBaseUI {
 		const label = await crearLabelBloque(this.bloque.id, this.bloque.texto, this.bloque.icono)
 		contenedor.appendChild(label)
 
-		for (const input of this.bloque.inputs){
-			if (input.tipo === 'file'){
-				const campo = crearInputBloque(this.bloque.id, input.tipo, input.requerido, input.aceptar)
+		for (const input of this.bloque.inputs) {
+			let campo = null
+
+			if (input.tipo === 'file') {
+				campo = crearInputBloque(this.bloque.id, input.tipo, input.requerido, input.aceptar)
 				contenedor.appendChild(campo)
+				campo.addEventListener('change', () => {
+					this.controlador.actualizarBloque(this.bloque.id, this.obtenerContenido())
+				})
 			}
-			if (input.tipo === 'textarea'){
-				const campo = crearTextareaBloque(this.bloque.id, input.placeholder, input.requerido)
+
+			if (input.tipo === 'textarea') {
+				campo = crearTextareaBloque(this.bloque.id, input.placeholder, input.requerido)
 				contenedor.appendChild(campo)
+				campo.addEventListener('input', () => {
+					this.controlador.actualizarBloque(this.bloque.id, this.obtenerContenido())
+				})
 			}
+			
 		}
 
 		const controlUI = await this.control.renderizar()
@@ -31,5 +43,18 @@ export default class BloqueBaseUI {
 
 		this.elemento = contenedor
 		return contenedor
+	}
+
+	obtenerContenido() {
+		const data = {}
+		const inputs = this.elemento.querySelectorAll('input, textarea')
+		inputs.forEach(input => {
+			if (input.type === 'file') {
+				data.archivo = input.files[0] ? input.files[0].name : ''
+			} else {
+				data.texto = input.value
+			}
+		})
+		return data
 	}
 }
