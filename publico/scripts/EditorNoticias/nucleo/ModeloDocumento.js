@@ -69,4 +69,12 @@ export default class ModeloDocumento {
 			})
 		}
 	}
+
+	moverBloque(id, nuevaPosicion) {
+		const idx = this.bloques.findIndex(b => b.id === id)
+		if (idx === -1) return
+		const [bloque] = this.bloques.splice(idx, 1)
+		const destino = Math.min(Math.max(nuevaPosicion, 0), this.bloques.length)
+		this.bloques.splice(destino, 0, bloque)
+	}
 }

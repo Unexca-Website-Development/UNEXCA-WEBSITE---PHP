@@ -16,7 +16,7 @@ class RenderizadorBloquesEstaticosUI {
 		const bloquesUI = this.controlador.convertirParaUI(this.controlador.modelo.cabecera || [])
 
 		for (const bloqueAdaptado of bloquesUI) {
-			const bloqueUI = new BloqueBaseUI(bloqueAdaptado)
+			const bloqueUI = new BloqueBaseUI(bloqueAdaptado, false)
 			const elemento = await bloqueUI.renderizar()
 			this.contenedor.appendChild(elemento)
 			this.elementos.push(bloqueUI)
@@ -34,24 +34,48 @@ class RenderizadorBloquesDinamicosUI {
 	constructor(contenedor) {
 		this.controlador = new EditorControlador()
 		this.contenedor = contenedor
-		this.elementos = [] 
-		this.bloquesMap = new Map() 
+		this.elementos = []
+		this.bloquesMap = new Map()
 
 		administradorEventos.suscrito('bloquesActualizados', (bloquesUI) => {
-			this.actualizarBloques(bloquesUI)
+			this.sincronizarDOM(bloquesUI)
 		})
 	}
 
-	async actualizarBloques(bloquesUI) {
-		for (const bloqueAdaptado of bloquesUI) {
+	async sincronizarDOM(bloquesUI) {
+		const idsNuevos = bloquesUI.map(b => b.id)
+
+		// 1. Agregar o reordenar bloques existentes
+		for (let i = 0; i < bloquesUI.length; i++) {
+			const bloqueAdaptado = bloquesUI[i]
+			let bloqueUI
+
 			if (!this.bloquesMap.has(bloqueAdaptado.id)) {
-				const bloqueUI = new BloqueBaseUI(bloqueAdaptado)
+				bloqueUI = new BloqueBaseUI(bloqueAdaptado)
 				const elemento = await bloqueUI.renderizar()
-				this.contenedor.appendChild(elemento)
-				this.elementos.push(bloqueUI)
 				this.bloquesMap.set(bloqueAdaptado.id, bloqueUI)
+				this.contenedor.insertBefore(elemento, this.contenedor.children[i] || null)
+			} else {
+				bloqueUI = this.bloquesMap.get(bloqueAdaptado.id)
+				const nodoActual = bloqueUI.elemento
+				if (this.contenedor.children[i] !== nodoActual) {
+					this.contenedor.insertBefore(nodoActual, this.contenedor.children[i] || null)
+				}
 			}
 		}
+
+		// 2. Detectar y eliminar bloques que ya no existen
+		for (const [id, bloqueUI] of this.bloquesMap) {
+			if (!idsNuevos.includes(id)) {
+				if (bloqueUI.elemento.parentNode) {
+					bloqueUI.elemento.parentNode.removeChild(bloqueUI.elemento)
+				}
+				this.bloquesMap.delete(id)
+			}
+		}
+
+		// 3. Reconstruir this.elementos en orden correcto
+		this.elementos = bloquesUI.map(b => this.bloquesMap.get(b.id))
 	}
 
 	obtenerElementos() {
