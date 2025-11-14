@@ -49,7 +49,14 @@ export default class EditorControlador {
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
 
-
+	moverBloqueRelativo(id, desplazamiento) {
+		const idxActual = this.modelo.bloques.findIndex(b => b.id === id)
+		if (idxActual === -1) return
+		let nuevaPos = idxActual + desplazamiento
+		nuevaPos = Math.max(0, Math.min(nuevaPos, this.modelo.bloques.length - 1))
+		this.modelo.moverBloque(id, nuevaPos)
+		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
+	}
 
 	establecerEstado(estado) {
 		this.modelo.establecerEstado(estado)
