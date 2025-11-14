@@ -21,7 +21,7 @@ export default class BloqueBaseUI {
 			let campo = null
 
 			if (input.tipo === 'file') {
-				campo = crearInputBloque(this.bloque.id, input.tipo, input.requerido, input.aceptar)
+				campo = crearInputBloque(this.bloque.id, input.key, input.tipo, input.requerido, input.aceptar)
 				contenedor.appendChild(campo)
 				campo.addEventListener('change', () => {
 					this.controlador.actualizarBloque(this.bloque.id, this.obtenerContenido())
@@ -29,7 +29,7 @@ export default class BloqueBaseUI {
 			}
 
 			if (input.tipo === 'textarea') {
-				campo = crearTextareaBloque(this.bloque.id, input.placeholder, input.requerido)
+				campo = crearTextareaBloque(this.bloque.id, input.key, input.placeholder, input.requerido)
 				contenedor.appendChild(campo)
 				campo.addEventListener('input', () => {
 					this.controlador.actualizarBloque(this.bloque.id, this.obtenerContenido())
@@ -49,10 +49,12 @@ export default class BloqueBaseUI {
 		const data = {}
 		const inputs = this.elemento.querySelectorAll('input, textarea')
 		inputs.forEach(input => {
+			const key = input.getAttribute('data-key')
+			if (!key) return
 			if (input.type === 'file') {
-				data.archivo = input.files[0] ? input.files[0].name : ''
+				data[key] = input.files[0] ? input.files[0].name : ''
 			} else {
-				data.texto = input.value
+				data[key] = input.value
 			}
 		})
 		return data
