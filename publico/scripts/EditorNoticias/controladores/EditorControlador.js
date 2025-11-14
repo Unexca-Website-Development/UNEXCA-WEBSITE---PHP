@@ -37,11 +37,18 @@ export default class EditorControlador {
 	}
 
 	actualizarBloque(id, contenidoUI) {
-		const bloque = this.modelo.bloques.find(b => b.id === id)
+		const bloque = this.modelo.cabecera.find(b => b.id === id)
+		if (bloque) {
+			bloque.asignar(contenidoUI)
+			administradorEventos.notificar('cabeceraActualizada', this.convertirParaUI(this.modelo.cabecera))
+			return
+		}
+		bloque = this.modelo.bloques.find(b => b.id === id)
 		if (!bloque) return
 		bloque.asignar(contenidoUI)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
+
 
 
 	establecerEstado(estado) {
