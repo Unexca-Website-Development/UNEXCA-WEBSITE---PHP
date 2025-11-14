@@ -3,10 +3,11 @@ import ControlBloque from './ControlBloque.js'
 import EditorControlador from '../../controladores/EditorControlador.js'
 
 export default class BloqueBaseUI {
-	constructor(bloqueAdaptado) {
+	constructor(bloqueAdaptado, mostrarControl = true) {
 		this.bloque = bloqueAdaptado
+		this.mostrarControl = mostrarControl
 		this.elemento = null
-		this.control = new ControlBloque()
+		this.control = new ControlBloque(this.bloque.id)
 		this.controlador = new EditorControlador()
 	}
 
@@ -38,8 +39,10 @@ export default class BloqueBaseUI {
 			
 		}
 
-		const controlUI = await this.control.renderizar()
-		contenedor.appendChild(controlUI)
+		if (this.mostrarControl){
+			const controlUI = await this.control.renderizar()
+			contenedor.appendChild(controlUI)
+		}
 
 		this.elemento = contenedor
 		return contenedor
