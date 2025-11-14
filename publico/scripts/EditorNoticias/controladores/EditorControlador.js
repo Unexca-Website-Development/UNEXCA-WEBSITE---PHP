@@ -22,11 +22,10 @@ export default class EditorControlador {
 	}
 
 	agregarBloque(tipo, contenido = {}, indice = null) {
-		const contenidoModelo = new BloqueAdaptadorModelo(contenido, CONFIG_BLOQUES).generarConfigModelo()
-		this.modelo.agregarBloque(tipo, contenidoModelo, indice)
+		this.modelo.agregarBloque(tipo, contenido, indice)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
-
+	
 	eliminarBloque(id) {
 		this.modelo.eliminarBloquePorId(id)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
@@ -40,10 +39,10 @@ export default class EditorControlador {
 	actualizarBloque(id, contenidoUI) {
 		const bloque = this.modelo.bloques.find(b => b.id === id)
 		if (!bloque) return
-		const contenidoModelo = new BloqueAdaptadorModelo(contenidoUI, CONFIG_BLOQUES).generarConfigModelo()
-		bloque.asignar(contenidoModelo)
+		bloque.asignar(contenidoUI)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
+
 
 	establecerEstado(estado) {
 		this.modelo.establecerEstado(estado)

@@ -11,8 +11,7 @@ export default class BloqueAdaptadorUI {
 			texto: this.bloque.texto,
 			icono: this.uiConfig.icono || '',
 			inputs: this.uiConfig.inputs || [],
-			requerido: this.bloque.requerido || false,
-			contenido: { ...this.bloque.campos }
+			contenido: { ...this.bloque.contenido }
 		}
 	}
 }
