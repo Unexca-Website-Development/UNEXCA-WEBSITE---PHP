@@ -21,7 +21,7 @@ export default class ControlBloque {
 				tipo: 'button'
 			})
 			btnSubir.addEventListener('click', () => {
-				this.controlador.moverBloque(this.idBloque, -1)
+				this.controlador.moverBloqueRelativo(this.idBloque, -1)
 			})
 			contenedor.appendChild(btnSubir)
 		}
@@ -33,7 +33,7 @@ export default class ControlBloque {
 				tipo: 'button'
 			})
 			btnBajar.addEventListener('click', () => {
-				this.controlador.moverBloque(this.idBloque, 1)
+				this.controlador.moverBloqueRelativo(this.idBloque, 1)
 			})
 			contenedor.appendChild(btnBajar)
 		}
