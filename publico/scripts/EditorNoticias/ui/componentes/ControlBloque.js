@@ -1,11 +1,14 @@
 import { crearBoton } from '../utilidadesUI.js'
+import EditorControlador from '../../controladores/EditorControlador.js'
 
 export default class ControlBloque {
-	constructor({ mostrarSubir = true, mostrarBajar = true, mostrarBorrar = true } = {}) {
+	constructor(idBloque, { mostrarSubir = true, mostrarBajar = true, mostrarBorrar = true } = {}) {
+		this.idBloque = idBloque
 		this.mostrarSubir = mostrarSubir
 		this.mostrarBajar = mostrarBajar
 		this.mostrarBorrar = mostrarBorrar
 		this.elemento = null
+		this.controlador = new EditorControlador()
 	}
 
 	async renderizar() {
@@ -17,6 +20,9 @@ export default class ControlBloque {
 				clase: 'editor-noticia__boton-control -subir',
 				tipo: 'button'
 			})
+			btnSubir.addEventListener('click', () => {
+				this.controlador.moverBloque(this.idBloque, -1)
+			})
 			contenedor.appendChild(btnSubir)
 		}
 
@@ -26,6 +32,9 @@ export default class ControlBloque {
 				clase: 'editor-noticia__boton-control -bajar',
 				tipo: 'button'
 			})
+			btnBajar.addEventListener('click', () => {
+				this.controlador.moverBloque(this.idBloque, 1)
+			})
 			contenedor.appendChild(btnBajar)
 		}
 
@@ -34,6 +43,9 @@ export default class ControlBloque {
 				rutaIcono: '/imagenes/iconos/icon_borrar.svg',
 				clase: 'editor-noticia__boton-control -borrar',
 				tipo: 'button'
+			})
+			btnBorrar.addEventListener('click', () => {
+				this.controlador.eliminarBloque(this.idBloque)
 			})
 			contenedor.appendChild(btnBorrar)
 		}
