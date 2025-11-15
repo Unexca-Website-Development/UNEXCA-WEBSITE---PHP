@@ -31,6 +31,29 @@ export default class EditorControlador {
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
 	}
 
+	nuevoDocumento() {
+		this.modelo.nuevoDocumento()
+		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
+		administradorEventos.notificar('cabeceraActualizada', this.convertirParaUI(this.modelo.cabecera))
+		administradorEventos.notificar('estadoActualizado', this.modelo.estado)
+	}
+
+	guardarNoticia() {
+		const datos = this.obtenerDatos()
+		const payload = JSON.stringify(datos)
+		console.log(payload)
+
+		// fetch('/api/noticias/guardar.php', {
+		// 		method: 'POST',
+		// 		headers: { 'Content-Type': 'application/json' },
+		// 		body: payload
+		// })
+		// .then(r => r.json())
+		// .then(resp => {
+		// 		console.log(resp)
+		// })
+	}
+
 	moverBloque(id, nuevaPosicion) {
 		this.modelo.moverBloque(id, nuevaPosicion)
 		administradorEventos.notificar('bloquesActualizados', this.convertirParaUI(this.modelo.bloques))
