@@ -38,6 +38,17 @@ export default class ModeloDocumento {
 		this.estado = nuevoEstado
 	}
 
+	nuevoDocumento() {
+		this.estado = 'borrador'
+		this.cabecera = [
+			new BloqueBase('titulo'),
+			new BloqueBase('fechas'),
+			new BloqueBase('parrafo'),
+			new BloqueBase('imagen')
+		]
+		this.bloques = []
+	}
+
 	obtenerDatos() {
 		return {
 			estado: this.estado,
