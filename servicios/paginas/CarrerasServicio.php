@@ -3,15 +3,37 @@ namespace Servicios\Paginas;
 
 require_once colocar_ruta_sistema('@modelo/paginas/CarrerasModelo.php');
 
+/**
+ * Servicio para la página de Carreras.
+ *
+ * Proporciona métodos para obtener y organizar los datos completos de una carrera
+ * desde el modelo, estructurados para su presentación en la vista.
+ */
 class CarrerasServicio
 {
+    /**
+     * @var \Modelo\Paginas\CarrerasModelo Instancia del modelo de Carreras.
+     */
     private $modelo_carreras;
 
+    /**
+     * Constructor.
+     *
+     * Inicializa el modelo de Carreras.
+     */
     public function __construct()
     {
         $this->modelo_carreras = new \Modelo\Paginas\CarrerasModelo();
     }
 
+    /**
+     * Obtiene los datos completos de una carrera según su slug.
+     *
+     * @param string $slug Identificador único de la carrera.
+     * @return array|null Retorna un array con la información de la carrera
+     *                    incluyendo parrafos, turnos, niveles y nucleos,
+     *                    o null si no se encuentra la carrera.
+     */
     public function obtenerDatosCarrera($slug)
     {
         $datos_carrera = $this->modelo_carreras->obtenerCarreraCompletaPorSlug($slug);

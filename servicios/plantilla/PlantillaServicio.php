@@ -1,17 +1,41 @@
 <?php
+
 namespace Servicios\Plantilla;
 
 require_once colocar_ruta_sistema('@modelo/plantilla/PlantillaModelo.php');
 
+/**
+ * Servicio de plantilla.
+ *
+ * Proporciona métodos para obtener y procesar datos de menús desde el modelo
+ * de plantilla, preparando la estructura de enlaces para la vista.
+ */
 class PlantillaServicio
 {
+    /**
+     * @var \Modelo\Plantilla\PlantillaModelo Instancia del modelo de plantilla.
+     */
     private $modelo;
 
+    /**
+     * Constructor.
+     *
+     * Inicializa el modelo de plantilla.
+     */
     public function __construct()
     {
         $this->modelo = new \Modelo\Plantilla\PlantillaModelo();
     }
 
+    /**
+     * Obtiene los datos de un menú por su nombre.
+     *
+     * Procesa enlaces estáticos y dinámicos y los organiza en un array
+     * listo para ser usado en la vista de navegación.
+     *
+     * @param string $nombre Nombre del menú a obtener.
+     * @return array Estructura del menú con enlaces y submenús.
+     */
     public function obtenerDatosMenu($nombre)
     {
         $menu = $this->modelo->obtenerMenuPorNombre($nombre);
@@ -20,7 +44,6 @@ class PlantillaServicio
         $enlaces = $this->modelo->obtenerEnlacesJerarquicos($menu['id']);
         $resultado = [];
 
-        // Enlaces estáticos
         foreach ($enlaces['estaticos'] as $fila) {
             $id = 'e_' . $fila['padre_id'];
             if (!isset($resultado[$id])) {
@@ -36,7 +59,6 @@ class PlantillaServicio
             }
         }
 
-        // Enlaces dinámicos
         foreach ($enlaces['dinamicos'] as $fila) {
             $id = 'd_' . $fila['id'];
             $padre_id = $fila['padre_id'] ? 'e_' . $fila['padre_id'] : null;
@@ -56,7 +78,6 @@ class PlantillaServicio
             }
         }
 
-        // Reindexar por título
         $final = [];
         foreach ($resultado as $item) {
             $final[$item['titulo']] = [

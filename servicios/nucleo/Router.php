@@ -1,17 +1,34 @@
 <?php
-
 namespace Servicios\Nucleo;
 
 use Servicios\Nucleo\ControladorErroresHTTP;
 
+/**
+ * Clase Router
+ *
+ * Gestiona el enrutamiento de solicitudes HTTP en la aplicación.
+ * 
+ * - Determina la página solicitada a partir de $_GET['ruta'].
+ * - Verifica la lista blanca de páginas permitidas.
+ * - Resuelve las rutas de controlador y vista correspondientes.
+ * - Redirige a la plantilla principal y carga los controladores.
+ * - Maneja errores 404 si la página no existe o no está permitida.
+ */
 class Router {
 
+    /**
+     * Enruta la solicitud HTTP actual.
+     *
+     * Obtiene la ruta desde la URL, valida contra la lista blanca de páginas,
+     * carga el controlador correspondiente y la vista dentro de la plantilla.
+     *
+     * @return void No retorna; incluye archivos y termina la ejecución.
+     */
     public static function enrutar() {
         $ruta = $_GET['ruta'] ?? '';
         $ruta = trim($ruta, '/');
         $segmentos = explode('/', $ruta);
 
-        // Lista blanca de páginas permitidas
         $paginas_permitidas = obtener_paginas_permitidas();
 
         $slugPagina = !empty($segmentos[0]) ? strtolower($segmentos[0]) : 'inicio';
@@ -22,11 +39,9 @@ class Router {
             exit;
         }
 
-        // Resolver vista desde la lista blanca (permite mapeo guiones -> archivo snake_case)
         $archivoVista = $paginas_permitidas[$slugPagina];
         $vista_plantilla = colocar_ruta_sistema("@paginas/{$archivoVista}");
 
-        // Resolver controlador en múltiples formatos
         $baseSnake = convertir_slug_a_snake($slugPagina);
         $baseCamel = convertir_snake_a_camel($baseSnake);
 
@@ -34,7 +49,6 @@ class Router {
         $ctrlCamel = colocar_ruta_sistema("@controlador/{$baseCamel}Controlador.php");
         $ctrlPlantilla = colocar_ruta_sistema("@controlador/plantillaControlador.php");
 
-        // Parámetro adicional accesible para el controlador
         $_GET['nombre'] = $slug;
 
         if (file_exists($ctrlPlantilla)) {
