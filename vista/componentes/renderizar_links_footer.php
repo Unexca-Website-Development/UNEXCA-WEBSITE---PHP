@@ -1,4 +1,33 @@
-<?php 
+<?php
+
+/**
+ * Renderiza las columnas de enlaces del footer.
+ *
+ * Estructura esperada del arreglo:
+ * $data_array = [
+ *     'Título columna' => [
+ *         'submenu' => [
+ *             'Texto del enlace' => 'url',
+ *             ...
+ *         ]
+ *     ],
+ *     ...
+ * ];
+ *
+ * Comportamiento:
+ *  - Imprime un contenedor con múltiples columnas.
+ *  - Cada columna tiene un título y una lista de enlaces.
+ *  - Aplica htmlspecialchars a títulos, textos de enlaces y URLs.
+ *  - No realiza validación profunda porque el servicio debe entregar la
+ *    estructura ya depurada.
+ *
+ * Parámetros:
+ * @param array $data_array Arreglo generado por el servicio del footer.
+ *
+ * Retorna:
+ * @return void
+ */
+
 function renderizar_links_footer($data_array) {
     ?>
     <div class="footer__links">

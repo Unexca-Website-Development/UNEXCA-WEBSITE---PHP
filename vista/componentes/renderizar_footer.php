@@ -1,4 +1,18 @@
 <?php
+/**
+ * Renderiza el footer del sitio utilizando datos dinámicos para los enlaces del menú,
+ * mientras que el resto del contenido es estático (textos institucionales, decoración y redes sociales).
+ *
+ * @param array $data_array Arreglo que contiene los enlaces a renderizar en la sección principal del footer.
+ *                          Este arreglo es consumido por la función `renderizar_links_footer()`.
+ *
+ * @return void
+ *
+ * Uso:
+ *  - El controlador prepara los enlaces del menú y los pasa como $data_array.
+ *  - Las redes sociales, el año, la decoración y demás contenido son estáticos por diseño
+ *    y no dependen de la base de datos ni de servicios.
+ */
 function renderizar_footer(array $data_array = []){
     ?>
         <footer class="footer">

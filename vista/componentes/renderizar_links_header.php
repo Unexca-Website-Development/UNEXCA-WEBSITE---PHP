@@ -1,4 +1,31 @@
 <?php
+/**
+ * renderizar_links_header
+ *
+ * Genera la lista de links del header de la web, soportando submenús.
+ *
+ * Cada link puede ser:
+ *  - Un enlace simple (<a>).
+ *  - Un botón con submenú (<button> + <ul>) si el link tiene 'submenu'.
+ *
+ * Estructura esperada de $data_array:
+ * [
+ *     'Nombre del link' => [
+ *         'url' => '...',           // URL del enlace principal
+ *         'submenu' => [             // Opcional, arreglo de subenlaces
+ *             'Texto del sublink' => 'url',
+ *             ...
+ *         ]
+ *     ],
+ *     ...
+ * ]
+ *
+ * Parámetros:
+ * @param array $data_array Arreglo asociativo de links y submenús.
+ *
+ * Retorna:
+ * Imprime directamente el HTML del menú del header.
+ */
 function renderizar_links_header($data_array) {
     ?>
     <nav class="header__nav">

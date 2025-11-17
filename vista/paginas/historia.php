@@ -1,3 +1,21 @@
+<?php
+/**
+ * historia.php
+ *
+ * Página de Historia de la Universidad Nacional Experimental de la Gran Caracas (UNEXCA).
+ *
+ * Propósito:
+ * Presentar el contexto histórico, creación, fusión de los colegios universitarios y desarrollo institucional.
+ *
+ * Variables esperadas del controlador:
+ * Ninguna específica; contenido estático con información histórica y multimedia.
+ *
+ * Componentes utilizados:
+ * - Estructuras HTML de secciones y párrafos.
+ * - Imágenes con texto descriptivo (figcaption).
+ */
+?>
+
 <main class="main__general">
     <section class="seccion">
         <h2 class="titulos">Historia</h2>
@@ -9,7 +27,7 @@
             La creación de la Unexca se oficializó el 27 de febrero de 2018, según Decreto Nº 3.293 publicado en la Gaceta Oficial Nro. 41.349. Asume la gestión de los Programas Nacionales de Formación (PNF), carreras y Programas Nacionales de Formación Avanzada autorizados (PNFA) a los distintos Colegios Universitarios, que tras la fusión pasaon a conformar los núcleos de la Universidad.
         </p>
         <div class="imagen__contenedor">
-            <img src="<?= colocar_ruta_html('@imagenes/historia/floresta-vieja.jpg'); ?>" alt="" class="imagen__img">
+            <img src="<?= colocar_ruta_html('@imagenes/historia/floresta-vieja.jpg'); ?>" alt="Antiguo Colegio Universitario de Caracas" class="imagen__img">
             <figcaption class="imagen__texto">Antiguo Colegio Universitario de Caracas, Av. Principal de La Floresta.</figcaption>
         </div>
         <p class="parrafo">
