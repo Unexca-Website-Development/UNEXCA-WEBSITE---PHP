@@ -1,4 +1,29 @@
 <?php
+/**
+ * renderizar_carreras
+ *
+ * Renderiza una lista de carreras académicas en formato de tarjetas.
+ *
+ * Cada tarjeta incluye:
+ *  - Imagen de la carrera.
+ *  - Título de la carrera.
+ *  - Descripción breve.
+ *  - Enlace de "Más Información" con icono.
+ *
+ * Estructura esperada de $data_array:
+ * [
+ *     [
+ *         'img' => string,        // URL relativa de la imagen de la carrera
+ *         'titulo' => string,     // Título de la carrera
+ *         'descripcion' => string,// Descripción breve de la carrera
+ *         'links' => string,      // URL del enlace de "Más Información"
+ *     ],
+ *     ...
+ * ]
+ *
+ * @param array $data_array Arreglo de carreras a renderizar.
+ * @return void Este componente imprime directamente el HTML.
+ */
 function renderizar_carreras($data_array) {
     foreach ($data_array as $carrera) {
         ?>

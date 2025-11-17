@@ -1,3 +1,21 @@
+<?php
+/**
+ * mision_vision_valores.php
+ *
+ * Página institucional que presenta la misión, visión y valores de la Universidad Nacional Experimental de la Gran Caracas (UNEXCA).
+ *
+ * Propósito:
+ * Informar a la comunidad universitaria y al público en general sobre la filosofía institucional y los principios que guían la universidad.
+ *
+ * Variables esperadas del controlador:
+ * Ninguna. Todo el contenido es estático.
+ *
+ * Componentes utilizados:
+ * - Estructura de secciones con títulos y párrafos.
+ * - Lista de valores institucionales.
+ */
+?>
+
 <main class="main__general">
     <section class="seccion">
         <h2 class="titulos">Misión</h2>

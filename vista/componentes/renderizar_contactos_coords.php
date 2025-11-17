@@ -1,4 +1,37 @@
 <?php
+
+/**
+ * renderizar_contactos_coords
+ *
+ * Renderiza la lista de contactos de coordinadores académicos agrupados por carrera (PNF).
+ *
+ * Cada bloque muestra:
+ *  - Nombre del PNF.
+ *  - Lista de coordinadores con nombre completo, teléfono, correo, oficina y horario.
+ *
+ * Estructura esperada de $data_array:
+ * [
+ *     'Nombre del PNF' => [
+ *         [
+ *             'titulo_academico' => string,   // Ej: "Ing.", "Lcdo.", "MSc.", (opcional)
+ *             'nombre' => string,             // Nombre completo del coordinador
+ *             'telefono' => string,           // Número de teléfono
+ *             'email' => string,              // Correo electrónico
+ *             'oficina' => string,            // Oficina asignada
+ *             'horario_atencion' => string,   // Horario de atención
+ *         ],
+ *         ...
+ *     ],
+ *     ...
+ * ]
+ *
+ * Regla especial:
+ * - Si un coordinador no tiene nombre + título académico válido, se omite del renderizado.
+ *
+ * @param array $data_array Arreglo de coordinadores agrupados por carrera.
+ * @return void Este componente imprime directamente el HTML.
+ */
+
 function renderizar_contactos_coords($data_array) {
     $campos = [
         'telefono'         => 'Teléfono',

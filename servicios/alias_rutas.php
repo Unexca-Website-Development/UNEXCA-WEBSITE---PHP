@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Archivo de configuración de rutas del proyecto.
+ *
+ * Define rutas absolutas del sistema y rutas relativas para uso en HTML.
+ * 
+ * - 'sistema': rutas del servidor para incluir archivos PHP mediante colocar_ruta_sistema().
+ * - 'html': rutas relativas para uso en elementos HTML (src, href, etc.) mediante colocar_ruta_html().
+ *
+ * No contiene lógica adicional, solo retorna un array asociativo con las rutas.
+ */
 return [
     'sistema' => [
         '@componentes' => dirname(__DIR__) . '/vista/componentes',
@@ -15,18 +24,8 @@ return [
         '@logs'        => dirname(__DIR__) . '/logs'
     ],
     'html' => [
-        // '@componentes' => '/vista/componentes',
-        // '@controlador' => '/controlador',
         '@estilos'     => '/estilos',
         '@imagenes'    => '/imagenes',
-        // '@modelo'      => '/modelo',
-        // '@paginas'     => '/vista/paginas',
-        // '@plantilla'   => '/vista/plantilla',
         '@scripts'     => '/scripts',
-        // '@vista'       => '/vista',
-        // '@servicios'   => '/servicios' 
     ]
 ];
-
-
-

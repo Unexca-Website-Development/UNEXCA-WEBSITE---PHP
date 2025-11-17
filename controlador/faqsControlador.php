@@ -1,4 +1,10 @@
 <?php
+/**
+ * Controlador de la página de Preguntas Frecuentes (FAQs).
+ *
+ * Este archivo instancia el servicio de FAQs para obtener los datos
+ * y prepara la información necesaria para el <head> de la vista.
+ */
 require_once colocar_ruta_sistema('@servicios/paginas/FaqsServicio.php');
 
 $servicio = new \Servicios\Paginas\FaqsServicio();

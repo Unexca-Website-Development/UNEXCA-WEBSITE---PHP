@@ -1,4 +1,32 @@
 <?php
+/**
+ * renderizar_contactos_admin
+ *
+ * Renderiza la lista de contactos administrativos agrupados por núcleo.
+ *
+ * Cada bloque muestra:
+ *  - Nombre del núcleo.
+ *  - Lista de contactos con cargo, nombre, teléfono, correo y oficina.
+ *
+ * Estructura esperada de $data_array:
+ * [
+ *     'Nombre del Núcleo' => [
+ *         [
+ *             'id' => int,             // ID del contacto (opcional)
+ *             'nombre' => string,      // Nombre completo del contacto
+ *             'cargo' => string,       // Cargo del contacto
+ *             'telefono' => string,    // Número de teléfono
+ *             'email' => string,       // Correo electrónico
+ *             'oficina' => string,     // Ubicación de la oficina
+ *         ],
+ *         ...
+ *     ],
+ *     ...
+ * ]
+ *
+ * @param array $data_array Arreglo de contactos administrativos agrupados por núcleo.
+ * @return void Este componente imprime directamente el HTML.
+ */
 function renderizar_contactos_admin($data_array) {
     $campos = [
         'telefono' => 'Teléfono',

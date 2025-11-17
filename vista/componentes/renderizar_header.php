@@ -1,4 +1,33 @@
 <?php
+
+/**
+ * Renderiza el encabezado principal del sitio, incluyendo:
+ *  - Botón de apertura del menú móvil.
+ *  - Logotipo con enlace a la página de inicio.
+ *  - Menú de navegación obtenido desde la base de datos.
+ *  - Overlay para manejo visual del menú en pantallas pequeñas.
+ *  - Decoración SVG inferior del header.
+ *
+ * Parámetros:
+ * @param array $data_array Arreglo de navegación enviado por el controlador.
+ *   Este arreglo es consumido por renderizar_links_header(), que debe recibir
+ *   una estructura ya validada por la capa de servicio.
+ *
+ * Comportamiento:
+ *  - No aplica validaciones de negocio; solo imprime HTML.
+ *  - Sanitiza el enlace del logo mediante colocar_enlace(), que depende
+ *    del sistema de rutas del proyecto.
+ *  - El menú se representa a través del componente renderizar_links_header().
+ *
+ * Retorna:
+ * @return void
+ *
+ * Uso:
+ *  - Debe ser llamado desde la vista principal (layout) antes del contenido.
+ *  - Requiere que el controlador haya obtenido previamente los enlaces del menú
+ *    mediante el servicio correspondiente.
+ */
+
 function renderizar_header(array $data_array = []){
     ?>
         <header class="header">

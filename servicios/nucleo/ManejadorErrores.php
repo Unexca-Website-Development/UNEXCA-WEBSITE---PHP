@@ -1,15 +1,39 @@
 <?php
-
 namespace Servicios\Nucleo;
 
+/**
+ * Clase ManejadorErrores
+ *
+ * Gestiona la captura y registro de errores, excepciones y errores fatales.
+ * 
+ * Funciones principales:
+ * - Registrar manejadores globales para errores, excepciones y apagado de PHP.
+ * - Clasificar los tipos de error (ERROR, ADVERTENCIA, AVISO, DESCONOCIDO).
+ * - Registrar los errores usando Logger.
+ * - Mostrar una página de error 500 en producción o detalle en desarrollo.
+ */
 class ManejadorErrores {
 
+    /**
+     * Registra los manejadores personalizados para errores, excepciones y apagado.
+     *
+     * @return void
+     */
     public static function registrarManejadores() {
         set_error_handler([self::class, 'manejarError']);
         set_exception_handler([self::class, 'manejarExcepcion']);
         register_shutdown_function([self::class, 'manejarApagado']);
     }
 
+    /**
+     * Maneja errores tradicionales de PHP.
+     *
+     * @param int $numeroError Número de error de PHP.
+     * @param string $mensaje Mensaje de error.
+     * @param string $archivo Archivo donde ocurrió el error.
+     * @param int $linea Línea del error.
+     * @return bool Siempre retorna true para indicar que el error fue manejado.
+     */
     public static function manejarError($numeroError, $mensaje, $archivo, $linea) {
         $tipo = self::tipoError($numeroError);
         Logger::registrar($tipo, $mensaje, $archivo, $linea);
@@ -21,12 +45,23 @@ class ManejadorErrores {
         return true;
     }
 
+    /**
+     * Maneja excepciones no capturadas.
+     *
+     * @param \Throwable $excepcion La excepción no capturada.
+     * @return void
+     */
     public static function manejarExcepcion($excepcion) {
         Logger::registrar('EXCEPCION', $excepcion->getMessage(), $excepcion->getFile(), $excepcion->getLine());
         self::mostrarError500($excepcion);
         exit;
     }
 
+    /**
+     * Maneja el apagado de PHP y captura errores fatales que ocurrieron antes del shutdown.
+     *
+     * @return void
+     */
     public static function manejarApagado() {
         $error = error_get_last();
         if ($error && self::esErrorFatal($error['type'])) {
@@ -35,6 +70,12 @@ class ManejadorErrores {
         }
     }
 
+    /**
+     * Devuelve la descripción textual del tipo de error de PHP.
+     *
+     * @param int $numeroError Número de error de PHP.
+     * @return string Tipo de error.
+     */
     private static function tipoError($numeroError) {
         switch ($numeroError) {
             case E_ERROR:
@@ -55,11 +96,22 @@ class ManejadorErrores {
         }
     }
 
+    /**
+     * Determina si un número de error corresponde a un error fatal.
+     *
+     * @param int $numeroError
+     * @return bool
+     */
     private static function esErrorFatal($numeroError) {
         return in_array($numeroError, [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE]);
     }
 
-    // Nueva versión: acepta una excepción opcional
+    /**
+     * Muestra la página de error 500.
+     *
+     * @param \Throwable|null $excepcion Excepción opcional para mostrar detalles en desarrollo.
+     * @return void
+     */
     private static function mostrarError500($excepcion = null) {
         $app_env = isset($_ENV['APP_ENV']) ? $_ENV['APP_ENV'] : 'desarrollo';
         if ($app_env === 'produccion') {

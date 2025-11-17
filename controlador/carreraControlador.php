@@ -1,4 +1,11 @@
 <?php
+/**
+ * Controlador de la página de Carrera.
+ *
+ * Este archivo valida y normaliza el parámetro 'nombre' recibido por GET,
+ * obtiene los datos completos de la carrera mediante el servicio correspondiente,
+ * y prepara la información para el <head> de la vista.
+ */
 require_once colocar_ruta_sistema('@servicios/paginas/CarrerasServicio.php');
 
 $slug = $_GET['nombre'] ?? null;

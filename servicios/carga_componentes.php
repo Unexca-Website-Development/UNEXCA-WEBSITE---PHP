@@ -1,7 +1,12 @@
 <?php
-// Carga centralizada de funciones y componentes reutilizables
-// Aquí se incluyen todos los archivos con funciones auxiliares y componentes PHP
-// que estarán disponibles en todo el proyecto al incluir este archivo.
+/**
+ * Archivo de carga centralizada de componentes reutilizables.
+ *
+ * Este archivo incluye todos los componentes PHP que estarán disponibles
+ * en todo el proyecto al ser incluido.
+ * 
+ * No contiene funciones ni clases propias, solo realiza inclusiones mediante require_once.
+ */
 require_once colocar_ruta_sistema('@componentes/renderizar_links_header.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_links_footer.php');
 require_once colocar_ruta_sistema('@componentes/renderizar_boton.php');

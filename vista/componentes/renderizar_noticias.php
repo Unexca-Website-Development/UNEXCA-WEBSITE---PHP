@@ -1,4 +1,28 @@
-<?php 
+<?php
+
+/**
+ * renderizar_noticias
+ *
+ * Renderiza hasta 4 noticias en formato de tarjetas.
+ *
+ * Cada tarjeta incluye:
+ *  - Imagen de la noticia con enlace.
+ *  - Título de la noticia con enlace.
+ *
+ * Estructura esperada de $data_array:
+ * [
+ *     [
+ *         'img' => string,       // Ruta relativa de la imagen de la noticia
+ *         'title' => string,     // Título de la noticia
+ *         'link' => string,      // URL a la noticia completa o recurso relacionado
+ *     ],
+ *     ...
+ * ]
+ *
+ * @param array $data_array Arreglo de noticias a renderizar.
+ * @return void Este componente imprime directamente el HTML.
+ */
+
 function renderizar_noticias($data_array){
     $contador = 0;
     foreach ($data_array as $noticia) {

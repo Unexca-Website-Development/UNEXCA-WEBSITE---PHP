@@ -1,4 +1,13 @@
 <?php
+/**
+ * Función para cargar variables de entorno desde un archivo tipo .env
+ *
+ * @param string $ruta Ruta del archivo de entorno.
+ * 
+ * Lee cada línea del archivo, ignora comentarios y líneas vacías,
+ * y asigna las variables al arreglo global $_ENV y al entorno de PHP con putenv().
+ * No sobrescribe variables ya definidas en $_ENV.
+ */
 function cargar_env($ruta) {
     if (!file_exists($ruta)) return;
 

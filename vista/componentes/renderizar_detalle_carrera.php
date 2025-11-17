@@ -1,4 +1,48 @@
 <?php
+/**
+ * renderizar_detalle_carrera
+ *
+ * Renderiza la información detallada de una carrera académica, incluyendo descripción,
+ * turnos, núcleos donde se imparte, niveles, duración y el enlace para descargar
+ * la malla curricular.
+ *
+ * Estructura esperada de $data_array:
+ * [
+ *     'titulo' => string,                 // Nombre de la carrera
+ *
+ *     'parrafos' => [                     // Descripción de la carrera en párrafos
+ *         [ 'contenido' => string ],
+ *         ...
+ *     ],
+ *
+ *     'turnos' => [                       // Lista de turnos disponibles
+ *         string, string, ...
+ *     ],
+ *
+ *     'nucleos' => [                      // Núcleos donde se imparte la carrera
+ *         [ 'nombre' => string ],
+ *         ...
+ *     ],
+ *
+ *     'niveles' => [                      // Niveles académicos y su duración
+ *         [
+ *             'nivel'    => string,       // Ej: "TSU", "Ingeniería"
+ *             'duracion' => string,       // Ej: "2 años"
+ *             'diploma'  => string        // Nombre del diploma asociado
+ *         ],
+ *         ...
+ *     ],
+ *
+ *     'link_malla_curricular' => string   // URL para descargar la malla curricular
+ * ]
+ *
+ * Reglas especiales:
+ * - Cualquier sección vacía simplemente no se renderiza.
+ * - Los datos se imprimen directamente como HTML y se escapan para evitar inyección XSS.
+ *
+ * @param array $data_array Datos completos de la carrera.
+ * @return void Este componente imprime directamente el HTML.
+ */
 function renderizar_detalle_carrera($data_array) {
     ?>
         <section class="detalle-carrera__seccion">

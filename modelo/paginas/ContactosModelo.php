@@ -3,8 +3,27 @@ namespace Modelo\Paginas;
 
 require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
 
+/**
+ * Clase ContactosModelo
+ *
+ * Representa las tablas de contactos:
+ * - contactos_coordinadores_pnf
+ * - contactos_directivos
+ *
+ * Proporciona métodos para obtener información detallada de coordinadores y directivos.
+ *
+ * @package Modelo\Paginas
+ */
 class ContactosModelo extends \Modelo\BaseModelo
 {
+    /**
+     * Obtiene todos los contactos de coordinadores PNF
+     *
+     * Incluye información de la carrera asociada.
+     *
+     * @return array Lista de coordinadores
+     * @throws \Exception Si falla la consulta
+     */
     public function obtenerContactosCoordinadores()
     {
         $query = "
@@ -25,6 +44,14 @@ class ContactosModelo extends \Modelo\BaseModelo
         return $this->ejecutarConsultaPersonalizada($query);
     }
 
+    /**
+     * Obtiene todos los contactos de directivos
+     *
+     * Incluye información del núcleo asociado.
+     *
+     * @return array Lista de directivos
+     * @throws \Exception Si falla la consulta
+     */
     public function obtenerContactosDirectivos()
     {
         $query = "

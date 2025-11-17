@@ -1,3 +1,22 @@
+<?php
+/**
+ * inicio.php
+ *
+ * Página de inicio de la Universidad Nacional Experimental de la Gran Caracas (UNEXCA).
+ *
+ * Propósito:
+ * Presentar el banner principal, historia resumida de la universidad y los programas académicos disponibles.
+ *
+ * Variables esperadas del controlador:
+ * @var array $data_carrera Arreglo con la información de las carreras académicas para renderizar.
+ *
+ * Componentes utilizados:
+ * - Banner principal con imagen y botón de navegación.
+ * - Sección de historia con contenido resumido y botón para ver más.
+ * - Sección de carreras académicas que llama a renderizar_carreras().
+ * - Scripts: slider.js para navegación de carrusel de carreras.
+ */
+?>
 <section class="banner">
     <h1 class="banner__titulo">UNEXCA</h1>
     <div class="banner__boton-contenedor">
