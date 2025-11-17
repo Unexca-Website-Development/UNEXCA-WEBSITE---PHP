@@ -1,82 +1,96 @@
-.detalle-carrera__seccion{
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    margin: 0 auto;
+/* ------------------------------------ */
+/* Sección Detalle de Carrera           */
+/* ------------------------------------ */
+.detalle-carrera__seccion {
+	display: flex;
+	flex-direction: column;
+	height: auto;
+	margin: 0 auto;
 }
 
+/* Contenedor principal de la sección */
 .detalle-carrera__contenedor {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
+/* Descripción de la carrera */
 .detalle-carrera__descripcion {
-    flex: 1 1 0;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-right: 2rem;
+	flex: 1 1 0;
+	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding-right: 2rem;
 }
 
-.detalle-carrera__parrafo{
-    padding-bottom: 2rem;
-    font-size: 1.5rem;
-    line-height: 3rem;
+/* Párrafo dentro de la descripción */
+.detalle-carrera__parrafo {
+	padding-bottom: 2rem;
+	font-size: 1.5rem;
+	line-height: 3rem;
 }
 
+/* Lista de elementos de la carrera */
 .detalle-carrera__lista {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+	flex: 0 0 auto;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
 }
 
-.detalle-carrera__icono{
-    flex: 0 0 20%;
-    aspect-ratio: 1/1;
+/* Iconos de la lista */
+.detalle-carrera__icono {
+	flex: 0 0 20%;
+	aspect-ratio: 1/1;
 }
 
 .detalle-carrera__icono > svg {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
-.detalle-carrera__item{
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    margin: 1rem 0;
+/* Item de la lista */
+.detalle-carrera__item {
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	margin: 1rem 0;
 }
 
-.detalle-carrera__sublista{
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    flex-direction: column;
-    width: max-content;
-    padding: 0 1rem;
+/* Sublista dentro del item */
+.detalle-carrera__sublista {
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	flex-direction: column;
+	width: max-content;
+	padding: 0 1rem;
 }
 
-.detalle-carrera__item a{
-    padding: 0 1rem;
-    color: var(--azul);
-    text-decoration: underline;
+/* Enlaces dentro de los items */
+.detalle-carrera__item a {
+	padding: 0 1rem;
+	color: var(--azul);
+	text-decoration: underline;
 }
 
+/* ------------------------------------ */
+/* Responsive                            */
+/* ------------------------------------ */
 @media (max-width: 1080px) {
-    .detalle-carrera__lista{
-        width: 100%;
-        flex-direction: row;
-    }
+	.detalle-carrera__lista {
+		width: 100%;
+		flex-direction: row;
+	}
 
-    .detalle-carrera__descripcion{
-        padding: 0;
-        flex: none;
-    }
+	.detalle-carrera__descripcion {
+		padding: 0;
+		flex: none;
+	}
 
-    .detalle-carrera__item{
-    border-bottom: 0;
-    width: 50%;
-    }
+	.detalle-carrera__item {
+		border-bottom: 0;
+		width: 50%;
+	}
 }

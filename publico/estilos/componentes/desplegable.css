@@ -1,76 +1,88 @@
+/* Item del desplegable */
 .desplegable__item {
-    border-top: 1px solid var(--azul);
-    overflow: hidden;
-}
-
-.desplegable__titulo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    color: var(--negro);
-    padding: 1rem 1.2rem;
-    font-size: 1.5rem;
-    background-color: var(--blanco);
-    transition: all 0.3s ease;
-    width: 100%;
-    text-align: left;
-}
-
-.desplegable__titulo > svg {
-    max-width: 2rem;
-    width: 100%;
-    height: auto;
-    transform: rotate(-180deg);
-    transition: all 0.3s ease;
-}
-
-.desplegable__titulo > svg > path {
-    fill: var(--azul)
-}
-
-.desplegable__titulo:hover > svg > path {
-    fill: var(--blanco);
-}
-
-.desplegable__item.activo, .desplegable__titulo:hover {
-    background-color: var(--azul);
-    color: var(--blanco);
-}
-
-.desplegable__item.activo .desplegable__titulo {
-    background-color: var(--azul);
-    color: var(--blanco);
-}
-
-.desplegable__item.activo .desplegable__titulo svg {
-    transform: rotate(0deg);
-}
-
-.desplegable__item.activo .desplegable__titulo svg > path{
-    fill: var(--blanco);
-}
-
-.desplegable__contenido {
-    max-height: 0;
-    overflow: hidden;
-    background-color: var(--blanco);
-    color: var(--negro);
-    transition: all 0.3s ease;
-    padding: 0 3rem;
-}
-
-.desplegable__parrafo {
-    font-size: 1.2rem;
-    line-height: 2.5rem;
-    padding: 1rem 0;
-    margin: 0;
-}
-
-.desplegable__item.activo .desplegable__contenido {
-    max-height: 1000rem;
+	border-top: 1px solid var(--azul);
+	overflow: hidden;
 }
 
 .desplegable__item:last-child {
-    border-bottom: 1px solid var(--azul);
+	border-bottom: 1px solid var(--azul);
+}
+
+/* Título del desplegable */
+.desplegable__titulo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	color: var(--negro);
+	padding: 1rem 1.2rem;
+	font-size: 1.5rem;
+	background-color: var(--blanco);
+	width: 100%;
+	text-align: left;
+	transition: all 0.3s ease;
+}
+
+/* Icono en el título */
+.desplegable__titulo > svg {
+	max-width: 2rem;
+	width: 100%;
+	height: auto;
+	transform: rotate(-180deg);
+	transition: all 0.3s ease;
+}
+
+/* Path del icono */
+.desplegable__titulo > svg > path {
+	fill: var(--azul);
+}
+
+/* Hover del título afecta icono y color */
+.desplegable__titulo:hover {
+	background-color: var(--azul);
+	color: var(--blanco);
+}
+
+.desplegable__titulo:hover > svg > path {
+	fill: var(--blanco);
+}
+
+/* Estado activo del item */
+.desplegable__item.activo {
+	background-color: var(--azul);
+	color: var(--blanco);
+}
+
+.desplegable__item.activo .desplegable__titulo {
+	background-color: var(--azul);
+	color: var(--blanco);
+}
+
+.desplegable__item.activo .desplegable__titulo svg {
+	transform: rotate(0deg);
+}
+
+.desplegable__item.activo .desplegable__titulo svg > path {
+	fill: var(--blanco);
+}
+
+/* Contenido del desplegable */
+.desplegable__contenido {
+	max-height: 0;
+	overflow: hidden;
+	background-color: var(--blanco);
+	color: var(--negro);
+	padding: 0 3rem;
+	transition: all 0.3s ease;
+}
+
+.desplegable__parrafo {
+	font-size: 1.2rem;
+	line-height: 2.5rem;
+	padding: 1rem 0;
+	margin: 0;
+}
+
+.desplegable__item.activo .desplegable__contenido {
+	max-height: 1000rem;
 }

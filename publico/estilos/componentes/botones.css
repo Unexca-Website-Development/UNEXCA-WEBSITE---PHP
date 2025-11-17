@@ -1,35 +1,39 @@
-.boton-principal{
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--blanco);
-    padding: 0.5rem 1rem;
-    border: 2px var(--azul) solid;
-    display: flex;
-    height: fit-content;
-    align-self: flex-end;
-    background: linear-gradient(to left, var(--azul) 50%, var(--blanco) 50%);
-    background-size: 300% 100%;
-    background-position: right bottom;
-    transition: all 0.7s cubic-bezier(.11,.79,.1,1);
+/* Botón principal */
+.boton-principal {
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: var(--blanco);
+	padding: 0.5rem 1rem;
+	border: 2px solid var(--azul);
+	display: flex;
+	align-self: flex-end;
+	height: fit-content;
+	background: linear-gradient(to left, var(--azul) 50%, var(--blanco) 50%);
+	background-size: 300% 100%;
+	background-position: right bottom;
+	transition: all 0.7s cubic-bezier(.11,.79,.1,1);
 }
 
+/* Icono dentro del botón */
 .boton-principal > svg {
-    transform: rotate(-90deg);
-    width: 2rem;
-    height: auto;
+	width: 2rem;
+	height: auto;
+	transform: rotate(-90deg);
 }
 
-.boton-principal > svg > path{
-    fill: var(--blanco);
+/* Path del icono */
+.boton-principal > svg > path {
+	fill: var(--blanco);
 }
 
-.boton-principal:hover, 
-.boton-principal:focus{
-    background-position: left bottom;
-    color: var(--azul);
+/* Efecto hover/focus */
+.boton-principal:hover,
+.boton-principal:focus {
+	background-position: left bottom;
+	color: var(--azul);
 }
 
 .boton-principal:hover > svg > path,
-.boton-principal:focus > svg > path{
-    fill: var(--azul);
+.boton-principal:focus > svg > path {
+	fill: var(--azul);
 }

@@ -1,71 +1,78 @@
-.main__general{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    background-color: var(--blanco);
-    max-width: var(--max-size-main-general);
-    padding: 0 1rem;
-    padding-top: 10rem;
-    padding-bottom: 5rem;
+/* ------------------------------------ */
+/* Main General / Plantilla General      */
+/* ------------------------------------ */
+.main__general {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	background-color: var(--blanco);
+	max-width: var(--max-size-main-general);
+	padding: 10rem 1rem 5rem 1rem;
 }
 
-.seccion{
-    width: 100%;
-    max-width: var(--max-size-seccion-general);
+/* Secciones internas */
+.seccion {
+	width: 100%;
+	max-width: var(--max-size-seccion-general);
 }
 
-.titulos{
-    display: block;
-    width: 100%;
-    height: auto;
-    color: var(--azul);
-    font-family: var(--fuente-titulos);
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 3rem;
-    padding-bottom: 2rem;
-    margin-top: 1rem;
+/* Títulos principales */
+.titulos {
+	display: block;
+	width: 100%;
+	height: auto;
+	color: var(--azul);
+	font-family: var(--fuente-titulos);
+	font-weight: 700;
+	font-size: 3rem;
+	line-height: 3rem;
+	padding-bottom: 2rem;
+	margin-top: 1rem;
 }
 
-.parrafo{
-    color: var(--negro);
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 3rem;
-    padding-bottom: 2rem;
+/* Párrafos de contenido */
+.parrafo {
+	color: var(--negro);
+	font-size: 1.5rem;
+	font-weight: 400;
+	line-height: 3rem;
+	padding-bottom: 2rem;
 }
 
-.imagen__contenedor{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-bottom: 3rem;
-    max-width: 800px;
+/* Contenedor de imágenes con texto */
+.imagen__contenedor {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding-bottom: 3rem;
+	max-width: 800px;
 }
 
-.imagen__texto{
-    color: var(--negro);
-    font-size: 1rem;
+.imagen__texto {
+	color: var(--negro);
+	font-size: 1rem;
 }
 
-.lista{
-    display:flex;
-    flex-direction: column;
-    gap: 1rem;
+/* Listas generales */
+.lista {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
-.lista__item{
-    font-size: 1.5rem;
-    list-style-type: disc;
-    list-style-position: inside;
+.lista__item {
+	font-size: 1.5rem;
+	list-style-type: disc;
+	list-style-position: inside;
 }
 
-.lista__item::marker{
-    color: var(--azul);
+.lista__item::marker {
+	color: var(--azul);
 }
 
-.negrita{
-    font-weight: 700;
+/* Negritas */
+.negrita {
+	font-weight: 700;
 }

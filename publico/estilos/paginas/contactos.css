@@ -1,74 +1,88 @@
+/* ------------------------------------ */
+/* Sección Contactos                     */
+/* ------------------------------------ */
 .contactos {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-    max-width: var(--max-size-contactos);
+	display: flex;
+	flex-direction: column;
+	gap: 2.5rem;
+	max-width: var(--max-size-contactos);
 }
 
+/* Contenedor interno de la sección */
 .contactos-contenedor {
-    display: flex;
-    flex-direction: column;
-    padding-top: 2rem;
-    gap: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	padding-top: 2rem;
+	gap: 1.5rem;
 }
 
+/* Bloques individuales dentro de contactos */
 .contactos__bloque {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 2.5rem 1rem 0;
-    border-top: 2px solid var(--gris-claro);
-    justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 2.5rem 1rem 0;
+	border-top: 2px solid var(--gris-claro);
+	justify-content: center;
 }
 
+/* Título de cada bloque */
 .contactos__titulo-bloque {
-    flex: 0 0 25%;
-    max-width: 25%;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--azul);
-    margin-bottom: 2rem;
-    padding-right: 2rem;
+	flex: 0 0 25%;
+	max-width: 25%;
+	font-size: 2rem;
+	font-weight: 700;
+	color: var(--azul);
+	margin-bottom: 2rem;
+	padding-right: 2rem;
 }
 
+/* Lista de contactos dentro del bloque */
 .contactos__lista {
-    display: flex;
-    flex: 0 0 70%;
-    max-width: 70%;
-    flex-wrap: wrap;
+	display: flex;
+	flex: 0 0 70%;
+	max-width: 70%;
+	flex-wrap: wrap;
 }
 
+/* Item individual de contacto */
 .contactos__item {
-    display: flex;
-    width: 50%;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 1rem;
-    border-left: 2px solid var(--azul);
-    margin-bottom: 2rem;
-    height: fit-content;
+	display: flex;
+	width: 50%;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 0 1rem;
+	border-left: 2px solid var(--azul);
+	margin-bottom: 2rem;
+	height: fit-content;
 }
 
+/* Todos los elementos dentro del item ocupan 100% */
 .contactos__item > * {
-    width: 100%;
+	width: 100%;
 }
 
+/* Título dentro de cada item */
 .contactos__titulo-info {
-    display: inline-block;
-    font-size: 1rem;
-    color: var(--azul);
-    font-weight: 700;
+	display: inline-block;
+	font-size: 1rem;
+	color: var(--azul);
+	font-weight: 700;
 }
 
+/* Información dentro del item */
 .contactos__info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
+/* ------------------------------------ */
+/* Responsive                             */
+/* ------------------------------------ */
 @media (max-width: 1080px) {
-    .contactos__titulo-bloque,
-    .contactos__lista {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+	.contactos__titulo-bloque,
+	.contactos__lista {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
 }

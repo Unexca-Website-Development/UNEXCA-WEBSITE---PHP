@@ -1,143 +1,149 @@
+/* Footer principal */
 .footer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  color: var(--blanco);
-  background-color: var(--blanco);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	color: var(--blanco);
+	background-color: var(--blanco);
 }
 
+/* Decoración superior */
 .footer__decoracion {
-  display: flex;
-  width: 100%;
+	display: flex;
+	width: 100%;
 }
 
 .footer__decoracion > svg {
-  width: 100%;
-  height: 100%;
-  transform: scaleY(-1) translateY(-1px);
+	width: 100%;
+	height: 100%;
+	transform: scaleY(-1) translateY(-1px);
 }
 
 .footer__decoracion > svg > * {
-  fill: var(--negro);
+	fill: var(--negro);
 }
 
+/* Contenido del footer */
 .footer__contenido {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: var(--negro);
-  padding: 0 2rem;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: var(--negro);
+	padding: 0 2rem;
 }
 
+/* Contenedor general */
 .footer__contenedor {
-  display: flex;
-  width: 100%;
-  max-width: var(--max-size-footer);
-  margin: 0 auto;
-  padding-top: 1.5rem;
+	display: flex;
+	width: 100%;
+	max-width: var(--max-size-footer);
+	margin: 0 auto;
+	padding-top: 1.5rem;
 }
 
+/* Links y grupos de columnas */
 .footer__links,
 .footer__grupo-columnas {
-  display: flex;
-  width: 100%;
-  min-width: 100%;
-  height: auto;
-  flex-wrap: wrap;
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
 }
 
+/* Columnas internas */
 .footer__columna {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  gap: 1.2rem;
-  padding-right: 1rem;
-  margin-bottom: 2.3rem;
+	display: flex;
+	flex-direction: column;
+	width: 25%;
+	gap: 1.2rem;
+	padding-right: 1rem;
+	margin-bottom: 2.3rem;
 }
 
 .footer__titulo {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--blanco-claro);
+	font-size: 1rem;
+	font-weight: 700;
+	color: var(--blanco-claro);
 }
 
 .footer__lista {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
 }
 
 .footer__item a {
-  font-size: 0.8rem;
-  color: var(--blanco);
-  text-decoration: underline;
+	font-size: 0.8rem;
+	color: var(--blanco);
+	text-decoration: underline;
 }
 
+/* Fondo del footer y sección de redes */
 .footer__fondo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: var(--max-size-footer);
-  padding: 1rem 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	max-width: var(--max-size-footer);
+	padding: 1rem 0;
 }
 
 .footer__social {
-  display: flex;
-  flex-direction: column;
-  max-width: 10em;
-  gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	max-width: 10em;
+	gap: 1rem;
 }
 
 .footer__texto {
-  font-size: 0.7rem;
-  font-weight: 400;
-  text-align: start;
+	font-size: 0.7rem;
+	font-weight: 400;
+	text-align: start;
 }
 
 .footer__copyleft {
-  display: inline-block;
-  transform: rotate(180deg);
+	display: inline-block;
+	transform: rotate(180deg);
 }
 
 .footer__redes {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 1.5rem;
-  gap: 1rem;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 1.5rem;
+	gap: 1rem;
 }
 
 .footer__icono-red,
 .footer__enlace-icono {
-  display: flex;
+	display: flex;
 }
 
 .footer__enlace-icono > svg {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 .footer__enlace-icono > svg > g > path {
-  fill: var(--blanco);
+	fill: var(--blanco);
 }
 
+/* Responsive */
 @media (max-width: 1080px) {
-  .footer__columna{
-      width: 33%;
-  }
+	.footer__columna {
+		width: 33%;
+	}
 }
 
 @media (max-width: 480px) {
-  .footer__columna{
-      width: 50%;
-  }
+	.footer__columna {
+		width: 50%;
+	}
 
-  .footer__fondo{
-    justify-content: center;
-    flex-direction: column-reverse;
-    gap: 1rem;
-  }
+	.footer__fondo {
+		justify-content: center;
+		flex-direction: column-reverse;
+		gap: 1rem;
+	}
 }
