@@ -1,7 +1,7 @@
 <?php
 namespace Modelo;
 
-require_once colocar_ruta_sistema('@modelo/conexionDB.php');
+require_once colocar_ruta_sistema('@modelo/conexiondb.php');
 
 /**
  * Clase BaseModelo
