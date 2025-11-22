@@ -1,7 +1,7 @@
 <?php
 namespace Modelo;
 
-require_once colocar_ruta_sistema('@modelo/conexiondb.php');
+require_once colocar_ruta_sistema('@modelo/ConexionDB.php');
 
 /**
  * Clase BaseModelo
@@ -48,13 +48,13 @@ class BaseModelo {
     /**
      * Constructor
      *
-     * Inicializa la conexión a la base de datos usando conectarBD().
+     * Inicializa la conexión a la base de datos usando el Singleton ConexionDB.
      *
-     * @throws \PDOException Si la conexión falla
+     * @throws \Exception Si la conexión falla
      */
     public function __construct()
     {
-        $this->pdo = conectarBD();
+        $this->pdo = ConexionDB::obtenerInstancia()->obtenerConexion();
     }
 
     /**
