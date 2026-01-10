@@ -49,7 +49,7 @@
     <?php renderizar_header($data_header) ?>
 
     <div class="main__contenedor" id="main">
-        <?php include $vista_plantilla; ?>
+        <?php include $vista; ?>
     </div>
 
     <?php renderizar_footer($data_footer) ?>

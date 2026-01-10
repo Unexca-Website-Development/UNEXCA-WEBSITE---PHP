@@ -4,7 +4,4 @@
 # Asegurar que el archivo de ejemplo SÍ se versione
 !.env.default
 
-# archivos utilitarios en la raiz
-# arbol.php
-
 tools/

@@ -1,27 +1,28 @@
 <?php
+require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/ServiciosServicio.php');
 
-/**
- * Controlador de la página de Servicios.
- *
- * Este controlador obtiene los datos de los servicios desde el modelo a través del servicio,
- * y prepara la información del <head> para la vista.
- */
+class ServiciosControlador extends BaseControlador {
 
-// Instancia del servicio de servicios
-$servicio = new \Servicios\Paginas\ServiciosServicio();
+    public function index(): void {
+        $servicio = new \Servicios\Paginas\ServiciosServicio();
+        $data_servicios = $servicio->obtenerDatosServicios();
 
-// Obtener los datos de los servicios
-$data_servicios = $servicio->obtenerDatosServicios();
+        $this->establecerHead([
+            "title" => "Servicios - UNEXCA",
+            "styles" => [
+                "@estilos/componentes/desplegable.css"
+            ],
+            "meta" => [
+                "description" => "Página de servicios ofrecidos por la UNEXCA.",
+                "keywords" => "UNEXCA, servicios, educación, universidad, asesoría",
+            ]
+        ]);
 
-// Configuración de la información del <head>
-$head_data = [
-	"title" => "Servicios - UNEXCA",
-	"styles" => [
-		"@estilos/componentes/desplegable.css"
-	],
-	"meta" => [
-		"description" => "Página de servicios ofrecidos por la UNEXCA.",
-		"keywords" => "UNEXCA, servicios, educación, universidad, asesoría",
-	]
-];
+        $this->establecerVista(colocar_ruta_sistema('@paginas/servicios.php'));
+
+        $this->renderizar([
+            'data_servicios' => $data_servicios
+        ]);
+    }
+}
