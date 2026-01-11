@@ -165,7 +165,7 @@ function normalizar_texto(string $texto, string $reemplazo = '-') : string {
         'ñ'=>'n','ç'=>'c'
     ];
 
-    $texto = mb_strtolower($texto, 'UTF-8');
+    // $texto = mb_strtolower($texto, 'UTF-8');
     $texto = strtr($texto, $mapa);
     $texto = preg_replace('/[^a-z0-9]+/', $reemplazo, $texto);
     $texto = trim($texto, $reemplazo);
