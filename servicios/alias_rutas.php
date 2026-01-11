@@ -24,8 +24,8 @@ return [
         '@logs'        => dirname(__DIR__) . '/logs'
     ],
     'html' => [
-        '@estilos'     => '/estilos',
-        '@imagenes'    => '/imagenes',
-        '@scripts'     => '/scripts',
+        '@estilos'     => 'publico/estilos',
+        '@imagenes'    => 'publico/imagenes',
+        '@scripts'     => 'publico/scripts',
     ]
 ];

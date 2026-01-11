@@ -82,13 +82,18 @@ function colocar_svg(string $alias): string {
  * @param array $params Parámetros opcionales.
  * @return string URL generada.
  */
+// function colocar_enlace(string $pagina, array $params = []): string {
+//     $url = '/' . $pagina;
+//     if (!empty($params)) {
+//         $url .= '/' . implode('/', array_map('urlencode', $params));
+//     }
+//     return $url;
+// };
+
 function colocar_enlace(string $pagina, array $params = []): string {
-    $url = '/' . $pagina;
-    if (!empty($params)) {
-        $url .= '/' . implode('/', array_map('urlencode', $params));
-    }
-    return $url;
-};
+    $query = http_build_query(array_merge(['pagina' => $pagina], $params));
+    return "index.php?$query";
+}
 
 /**
  * Devuelve el array de páginas permitidas.
@@ -160,7 +165,7 @@ function normalizar_texto(string $texto, string $reemplazo = '-') : string {
         'ñ'=>'n','ç'=>'c'
     ];
 
-    $texto = mb_strtolower($texto, 'UTF-8');
+    // $texto = mb_strtolower($texto, 'UTF-8');
     $texto = strtr($texto, $mapa);
     $texto = preg_replace('/[^a-z0-9]+/', $reemplazo, $texto);
     $texto = trim($texto, $reemplazo);

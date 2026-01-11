@@ -1,0 +1,28 @@
+#Este modulo es obligatorio activarlo en linux a traves del comando
+#"sudo a2enmod rewrite"
+
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteBase /
+
+#     # Si el archivo o directorio existe, no reescribir
+#     RewriteCond %{REQUEST_FILENAME} !-f
+#     RewriteCond %{REQUEST_FILENAME} !-d
+
+#     # Reescribir todo hacia index.php
+#     RewriteRule ^(.+)$ index.php?ruta=$1 [QSA,L]
+# </IfModule>
+
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+
+#     # # Definir base automáticamente, si estás en subcarpeta
+#     # RewriteBase /UNEXCA-WEBSITE---PHP/
+
+#     # No reescribir si el archivo o directorio existe
+#     RewriteCond %{REQUEST_FILENAME} !-f
+#     RewriteCond %{REQUEST_FILENAME} !-d
+
+#     # Reescribir todo hacia index.php con el query string 'ruta'
+#     RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?ruta=$1 [QSA,L]
+# </IfModule>

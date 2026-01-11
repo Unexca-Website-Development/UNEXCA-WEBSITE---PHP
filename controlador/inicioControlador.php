@@ -1,24 +1,29 @@
 <?php
-/**
- * Controlador de la página de inicio.
- *
- * Este archivo obtiene los datos necesarios para mostrar las carreras en la página principal
- * y configura los metadatos y estilos para el <head> de la vista.
- */
+require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/InicioServicio.php');
 
-$servicio = new \Servicios\Paginas\InicioServicio();
+class InicioControlador extends BaseControlador {
 
-$data_carrera = $servicio->obtenerDatosCarreras();
+    public function index(): void {
+        $servicio = new \Servicios\Paginas\InicioServicio();
+        $data_carrera = $servicio->obtenerDatosCarreras();
 
-$head_data = [
-    "title" => "Inicio - UNEXCA",
-    "styles" => [
-        "@estilos/paginas/inicio.css",
-        "@estilos/componentes/botones.css"
-    ],
-    "meta" => [
-        "description" => "Página de inicio de la UNEXCA.",
-        "keywords" => "UNEXCA, universidad, inicio",
-    ]
-];
+        $this->establecerHead([
+            "title" => "Inicio - UNEXCA",
+            "styles" => [
+                "@estilos/paginas/inicio.css",
+                "@estilos/componentes/botones.css"
+            ],
+            "meta" => [
+                "description" => "Página de inicio de la UNEXCA.",
+                "keywords" => "UNEXCA, universidad, inicio",
+            ]
+        ]);
+
+        $this->establecerVista(colocar_ruta_sistema('@paginas/inicio.php'));
+
+        $this->renderizar([
+            'data_carrera' => $data_carrera
+        ]);
+    }
+}

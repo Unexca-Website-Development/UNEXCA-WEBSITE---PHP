@@ -30,11 +30,11 @@
  * - El script finaliza con `exit` tras enrutar para evitar ejecución accidental de código posterior.
  */
 
-require_once dirname(__DIR__) . '/servicios/cargar_env.php';
-cargar_env(dirname(__DIR__) . '/.env');
+require_once 'servicios/cargar_env.php';
+cargar_env('.env');
 
-require_once dirname(__DIR__) . '/servicios/utilidades.php';
-require_once dirname(__DIR__) . '/servicios/alias_rutas.php';
+require_once 'servicios/utilidades.php';
+require_once 'servicios/alias_rutas.php';
 require_once colocar_ruta_sistema('@servicios/carga_componentes.php');
 require_once colocar_ruta_sistema('@servicios/nucleo/Logger.php');
 require_once colocar_ruta_sistema('@servicios/nucleo/ManejadorErrores.php');
