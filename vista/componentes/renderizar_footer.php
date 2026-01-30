@@ -31,22 +31,22 @@ function renderizar_footer(array $data_array = []){
                     <div class="footer__social">
                         <ul class="footer__redes">
                             <li class="footer__icono-red">
-                                <a href="" class="footer__enlace-icono">
+                                <a href="https://www.facebook.com/UNEXCAcomunicacion" class="footer__enlace-icono">
                                     <?= colocar_svg('@imagenes/iconos/facebook_logo.svg') ?>
                                 </a>
                             </li>
                             <li class="footer__icono-red">
-                                <a href="" class="footer__enlace-icono">
+                                <a href="https://www.instagram.com/unexcavzla" class="footer__enlace-icono">
                                     <?= colocar_svg('@imagenes/iconos/instagram_logo.svg') ?> 
                                 </a>
                             </li>
                             <li class="footer__icono-red">
-                                <a href="" class="footer__enlace-icono">
+                                <a href="https://linktr.ee/Unexca_Website" class="footer__enlace-icono">
                                     <?= colocar_svg('@imagenes/iconos/telegram_logo.svg') ?>
                                 </a>
                             </li>
                             <li class="footer__icono-red">
-                                <a href="" class="footer__enlace-icono">
+                                <a href="https://linktr.ee/unexca" class="footer__enlace-icono">
                                     <?= colocar_svg('@imagenes/iconos/whatsapp_logo.svg') ?>
                                 </a>
                             </li>
