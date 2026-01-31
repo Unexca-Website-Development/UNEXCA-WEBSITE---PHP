@@ -13,4 +13,7 @@ return [
     ['GET', 'contactos', 'ContactosControlador@index'],
 
     ['GET', 'carrera', 'CarreraControlador@mostrar'],
+
+    ['GET', 'test', 'TestControlador@index'],
+    ['POST', 'test_api', 'TestApiControlador@mostrar'],
 ];
