@@ -13,4 +13,6 @@ return [
     ['GET', 'contactos', 'ContactosControlador@index'],
 
     ['GET', 'carrera', 'CarreraControlador@mostrar'],
+
+    ['GET', 'noticias_editor', 'NoticiasEditorControlador@Index'],
 ];
