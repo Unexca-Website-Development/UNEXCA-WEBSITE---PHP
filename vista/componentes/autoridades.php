@@ -1,6 +1,6 @@
 <?php
 /**
- * renderizar_autoridades
+ * autoridades
  *
  * Genera una lista HTML de autoridades académicas a partir de un arreglo de datos.
  *
@@ -19,7 +19,7 @@
  * @param array $data_array Arreglo de autoridades a renderizar.
  * @return void Este componente imprime directamente el HTML.
  */
-function renderizar_autoridades($data_array) {
+function autoridades($data_array) {
         ?>
             <ul class="autoridad__lista">
                 <?php foreach($data_array as $autoridad): ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * renderizar_carreras
+ * carreras
  *
  * Renderiza una lista de carreras académicas en formato de tarjetas.
  *
@@ -24,7 +24,7 @@
  * @param array $data_array Arreglo de carreras a renderizar.
  * @return void Este componente imprime directamente el HTML.
  */
-function renderizar_carreras($data_array) {
+function carreras($data_array) {
     foreach ($data_array as $carrera) {
         ?>
         <div class="carrera">

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * renderizar_contactos_coords
+ * contactos_coords
  *
  * Renderiza la lista de contactos de coordinadores académicos agrupados por carrera (PNF).
  *
@@ -32,7 +32,7 @@
  * @return void Este componente imprime directamente el HTML.
  */
 
-function renderizar_contactos_coords($data_array) {
+function contactos_coords($data_array) {
     $campos = [
         'telefono'         => 'Teléfono',
         'email'            => 'Correo',

@@ -28,7 +28,7 @@
  * @return void
  */
 
-function renderizar_links_footer($data_array) {
+function links_footer($data_array) {
     ?>
     <div class="footer__links">
         <ul class="footer__grupo-columnas">

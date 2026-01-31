@@ -12,8 +12,8 @@
  * @var array $data_contactos_coords Arreglo con los contactos de coordinaciones por carrera.
  *
  * Componentes utilizados:
- * - renderizar_contactos_admin(): Genera los bloques de contactos administrativos.
- * - renderizar_contactos_coords(): Genera los bloques de contactos de coordinaciones.
+ * - contactos_admin(): Genera los bloques de contactos administrativos.
+ * - contactos_coords(): Genera los bloques de contactos de coordinaciones.
  */
 ?>
 
@@ -24,11 +24,11 @@
 
     <section class="contactos-contenedor">
         <div class="contactos-admin">
-            <?php renderizar_contactos_admin($data_contactos_admin); ?>
+            <?php contactos_admin($data_contactos_admin); ?>
         </div>
 
         <div class="contactos-coords">
-            <?php renderizar_contactos_coords($data_contactos_coords) ?>
+            <?php contactos_coords($data_contactos_coords) ?>
         </div>
     </section>
 </main>

@@ -14,9 +14,9 @@
  *  - $vista_plantilla: Ruta completa del contenido específico de la página.
  *
  * Funciones utilizadas:
- *  - renderizar_head(array $head_data)
- *  - renderizar_header(array $data_header)
- *  - renderizar_footer(array $data_footer)
+ *  - head(array $head_data)
+ *  - cabecera(array $data_header)
+ *  - footer(array $data_footer)
  *  - colocar_ruta_html(string $ruta_alias)
  *
  * Descripción:
@@ -43,16 +43,16 @@
     <link rel="icon" type="image/png" sizes="192x192" href="<?= colocar_ruta_html('@imagenes/iconos/android-chrome-192x192.png') ?>">
     <link rel="icon" type="image/png" sizes="512x512" href="<?= colocar_ruta_html('@imagenes/iconos/android-chrome-512x512.png') ?>">
 
-    <?php renderizar_head($head_data ?? []); ?>
+    <?php head($head_data ?? []); ?>
 </head>
 <body>
-    <?php renderizar_header($data_header) ?>
+    <?php cabecera($data_header) ?>
 
     <div class="main__contenedor" id="main">
         <?php include $vista; ?>
     </div>
 
-    <?php renderizar_footer($data_footer) ?>
+    <?php footer($data_footer) ?>
     
     <script src="<?= colocar_ruta_html('@scripts/header.js')?>"></script>
 </body>

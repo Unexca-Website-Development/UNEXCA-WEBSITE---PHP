@@ -262,8 +262,8 @@ class NuevaPaginaModelo extends BaseModelo
 #### Componente de Renderizado
 ```php
 <?php
-// vista/componentes/renderizar_nuevo_componente.php
-function renderizar_nuevo_componente(array $data = []) {
+// vista/componentes/nuevo_componente.php
+function nuevo_componente(array $data = []) {
     ?>
     <div class="nuevo-componente">
         <h3 class="nuevo-componente__titulo">

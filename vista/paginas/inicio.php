@@ -13,7 +13,7 @@
  * Componentes utilizados:
  * - Banner principal con imagen y botón de navegación.
  * - Sección de historia con contenido resumido y botón para ver más.
- * - Sección de carreras académicas que llama a renderizar_carreras().
+ * - Sección de carreras académicas que llama a carreras().
  * - Scripts: slider.js para navegación de carrusel de carreras.
  */
 ?>
@@ -40,14 +40,14 @@
                 Fundada el 27 de febrero de 2018, surge de la transformación del Colegio Universitario “Francisco de Miranda”, el Colegio Universitario “Profesor José Lorenzo Pérez Rodríguez” y el Colegio Universitario de Caracas, según el Decreto Presidencial N° 3.293 publicado en la Gaceta Oficial Extraordinaria N° 41.349, en el marco de la Misión Alma Mater.
             </p>
         </div>
-        <?php renderizar_boton(colocar_enlace('historia')); ?>
+        <?php boton(colocar_enlace('historia')); ?>
     </section>
 
     <section class="carreras">
         <div class="carreras__contenido">
             <h2 class="carreras__titulo">Programas Académicos</h2>
             <div class="carreras__lista">
-                <?= renderizar_carreras($data_carrera); ?>
+                <?= carreras($data_carrera); ?>
             </div>
             <div class="carreras__contenedor-botones">
                 <div class="carreras__boton carreras__boton--izquierda">

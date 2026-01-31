@@ -10,14 +10,14 @@
  *
  * Parámetros:
  * @param array $data_array Arreglo de navegación enviado por el controlador.
- *   Este arreglo es consumido por renderizar_links_header(), que debe recibir
+ *   Este arreglo es consumido por links_header(), que debe recibir
  *   una estructura ya validada por la capa de servicio.
  *
  * Comportamiento:
  *  - No aplica validaciones de negocio; solo imprime HTML.
  *  - Sanitiza el enlace del logo mediante colocar_enlace(), que depende
  *    del sistema de rutas del proyecto.
- *  - El menú se representa a través del componente renderizar_links_header().
+ *  - El menú se representa a través del componente links_header().
  *
  * Retorna:
  * @return void
@@ -28,7 +28,7 @@
  *    mediante el servicio correspondiente.
  */
 
-function renderizar_header(array $data_array = []){
+function cabecera(array $data_array = []) {
     ?>
         <header class="header">
             <div class="header__contenedor">
@@ -40,7 +40,7 @@ function renderizar_header(array $data_array = []){
                     <a href="<?= colocar_enlace('inicio'); ?>" class="header__logo-menu">
                         <?= colocar_svg('@imagenes/logos/logo_menu.svg') ?>
                     </a> 
-                    <?php renderizar_links_header($data_array) ?>
+                    <?php links_header($data_array) ?>
 
                     <div class="overlay"></div>
                 </div>

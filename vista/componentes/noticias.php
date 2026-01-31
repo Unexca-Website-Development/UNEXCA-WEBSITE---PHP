@@ -1,7 +1,7 @@
 <?php
 
 /**
- * renderizar_noticias
+ * noticias
  *
  * Renderiza hasta 4 noticias en formato de tarjetas.
  *
@@ -23,7 +23,7 @@
  * @return void Este componente imprime directamente el HTML.
  */
 
-function renderizar_noticias($data_array){
+function noticias($data_array){
     $contador = 0;
     foreach ($data_array as $noticia) {
 

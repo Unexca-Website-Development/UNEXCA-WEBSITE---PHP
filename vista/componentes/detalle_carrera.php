@@ -1,6 +1,6 @@
 <?php
 /**
- * renderizar_detalle_carrera
+ * detalle_carrera
  *
  * Renderiza la información detallada de una carrera académica, incluyendo descripción,
  * turnos, núcleos donde se imparte, niveles, duración y el enlace para descargar
@@ -43,7 +43,7 @@
  * @param array $data_array Datos completos de la carrera.
  * @return void Este componente imprime directamente el HTML.
  */
-function renderizar_detalle_carrera($data_array) {
+function detalle_carrera($data_array) {
     ?>
         <section class="detalle-carrera__seccion">
             <h2 class="titulos">

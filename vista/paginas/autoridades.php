@@ -11,7 +11,7 @@
  *      - 'imagen'  => string Ruta relativa a la imagen de la autoridad
  *
  * Componentes utilizados:
- * - renderizar_autoridades(): Componente que genera la lista de autoridades en HTML.
+ * - autoridades(): Componente que genera la lista de autoridades en HTML.
  *
  * Propósito:
  * Permitir al usuario conocer quiénes ocupan los cargos de dirección y gestión académica en la universidad.
@@ -26,6 +26,6 @@
     </section>
 
     <section class="seccion">
-        <?php renderizar_autoridades($data_autoridades); ?>
+        <?php autoridades($data_autoridades); ?>
     </section>
 </main>

@@ -14,7 +14,7 @@
  *   - 'contenido': Descripción o detalle del servicio.
  *
  * Componentes utilizados:
- * - renderizar_lista_desplegable(): genera los elementos desplegables interactivos.
+ * - lista_desplegable(): genera los elementos desplegables interactivos.
  * - Script de funcionalidad: '@scripts/desplegables.js' para el comportamiento dinámico.
  */
 ?>
@@ -23,7 +23,7 @@
     <section class="seccion">
         <h2 class="titulos">Servicios</h2>
         <div class="desplegables__contenedor">
-            <?php renderizar_lista_desplegable($data_servicios); ?>
+            <?php lista_desplegable($data_servicios); ?>
         </div>
     </section>
 </main>

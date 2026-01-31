@@ -1,7 +1,7 @@
 <?php
 
 /**
- * renderizar_lista_desplegable
+ * lista_desplegable
  *
  * Genera un componente HTML de lista desplegable a partir de un arreglo de datos.
  *
@@ -22,7 +22,7 @@
  * @return void Este componente imprime directamente el HTML.
  */
 
-function renderizar_lista_desplegable($data_array) {
+function lista_desplegable($data_array) {
     echo '<div class="desplegable">';
     foreach ($data_array as $item) {
         ?>

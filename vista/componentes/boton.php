@@ -1,6 +1,6 @@
 <?php
 /**
- * renderizar_boton
+ * boton
  *
  * Genera un botón como enlace (<a>) con contenido, clases CSS y atributos HTML opcionales.
  *
@@ -13,7 +13,7 @@
  * Retorna:
  * Imprime directamente el HTML del enlace con los atributos y contenido especificado.
  */
-function renderizar_boton($link = '#', $contenido = 'Más Información', $clases = 'boton-principal', $atributos = []) {
+function boton($link = '#', $contenido = 'Más Información', $clases = 'boton-principal', $atributos = []) {
     // Inyectar atributos de HTML
     $html_atributos = '';
     foreach ($atributos as $clave => $valor) {

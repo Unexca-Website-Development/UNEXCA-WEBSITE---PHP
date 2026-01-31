@@ -1,6 +1,6 @@
 <?php
 /**
- * renderizar_links_header
+ * links_header
  *
  * Genera la lista de links del header de la web, soportando submenús.
  *
@@ -26,7 +26,7 @@
  * Retorna:
  * Imprime directamente el HTML del menú del header.
  */
-function renderizar_links_header($data_array) {
+function links_header($data_array) {
     ?>
     <nav class="header__nav">
         <ul class="header__menu">

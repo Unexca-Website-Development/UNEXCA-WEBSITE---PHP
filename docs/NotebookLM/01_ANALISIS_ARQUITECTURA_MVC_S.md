@@ -49,9 +49,9 @@ graph TD
 ```
 vista/
 ├── componentes/          # Componentes reutilizables
-│   ├── renderizar_header.php
-│   ├── renderizar_footer.php
-│   ├── renderizar_carreras.php
+│   ├── cabecera.php
+│   ├── footer.php
+│   ├── carreras.php
 │   └── ...
 ├── paginas/             # Vistas específicas de páginas
 │   ├── inicio.php

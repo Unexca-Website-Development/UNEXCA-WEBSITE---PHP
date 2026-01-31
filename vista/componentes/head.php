@@ -22,7 +22,7 @@
  *  - El controlador prepara los valores del título, meta y estilos.
  *  - La vista principal (layout) invoca este componente dentro del <head>.
  */
-function renderizar_head(array $data) {
+function head(array $data) {
     ?>
         <title><?= htmlspecialchars($data['title'] ?? 'UNEXCA') ?></title>
 

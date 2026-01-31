@@ -17,9 +17,9 @@
  *   - 'link_malla_curricular'
  *
  * Componentes utilizados:
- * - renderizar_detalle_carrera(): Genera la sección de detalle de la carrera en HTML.
+ * - detalle_carrera(): Genera la sección de detalle de la carrera en HTML.
  */
 ?>
 <main class="main__general">
-    <?php renderizar_detalle_carrera($data_carreras); ?>
+    <?php detalle_carrera($data_carreras); ?>
 </main>

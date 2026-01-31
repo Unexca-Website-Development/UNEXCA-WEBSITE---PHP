@@ -1,6 +1,6 @@
 <?php
 /**
- * renderizar_contactos_admin
+ * contactos_admin
  *
  * Renderiza la lista de contactos administrativos agrupados por núcleo.
  *
@@ -27,7 +27,7 @@
  * @param array $data_array Arreglo de contactos administrativos agrupados por núcleo.
  * @return void Este componente imprime directamente el HTML.
  */
-function renderizar_contactos_admin($data_array) {
+function contactos_admin($data_array) {
     $campos = [
         'telefono' => 'Teléfono',
         'email' => 'Correo',
