@@ -16,7 +16,7 @@ export default class ControlBloque {
 
 		if (this.mostrarSubir) {
 			const btnSubir = await crearBoton({
-				rutaIcono: '/imagenes/iconos/flecha.svg',
+				rutaIcono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/flecha.svg',
 				clase: 'editor-noticia__boton-control -subir',
 				tipo: 'button'
 			})
@@ -28,7 +28,7 @@ export default class ControlBloque {
 
 		if (this.mostrarBajar) {
 			const btnBajar = await crearBoton({
-				rutaIcono: '/imagenes/iconos/flecha.svg',
+				rutaIcono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/flecha.svg',
 				clase: 'editor-noticia__boton-control -bajar',
 				tipo: 'button'
 			})
@@ -40,7 +40,7 @@ export default class ControlBloque {
 
 		if (this.mostrarBorrar) {
 			const btnBorrar = await crearBoton({
-				rutaIcono: '/imagenes/iconos/icon_borrar.svg',
+				rutaIcono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_borrar.svg',
 				clase: 'editor-noticia__boton-control -borrar',
 				tipo: 'button'
 			})
