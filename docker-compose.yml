@@ -1,0 +1,32 @@
+services:
+  # Servicio Web (Tu aplicación PHP)
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - APP_ENV=${APP_ENV}
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+
+  # Servicio de Base de Datos (PostgreSQL)
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
