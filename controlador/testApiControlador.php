@@ -2,10 +2,15 @@
 use Servicios\Nucleo\ControladorErroresHTTP;
 use Servicios\Nucleo\Logger;
 
-
 class TestApiControlador {
-    public function mostrar($titulo = null, $contenido = null) {
+    public function mostrar() {
         header('Content-Type: application/json');
+
+        $body = file_get_contents('php://input');
+        $datos = json_decode($body, true);
+
+        $titulo = $datos['titulo'] ?? null;
+        $contenido = $datos['contenido'] ?? null;
 
         if (!$titulo || !$contenido) {
             ControladorErroresHTTP::error404();
@@ -22,8 +27,8 @@ class TestApiControlador {
         ]);
 
         Logger::registrar('INFO', 'Test API llamada correctamente: ' . json_encode([
-                'titulo' => $titulo,
-                'contenido' => $contenido
-            ]), __FILE__, __LINE__);
+            'titulo' => $titulo,
+            'contenido' => $contenido
+        ]), __FILE__, __LINE__);
     }
 }
