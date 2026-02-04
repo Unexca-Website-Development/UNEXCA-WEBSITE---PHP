@@ -10,7 +10,7 @@ require_once colocar_ruta_sistema('@modelo/plantilla/PlantillaModelo.php');
  * Proporciona métodos para obtener y procesar datos de menús desde el modelo
  * de plantilla, preparando la estructura de enlaces para la vista.
  */
-class PlantillaServicio
+class PlantillaDefaultServicio
 {
     /**
      * @var \Modelo\Plantilla\PlantillaModelo Instancia del modelo de plantilla.

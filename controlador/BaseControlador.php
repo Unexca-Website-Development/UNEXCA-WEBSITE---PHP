@@ -1,10 +1,13 @@
 <?php
+
+use Servicios\Nucleo\Renderizador;
 use Servicios\Nucleo\ControladorErroresHTTP;
 
 abstract class BaseControlador {
 
 		protected array $head_data = [];
 		protected string $vista;
+		protected ?string $plantilla = null;
 
 		public function establecerHead(array $datos): void {
 				$this->head_data = $datos;
@@ -14,25 +17,28 @@ abstract class BaseControlador {
 				$this->vista = $ruta;
 		}
 
-		protected function renderizar(array $datos_adicionales = []): void {
+		public function establecerPlantilla(string $ruta): void {
+				$this->plantilla = $ruta;
+		}
 
-				$controladorPlantilla = colocar_ruta_sistema('@controlador/plantillaControlador.php');
-				if (file_exists($controladorPlantilla)) {
-						require_once $controladorPlantilla;
-				}
+		protected function renderizar(array $datos_servicio = []): void {
 
 				if (!isset($this->vista) || !file_exists($this->vista)) {
 						ControladorErroresHTTP::error500();
 						return;
 				}
 
-				$head_data = $this->head_data;
-				$vista = $this->vista;
+				$render = new Renderizador();
 
-				if (!empty($datos_adicionales)) {
-						extract($datos_adicionales);
-				}
+				$vistas = [
+						'plantilla' => $this->plantilla ?? colocar_ruta_sistema('@vista/plantilla/default.php'),
+						'vista'  => $this->vista
+				];
 
-				include colocar_ruta_sistema('@plantilla/plantilla.php');
+				$render->render(
+						$vistas,
+						$this->head_data,
+						$datos_servicio
+				);
 		}
 }

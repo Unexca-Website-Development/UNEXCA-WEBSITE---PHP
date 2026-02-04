@@ -7,12 +7,19 @@
  */
 require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/AutoridadesServicio.php');
+require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaDefaultServicio.php');
+
 
 class AutoridadesControlador extends BaseControlador {
 
 	public function index(): void {
 		$servicio = new \Servicios\Paginas\AutoridadesServicio();
 		$data_autoridades = $servicio->obtenerDatosAutoridades();
+		$servicio_plantilla = new \Servicios\Plantilla\PlantillaDefaultServicio();
+
+
+		$data_header = $servicio_plantilla->obtenerDatosMenu('Header');
+		$data_footer = $servicio_plantilla->obtenerDatosMenu('Footer');
 
 		$this->establecerHead([
 			"title" => "Autoridades Académicas - UNEXCA",
@@ -26,7 +33,9 @@ class AutoridadesControlador extends BaseControlador {
 		$this->establecerVista(colocar_ruta_sistema('@paginas/autoridades.php'));
 
 		$this->renderizar([
-			'data_autoridades' => $data_autoridades
+			'data_autoridades' => $data_autoridades,
+			'data_header'  => $data_header,
+			'data_footer'  => $data_footer
 		]);
 	}
 }
