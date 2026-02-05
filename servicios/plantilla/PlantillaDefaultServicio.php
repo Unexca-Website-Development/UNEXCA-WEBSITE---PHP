@@ -2,7 +2,7 @@
 
 namespace Servicios\Plantilla;
 
-require_once colocar_ruta_sistema('@modelo/plantilla/PlantillaModelo.php');
+require_once colocar_ruta_sistema('@modelo/plantilla/PlantillaDefaultModelo.php');
 
 /**
  * Servicio de plantilla.
@@ -24,7 +24,7 @@ class PlantillaDefaultServicio
      */
     public function __construct()
     {
-        $this->modelo = new \Modelo\Plantilla\PlantillaModelo();
+        $this->modelo = new \Modelo\Plantilla\PlantillaDefaultModelo();
     }
 
     /**

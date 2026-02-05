@@ -7,7 +7,7 @@ require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaDefaultServicio
 
 class CarreraControlador extends BaseControlador {
 
-    public function mostrar($slug = "distribucion-y-logistica"): void {
+    public function mostrar(string $slug): void {
 
         if (empty($slug) || !is_string($slug) || strlen($slug) > 100) {
             ControladorErroresHTTP::error404();
