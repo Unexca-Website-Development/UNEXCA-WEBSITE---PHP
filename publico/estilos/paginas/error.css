@@ -1,0 +1,15 @@
+.error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--azul);
+    gap: 1rem;
+}
+
+.error_texto{
+    font-weight: 400;
+    font-size: 2rem;
+    color: var(--blanco)
+}
