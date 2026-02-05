@@ -40,6 +40,7 @@ require_once colocar_ruta_sistema('@servicios/nucleo/Logger.php');
 require_once colocar_ruta_sistema('@servicios/nucleo/ManejadorErrores.php');
 require_once colocar_ruta_sistema('@servicios/nucleo/Router.php');
 require_once colocar_ruta_sistema('@servicios/nucleo/ControladorErroresHTTP.php');
+require_once colocar_ruta_sistema('@servicios/nucleo/Renderizador.php');
 
 use Servicios\Nucleo\ManejadorErrores;
 use Servicios\Nucleo\Router;

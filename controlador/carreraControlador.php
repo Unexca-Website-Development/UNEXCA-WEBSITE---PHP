@@ -3,10 +3,11 @@ use Servicios\Nucleo\ControladorErroresHTTP;
 
 require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/CarrerasServicio.php');
+require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaDefaultServicio.php');
 
 class CarreraControlador extends BaseControlador {
 
-    public function mostrar($slug = "distribucion-y-logistica"): void {
+    public function mostrar(string $slug): void {
 
         if (empty($slug) || !is_string($slug) || strlen($slug) > 100) {
             ControladorErroresHTTP::error404();
@@ -23,7 +24,12 @@ class CarreraControlador extends BaseControlador {
         $slug = $slug_normalizado;
 
         $servicio = new \Servicios\Paginas\CarrerasServicio();
+        $servicio_plantilla = new \Servicios\Plantilla\PlantillaDefaultServicio();
         $data_carreras = $servicio->obtenerDatosCarrera($slug);
+
+        $data_header = $servicio_plantilla->obtenerDatosMenu('Header');
+        $data_footer = $servicio_plantilla->obtenerDatosMenu('Footer');
+
 
         if (!$data_carreras) {
              ControladorErroresHTTP::error404();
@@ -44,7 +50,9 @@ class CarreraControlador extends BaseControlador {
         $this->establecerVista(colocar_ruta_sistema('@paginas/carrera.php'));
 
         $this->renderizar([
-            'data_carreras' => $data_carreras
+            'data_carreras' => $data_carreras,
+            'data_header'  => $data_header,
+            'data_footer'  => $data_footer
         ]);
     }
 }

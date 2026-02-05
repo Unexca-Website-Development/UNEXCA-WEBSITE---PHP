@@ -13,7 +13,7 @@ require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
  *
  * @package Modelo\Plantilla
  */
-class PlantillaModelo extends \Modelo\BaseModelo
+class PlantillaDefaultModelo extends \Modelo\BaseModelo
 {
     /**
      * Obtiene un menú por su nombre
