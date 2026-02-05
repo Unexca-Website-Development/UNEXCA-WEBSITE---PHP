@@ -27,7 +27,7 @@
         </a>
     </div>
     <div class="banner__imagen-contenedor">
-        <img id="banner__imagen" class="activo" src="<?= colocar_ruta_html('@imagenes/nucleos/urbina.jpg'); ?>">
+        <img id="banner__imagen" class="activo" src="<?= colocar_ruta_html('@imagenes/banner_inicio.jpg'); ?>">
     </div>
 </section>
 

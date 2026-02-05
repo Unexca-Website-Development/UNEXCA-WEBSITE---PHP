@@ -251,7 +251,7 @@
 /* ------------------------------------ */
 @media (min-width: 1080px) {
 	.header{
-		filter: drop-shadow(0 8px 10px rgba(31, 31, 31, 0.3));
+		filter: drop-shadow(0 8px 10px rgba(31, 31, 31, 0.5));
 	}
 	
 	.header__boton-menu {

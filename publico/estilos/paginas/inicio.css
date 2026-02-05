@@ -94,8 +94,8 @@
     background: linear-gradient(
         to bottom,
         rgb(0, 0, 0) 0%,
-        rgba(0, 0, 0, 0) 25%,
-        rgba(0, 0, 0, 0) 75%,
+        rgba(0, 0, 0, 0) 30%,
+        rgba(0, 0, 0, 0) 70%,
         rgb(0, 0, 0) 100%
     );
     z-index: 1;
@@ -109,9 +109,11 @@
     min-width: calc(100% + 1px);
     min-height: calc(100% + 1px);
     width: 100%;
-    height: auto;
+    height: 100vh;
     overflow: hidden;
     background-size: 100% 100%;
+    object-fit: cover;
+    object-position: 50% 60%;
     opacity: 0;
     transition: all 0.1s ease;
     z-index: -1;
