@@ -1,0 +1,119 @@
+.admin-autoridades__header {
+    display: flex;
+    justify_content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.boton-accion {
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: none;
+    color: white;
+}
+
+.boton-nuevo {
+    background-color: var(--azul);
+}
+
+.boton-nuevo:hover {
+    background-color: #033a9e;
+}
+
+/* Tabla */
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tabla-admin th, .tabla-admin td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gris-claro);
+}
+
+.tabla-admin th {
+    background-color: var(--blanco);
+    color: var(--negro);
+    font-weight: 700;
+}
+
+.img-miniatura {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Formulario */
+.formulario-admin {
+    background: var(--blanco);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--gris-claro);
+    display: none; /* Oculto por defecto */
+}
+
+.formulario-admin.activo {
+    display: block;
+}
+
+.form-grupo {
+    margin-bottom: 1.5rem;
+}
+
+.form-grupo label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--gris-oscuro);
+    border-radius: 4px;
+}
+
+.acciones-fila {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-editar {
+    color: var(--azul);
+    font-weight: 600;
+}
+
+.btn-eliminar {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.acciones-orden {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.btn-orden {
+    background: var(--blanco);
+    border: 1px solid var(--gris-oscuro);
+    border-radius: 3px;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.btn-orden:hover {
+    background: var(--gris-claro);
+    color: var(--azul);
+}

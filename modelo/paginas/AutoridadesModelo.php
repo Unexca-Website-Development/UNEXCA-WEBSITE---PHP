@@ -23,4 +23,15 @@ class AutoridadesModelo extends \Modelo\BaseModelo
     {
         return $this->obtenerTodos('autoridades_academicas');
     }
+
+    /**
+     * Obtiene todas las autoridades académicas ordenadas por el campo 'orden'
+     *
+     * @return array Lista de autoridades
+     */
+    public function obtenerAutoridadesOrdenadas()
+    {
+        $query = "SELECT * FROM autoridades_academicas ORDER BY orden ASC";
+        return $this->ejecutarConsultaPersonalizada($query);
+    }
 }
