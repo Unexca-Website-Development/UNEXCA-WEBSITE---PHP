@@ -13,6 +13,10 @@ export default class ControlBloque {
 
 	async renderizar() {
 		const control = document.createElement('div')
+		control.className = 'editor-noticia__bloque-control'
+
+		const contenedor = document.createElement('div')
+		contenedor.className = 'editor-noticia__bloque-control-contenedor'
 
 		if (this.mostrarSubir) {
 			const btnSubir = await crearBoton({
