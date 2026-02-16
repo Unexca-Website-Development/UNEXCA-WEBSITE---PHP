@@ -33,8 +33,6 @@
 require_once 'servicios/cargar_env.php';
 cargar_env('.env');
 
-define('URL_BASE', $_ENV['URL_BASE'] ?? '');
-
 require_once 'servicios/utilidades.php';
 require_once 'servicios/alias_rutas.php';
 require_once colocar_ruta_sistema('@servicios/carga_componentes.php');
