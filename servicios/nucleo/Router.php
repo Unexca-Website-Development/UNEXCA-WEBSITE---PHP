@@ -4,9 +4,11 @@ namespace Servicios\Nucleo;
 
 use Servicios\Nucleo\ControladorErroresHTTP;
 
-class Router {
+class Router
+{
 
-    public static function enrutar(): void {
+    public static function enrutar(): void
+    {
         $metodoHttp = $_SERVER['REQUEST_METHOD'];
         $pagina = $_GET['pagina'] ?? 'inicio';
         $rutas = require colocar_ruta_sistema('@servicios/rutas.php');
@@ -22,10 +24,11 @@ class Router {
 
         $controlador = self::cargarControlador($controladorNombre);
 
-        self::ejecutarMetodo($controlador, $metodoNombre);
+        self::ejecutarMetodo($controlador, $metodoNombre, $metodoHttp);
     }
 
-    private static function buscarRuta(array $rutas, string $pagina, string $metodoHttp): ?array {
+    private static function buscarRuta(array $rutas, string $pagina, string $metodoHttp): ?array
+    {
         foreach ($rutas as $ruta) {
             [$metodo, $rutaNombre, $destino] = $ruta;
             if ($metodo === $metodoHttp && $rutaNombre === $pagina) {
@@ -35,7 +38,8 @@ class Router {
         return null;
     }
 
-    private static function cargarControlador(string $nombre): object {
+    private static function cargarControlador(string $nombre): object
+    {
         $archivo = colocar_ruta_sistema("@controlador/{$nombre}.php");
 
         if (!file_exists($archivo)) {
@@ -51,12 +55,38 @@ class Router {
         return new $nombre();
     }
 
-    private static function ejecutarMetodo(object $controlador, string $metodo): void {
+    private static function ejecutarMetodo(object $controlador, string $metodo, string $metodoHttp): void
+    {
         if (!method_exists($controlador, $metodo)) {
             ControladorErroresHTTP::error404();
         }
 
-        $parametros = $_GET;
+        $parametros = [];
+
+        switch ($metodoHttp) {
+            case 'GET':
+                $parametros = $_GET;
+                break;
+
+            case 'POST':
+                $parametros = $_POST;
+                if (!empty($_FILES)) {
+                    $parametros['files'] = $_FILES;
+                }
+                break;
+
+            case 'PUT':
+            case 'DELETE':
+            case 'PATCH':
+                $input = file_get_contents('php://input');
+                if (strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
+                    $parametros = json_decode($input, true) ?? [];
+                } else {
+                    parse_str($input, $parametros);
+                }
+                break;
+        }
+
         unset($parametros['pagina']);
 
         call_user_func_array([$controlador, $metodo], $parametros);
