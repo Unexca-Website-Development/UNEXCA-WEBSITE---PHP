@@ -14,6 +14,9 @@ class noticiasEditorControlador extends BaseControlador {
 
         $this->establecerVista(colocar_ruta_sistema('@paginas/noticias_editor.php'));
 
+        $this->establecerPlantilla(colocar_ruta_sistema('@vista/plantilla/editor_plantilla.php'));
+
+
         $this->renderizar();
     }
 }
