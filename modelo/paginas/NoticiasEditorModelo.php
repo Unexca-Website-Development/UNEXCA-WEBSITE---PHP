@@ -1,7 +1,9 @@
 <?php
+namespace Modelo\Paginas;
+
 require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
 
-class NoticiasEditorModelo extends BaseModelo
+class NoticiasEditorModelo extends \Modelo\BaseModelo
 {
     public function crearNoticia($data)
     {
