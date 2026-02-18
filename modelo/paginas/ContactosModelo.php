@@ -10,8 +10,6 @@ require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
  * - contactos_coordinadores_pnf
  * - contactos_directivos
  *
- * Proporciona métodos para obtener información detallada de coordinadores y directivos.
- *
  * @package Modelo\Paginas
  */
 class ContactosModelo extends \Modelo\BaseModelo
@@ -19,10 +17,7 @@ class ContactosModelo extends \Modelo\BaseModelo
     /**
      * Obtiene todos los contactos de coordinadores PNF
      *
-     * Incluye información de la carrera asociada.
-     *
-     * @return array Lista de coordinadores
-     * @throws \Exception Si falla la consulta
+     * @return array
      */
     public function obtenerContactosCoordinadores()
     {
@@ -41,16 +36,13 @@ class ContactosModelo extends \Modelo\BaseModelo
             ORDER BY ccp.id ASC
         ";
 
-        return $this->ejecutarConsultaPersonalizada($query);
+        return $this->consultar($query);
     }
 
     /**
      * Obtiene todos los contactos de directivos
      *
-     * Incluye información del núcleo asociado.
-     *
-     * @return array Lista de directivos
-     * @throws \Exception Si falla la consulta
+     * @return array
      */
     public function obtenerContactosDirectivos()
     {
@@ -67,6 +59,7 @@ class ContactosModelo extends \Modelo\BaseModelo
             LEFT JOIN nucleos AS n ON cd.nucleo_id = n.id
             ORDER BY cd.id ASC
         ";
-        return $this->ejecutarConsultaPersonalizada($query);
+
+        return $this->consultar($query);
     }
 }

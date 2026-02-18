@@ -7,7 +7,6 @@ require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
  * Clase CarrerasModelo
  *
  * Representa la tabla 'carrera' y sus relaciones con párrafos, turnos, niveles y núcleos.
- * Proporciona métodos para obtener información detallada de las carreras.
  *
  * @package Modelo\Paginas
  */
@@ -16,9 +15,8 @@ class CarrerasModelo extends \Modelo\BaseModelo
     /**
      * Obtiene una carrera por su slug
      *
-     * @param string $slug Slug de la carrera
-     * @return array Lista con la información de la carrera
-     * @throws \Exception Si falla la consulta
+     * @param string $slug
+     * @return array
      */
     public function obtenerCarrerasPorSlug($slug)
     {
@@ -31,17 +29,16 @@ class CarrerasModelo extends \Modelo\BaseModelo
                 slug
             FROM carrera
             WHERE slug = :slug
-            LIMIT 1;
+            LIMIT 1
         ";
-        return $this->ejecutarConsultaPersonalizada($sql, ['slug' => $slug]);
+        return $this->consultar($sql, ['slug' => $slug]);
     }
 
     /**
      * Obtiene los párrafos asociados a una carrera
      *
-     * @param int $carreraId ID de la carrera
-     * @return array Lista de párrafos
-     * @throws \Exception Si falla la consulta
+     * @param int $carreraId
+     * @return array
      */
     public function obtenerParrafosPorCarrera($carreraId)
     {
@@ -54,15 +51,14 @@ class CarrerasModelo extends \Modelo\BaseModelo
             WHERE carrera_id = :carreraId
             ORDER BY numero_parrafo ASC
         ";
-        return $this->ejecutarConsultaPersonalizada($sql, ['carreraId' => $carreraId]);
+        return $this->consultar($sql, ['carreraId' => $carreraId]);
     }
 
     /**
      * Obtiene los turnos de una carrera
      *
-     * @param int $carreraId ID de la carrera
-     * @return array Lista de turnos
-     * @throws \Exception Si falla la consulta
+     * @param int $carreraId
+     * @return array
      */
     public function obtenerTurnosPorCarrera($carreraId)
     {
@@ -74,15 +70,14 @@ class CarrerasModelo extends \Modelo\BaseModelo
             WHERE carrera_id = :carreraId
             ORDER BY id ASC
         ";
-        return $this->ejecutarConsultaPersonalizada($sql, ['carreraId' => $carreraId]);
+        return $this->consultar($sql, ['carreraId' => $carreraId]);
     }
 
     /**
      * Obtiene los niveles académicos de una carrera
      *
-     * @param int $carreraId ID de la carrera
-     * @return array Lista de niveles académicos
-     * @throws \Exception Si falla la consulta
+     * @param int $carreraId
+     * @return array
      */
     public function obtenerNivelesPorCarrera($carreraId)
     {
@@ -96,15 +91,14 @@ class CarrerasModelo extends \Modelo\BaseModelo
             WHERE carrera_id = :carreraId
             ORDER BY id ASC
         ";
-        return $this->ejecutarConsultaPersonalizada($sql, ['carreraId' => $carreraId]);
+        return $this->consultar($sql, ['carreraId' => $carreraId]);
     }
 
     /**
      * Obtiene los núcleos asociados a una carrera
      *
-     * @param int $carreraId ID de la carrera
-     * @return array Lista de núcleos
-     * @throws \Exception Si falla la consulta
+     * @param int $carreraId
+     * @return array
      */
     public function obtenerNucleosPorCarrera($carreraId)
     {
@@ -117,17 +111,14 @@ class CarrerasModelo extends \Modelo\BaseModelo
             WHERE cn.carrera_id = :carreraId
             ORDER BY n.id ASC
         ";
-        return $this->ejecutarConsultaPersonalizada($sql, ['carreraId' => $carreraId]);
+        return $this->consultar($sql, ['carreraId' => $carreraId]);
     }
 
     /**
      * Obtiene toda la información de una carrera por slug
      *
-     * Incluye párrafos, turnos, niveles y núcleos asociados.
-     *
-     * @param string $slug Slug de la carrera
-     * @return array Información completa de la carrera
-     * @throws \Exception Si falla la consulta
+     * @param string $slug
+     * @return array
      */
     public function obtenerCarreraCompletaPorSlug($slug)
     {
@@ -162,6 +153,6 @@ class CarrerasModelo extends \Modelo\BaseModelo
                 cna.id ASC,
                 n.id ASC
         ";
-        return $this->ejecutarConsultaPersonalizada($sql, ['slug' => $slug]);
+        return $this->consultar($sql, ['slug' => $slug]);
     }
 }
