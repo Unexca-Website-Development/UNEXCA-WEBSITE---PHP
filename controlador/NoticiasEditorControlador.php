@@ -3,7 +3,8 @@ require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 
 class noticiasEditorControlador extends BaseControlador {
 
-    public function index(): void {
+    public function index(): void 
+    {
         $this->establecerHead([
             "title" => "Editor de Noticias (Prueba) - UNEXCA",
             "styles" => ["@estilos/paginas/editorNoticias.css"],
@@ -18,5 +19,11 @@ class noticiasEditorControlador extends BaseControlador {
 
 
         $this->renderizar();
+    }
+
+    public function GuardarNoticia(array $params): void
+    {
+        header('Content-Type: application/json');
+        echo json_encode(['recibido' => $params]);
     }
 }

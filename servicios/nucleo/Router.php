@@ -6,7 +6,6 @@ use Servicios\Nucleo\ControladorErroresHTTP;
 
 class Router
 {
-
     public static function enrutar(): void
     {
         $metodoHttp = $_SERVER['REQUEST_METHOD'];
@@ -59,6 +58,7 @@ class Router
     {
         if (!method_exists($controlador, $metodo)) {
             ControladorErroresHTTP::error404();
+            return;
         }
 
         $parametros = [];
@@ -69,11 +69,17 @@ class Router
                 break;
 
             case 'POST':
+            $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+            if (strpos($contentType, 'application/json') !== false) {
+                $input = file_get_contents('php://input');
+                $parametros = json_decode($input, true) ?? [];
+            } else {
                 $parametros = $_POST;
                 if (!empty($_FILES)) {
                     $parametros['files'] = $_FILES;
                 }
-                break;
+            }
+            break;
 
             case 'PUT':
             case 'DELETE':
@@ -89,6 +95,6 @@ class Router
 
         unset($parametros['pagina']);
 
-        call_user_func_array([$controlador, $metodo], $parametros);
+        $controlador->$metodo($parametros);
     }
 }

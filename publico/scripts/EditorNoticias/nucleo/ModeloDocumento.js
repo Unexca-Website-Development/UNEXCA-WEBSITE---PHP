@@ -2,13 +2,6 @@ import BloqueBase from '../bloques/BloqueBase.js'
 
 export default class ModeloDocumento {
 	constructor() {
-		this.estado = 'borrador'
-		this.cabecera = [
-			new BloqueBase('titulo'),
-			new BloqueBase('fechas'),
-			new BloqueBase('parrafo'),
-			new BloqueBase('imagen')
-		]
 		this.bloques = []
 	}
 
@@ -39,13 +32,6 @@ export default class ModeloDocumento {
 	}
 
 	nuevoDocumento() {
-		this.estado = 'borrador'
-		this.cabecera = [
-			new BloqueBase('titulo'),
-			new BloqueBase('fechas'),
-			new BloqueBase('parrafo'),
-			new BloqueBase('imagen')
-		]
 		this.bloques = []
 	}
 

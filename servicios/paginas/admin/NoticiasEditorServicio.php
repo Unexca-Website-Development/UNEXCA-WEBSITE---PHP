@@ -10,7 +10,7 @@ class NoticiasEditorServicio {
 
     public function __construct()
     {
-        $this->modelo_noticias_editor = new \Modelo\Paginas\NoticiasEditorModelo();
+        $this->modelo_noticias_editor = new \Modelo\Paginas\Admin\NoticiasEditorModelo();
     }
 
     public function guardarNoticia($data)

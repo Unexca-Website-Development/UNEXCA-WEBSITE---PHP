@@ -40,7 +40,7 @@ class InicioServicio
         $carreras_array = [];
 
         foreach ($carreras_lista as $carrera) {
-            $link_carrera = colocar_enlace('carrera', ['nombre' => $carrera['slug']]);
+            $link_carrera = colocar_enlace('carrera', ['slug' => $carrera['slug']]);
             $carreras_array[] = [
                 "titulo"      => $carrera['titulo'],
                 "descripcion" => $carrera['descripcion'],

@@ -2,7 +2,6 @@
 
 return [
 
-    ['GET', '/', 'InicioControlador@index'],
     ['GET', 'inicio', 'InicioControlador@index'],
 
     ['GET', 'historia', 'HistoriaControlador@index'],
@@ -15,4 +14,5 @@ return [
     ['GET', 'carrera', 'CarreraControlador@mostrar'],
 
     ['GET', 'noticias_editor', 'NoticiasEditorControlador@Index'],
+    ['POST', 'noticias_editor', 'NoticiasEditorControlador@GuardarNoticia'],
 ];
