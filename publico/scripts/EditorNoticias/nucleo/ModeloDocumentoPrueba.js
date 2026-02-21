@@ -1,125 +1,75 @@
-import BloqueBase from '../bloques/BloqueBase.js'
+import ModeloDocumento from './ModeloDocumento.js'
 
-export default class ModeloDocumento {
-    constructor() {
-        this.estado = 'borrador'
-        this.cabecera = {
-            titulo: new BloqueBase('titulo'),
-            fechas: new BloqueBase('fechas'),
-            parrafo: new BloqueBase('parrafo'),
-            imagen: new BloqueBase('imagen')
-        }
-        this.bloques = []
-    }
+const modelo = new ModeloDocumento()
 
-    agregarBloque(tipo, contenido = {}, indice = null) {
-        const bloque = new BloqueBase(tipo)
-        bloque.asignar(contenido)
+console.log('--- 1. Estado inicial ---')
+console.log(JSON.stringify(modelo.obtenerDatos(), null, 2))
 
-        if (indice === null || indice >= this.bloques.length) this.bloques.push(bloque)
-        else if (indice < 0) this.bloques.unshift(bloque)
-        else this.bloques.splice(indice, 0, bloque)
-    }
+console.log('\n--- 2. Asignar campos de cabecera ---')
+modelo.titulo_principal = 'Noticia de prueba'
+modelo.descripcion_corta = 'Descripción corta de prueba'
+modelo.descripcion_imagen = 'Imagen principal de prueba'
+modelo.fecha_publicacion = '2025-11-11'
+console.log(JSON.stringify(modelo.obtenerDatos(), null, 2))
 
-    eliminarBloquePorId(id) {
-        const idx = this.bloques.findIndex(b => b.id === id)
-        if (idx !== -1) this.bloques.splice(idx, 1)
-    }
+console.log('\n--- 3. Establecer imagen principal via URL ---')
+modelo.establecerImagenPrincipal('https://servidor.com/uploads/imagen1.jpg')
+console.log(JSON.stringify(modelo.obtenerDatos(), null, 2))
 
-    moverBloque(id, nuevaPosicion) {
-        const idx = this.bloques.findIndex(b => b.id === id)
-        if (idx === -1) return
-        const [bloque] = this.bloques.splice(idx, 1)
-        const destino = Math.min(Math.max(nuevaPosicion, 0), this.bloques.length)
-        this.bloques.splice(destino, 0, bloque)
-    }
+console.log('\n--- 4. Agregar bloques al final ---')
+modelo.agregarBloque('parrafo', { texto: 'Primer párrafo' })
+modelo.agregarBloque('subtitulo', { texto: 'Subtítulo de sección' })
+modelo.agregarBloque('cita', { texto: 'Texto de la cita', autor: 'Autor' })
+modelo.agregarBloque('lista', { items: ['Elemento 1', 'Elemento 2', 'Elemento 3'] })
+modelo.agregarBloque('imagen', { url: 'https://servidor.com/uploads/imagen2.jpg', descripcion: 'Segunda imagen' })
+console.log(JSON.stringify(modelo.obtenerDatos(), null, 2))
 
-    establecerEstado(nuevoEstado) {
-        this.estado = nuevoEstado
-    }
+console.log('\n--- 5. Agregar bloque en posicion 0 (al inicio) ---')
+modelo.agregarBloque('titulo', { texto: 'Título insertado al inicio' }, 0)
+console.log(JSON.stringify(modelo.bloques.map(b => b.obtenerDatos()), null, 2))
 
-    obtenerDatos() {
-        return {
-            estado: this.estado,
-            cabecera: Object.fromEntries(
-                Object.entries(this.cabecera).map(([k, v]) => [k, v.obtenerDatos()])
-            ),
-            bloques: this.bloques.map(b => b.obtenerDatos())
-        }
-    }
+console.log('\n--- 6. Agregar bloque en posicion 2 (en medio) ---')
+modelo.agregarBloque('parrafo', { texto: 'Párrafo insertado en posición 2' }, 2)
+console.log(JSON.stringify(modelo.bloques.map(b => b.obtenerDatos()), null, 2))
 
-    cargarDatos(datos) {
-        if (!datos || typeof datos !== 'object') return
-        this.estado = datos.estado || this.estado
+console.log('\n--- 7. Mover bloque: el ultimo al inicio ---')
+const idUltimo = modelo.bloques[modelo.bloques.length - 1].id
+modelo.moverBloque(idUltimo, 0)
+console.log(JSON.stringify(modelo.bloques.map(b => b.obtenerDatos()), null, 2))
 
-        if (datos.cabecera) {
-            for (const key in datos.cabecera) {
-                if (this.cabecera[key]) this.cabecera[key].asignar(datos.cabecera[key].contenido || {})
-            }
-        }
+console.log('\n--- 8. Mover bloque: id inexistente (no debe romper) ---')
+modelo.moverBloque('id_que_no_existe', 0)
+console.log('Sin cambios, bloques:', modelo.bloques.length)
 
-        if (Array.isArray(datos.bloques)) {
-            this.bloques = datos.bloques.map(d => {
-                const bloque = new BloqueBase(d.tipo)
-                bloque.asignar(d.contenido || {})
-                return bloque
-            })
-        }
-    }
-}
+console.log('\n--- 9. Eliminar bloque por id ---')
+const idEliminar = modelo.bloques[1].id
+modelo.eliminarBloquePorId(idEliminar)
+console.log(JSON.stringify(modelo.bloques.map(b => b.obtenerDatos()), null, 2))
 
+console.log('\n--- 10. Eliminar bloque con id inexistente (no debe romper) ---')
+modelo.eliminarBloquePorId('id_que_no_existe')
+console.log('Sin cambios, bloques:', modelo.bloques.length)
 
-// ----------------------- PRUEBA -----------------------
+console.log('\n--- 11. Cambiar estado ---')
+modelo.establecerEstado('publicado')
+console.log('Estado:', modelo.estado)
 
-const prueba = new ModeloDocumento()
+console.log('\n--- 12. obtenerDatos completo antes de serializar ---')
+const datos = modelo.obtenerDatos()
+console.log(JSON.stringify(datos, null, 2))
 
-console.log('--- Estado inicial ---')
-console.log(prueba.obtenerDatos())
+console.log('\n--- 13. cargarDatos en nueva instancia ---')
+const modelo2 = new ModeloDocumento()
+modelo2.cargarDatos(datos)
+console.log(JSON.stringify(modelo2.obtenerDatos(), null, 2))
 
-prueba.cabecera.titulo.asignar({ texto: 'Título de prueba' })
-prueba.cabecera.fechas.asignar({ creacion: '2025-11-09', modificacion: '2025-11-10', publicacion: '2025-11-11' })
-prueba.cabecera.parrafo.asignar({ texto: 'Descripción de la noticia de prueba' })
-prueba.cabecera.imagen.asignar({ archivo: 'imagen1.jpg', descripcion: 'Imagen principal' })
+console.log('\n--- 14. cargarDatos con datos invalidos (no debe romper) ---')
+const modelo3 = new ModeloDocumento()
+modelo3.cargarDatos(null)
+modelo3.cargarDatos('string invalido')
+modelo3.cargarDatos(123)
+console.log('Sin cambios:', JSON.stringify(modelo3.obtenerDatos(), null, 2))
 
-console.log('\n--- Después de asignar datos a cabecera ---')
-console.log(prueba.obtenerDatos())
-
-// Agregar bloques
-prueba.agregarBloque('parrafo', { texto: 'Primer párrafo de prueba' })
-prueba.agregarBloque('subtitulo', { texto: 'Subtítulo de prueba' })
-prueba.agregarBloque('parrafo', { texto: 'Segundo párrafo de prueba' })
-prueba.agregarBloque('cita', { texto: 'Esta es una cita de ejemplo', autor: 'Autor de la cita' })
-prueba.agregarBloque('lista', { items: ['Elemento 1', 'Elemento 2', 'Elemento 3'] })
-prueba.agregarBloque('imagen', { archivo: 'imagen2.jpg', descripcion: 'Otra imagen de prueba' })
-prueba.agregarBloque('titulo', { texto: 'Subtítulo de sección' })
-
-console.log('\n--- Después de agregar bloques ---')
-console.log(prueba.obtenerDatos().bloques)
-
-// Mover bloque 3 al inicio
-const bloqueAMover = prueba.bloques[2]
-prueba.moverBloque(bloqueAMover.id, 0)
-console.log('\n--- Después de mover el tercer bloque al inicio ---')
-console.log(prueba.obtenerDatos().bloques)
-
-// Eliminar bloque 2
-const bloqueAEliminar = prueba.bloques[2]
-prueba.eliminarBloquePorId(bloqueAEliminar.id)
-console.log('\n--- Después de eliminar el bloque 2 ---')
-console.log(prueba.obtenerDatos().bloques)
-
-// Cambiar estado
-prueba.establecerEstado('publicado')
-console.log('\n--- Estado cambiado ---')
-console.log(prueba.estado)
-
-// Serializar datos
-const datosGuardados = prueba.obtenerDatos()
-console.log('\n--- Datos serializados ---')
-console.log(JSON.stringify(datosGuardados, null, 2))
-
-// Crear nueva instancia y cargar datos
-const nuevaInstancia = new ModeloDocumento()
-nuevaInstancia.cargarDatos(datosGuardados)
-console.log('\n--- Nueva instancia cargada ---')
-console.log(JSON.stringify(nuevaInstancia.obtenerDatos(), null, 2))
+console.log('\n--- 15. nuevoDocumento resetea todo ---')
+modelo.nuevoDocumento()
+console.log(JSON.stringify(modelo.obtenerDatos(), null, 2))

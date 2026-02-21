@@ -1,6 +1,6 @@
 
 //const ruta = window.location.pathname.split("/")[1];
-const ruta = "prueba";
+const ruta = "UNEXCA-WEBSITE---PHP";
 const URL_BASE = `/${ruta}/publico/imagenes/iconos/`;
 
 export const CONFIG_RUTAS = {

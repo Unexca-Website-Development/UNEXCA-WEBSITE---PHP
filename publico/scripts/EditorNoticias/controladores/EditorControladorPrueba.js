@@ -1,75 +1,87 @@
 import EditorControlador from './EditorControlador.js'
-import BloqueAdaptadorModelo from '../adaptadores/BloqueAdaptadorModelo.js'
-import { CONFIG_BLOQUES } from '../config/configBloques.js'
-
-console.log('--- INICIO DE PRUEBAS ---')
+import { administradorEventos } from '../utilidades/AdministradorEventos.js'
 
 const editor = new EditorControlador()
 
-console.log('\nPaso 1: Estado inicial')
+administradorEventos.suscrito('bloquesActualizados', datos => {
+	console.log('[evento] bloquesActualizados:', datos.map(b => b.tipo))
+})
+administradorEventos.suscrito('cabeceraActualizada', datos => {
+	console.log('[evento] cabeceraActualizada:', JSON.stringify(datos, null, 2))
+})
+administradorEventos.suscrito('estadoActualizado', datos => {
+	console.log('[evento] estadoActualizado:', datos)
+})
+
+console.log('\n--- 1. Singleton: misma instancia ---')
+const editor2 = new EditorControlador()
+console.log('Misma instancia:', editor === editor2)
+
+console.log('\n--- 2. actualizarCabecera campos validos ---')
+editor.actualizarCabecera('titulo_principal', 'Noticia de prueba')
+editor.actualizarCabecera('descripcion_corta', 'Descripción corta')
+editor.actualizarCabecera('fecha_publicacion', '2025-11-11')
+
+console.log('\n--- 3. actualizarCabecera campo invalido (no debe romper, sin evento) ---')
+editor.actualizarCabecera('campo_inexistente', 'valor')
+
+console.log('\n--- 4. establecerImagenPrincipal ---')
+editor.establecerImagenPrincipal('https://servidor.com/uploads/imagen1.jpg')
+
+console.log('\n--- 5. establecerEstado ---')
+editor.establecerEstado('publicado')
+
+console.log('\n--- 6. agregarBloque al final ---')
+editor.agregarBloque('parrafo', { texto: 'Primer párrafo' })
+editor.agregarBloque('subtitulo', { texto: 'Subtítulo de sección' })
+editor.agregarBloque('cita', { texto: 'Texto de la cita', autor: 'Autor' })
+editor.agregarBloque('lista', { items: ['Elemento 1', 'Elemento 2'] })
+editor.agregarBloque('imagen', { url: 'https://servidor.com/uploads/imagen2.jpg', descripcion: 'Imagen del cuerpo' })
+
+console.log('\n--- 7. agregarBloque al inicio ---')
+editor.agregarBloque('titulo', { texto: 'Título al inicio' }, 0)
+
+console.log('\n--- 8. agregarBloque en posicion 2 ---')
+editor.agregarBloque('parrafo', { texto: 'Párrafo en posición 2' }, 2)
+
+console.log('\n--- 9. actualizarBloque existente ---')
+editor.actualizarBloque(editor.modelo.bloques[0].id, { texto: 'Texto actualizado' })
+
+console.log('\n--- 10. actualizarBloque id inexistente (no debe romper, sin evento) ---')
+editor.actualizarBloque('id_falso', { texto: 'nada' })
+
+console.log('\n--- 11. moverBloque ultimo al inicio ---')
+editor.moverBloque(editor.modelo.bloques[editor.modelo.bloques.length - 1].id, 0)
+
+console.log('\n--- 12. moverBloqueRelativo +1 desde posicion 0 ---')
+const idPos0 = editor.modelo.bloques[0].id
+editor.moverBloqueRelativo(idPos0, 1)
+
+console.log('\n--- 13. moverBloqueRelativo fuera de rango desde posicion final (no debe romper, sin evento) ---')
+const idUltimo = editor.modelo.bloques[editor.modelo.bloques.length - 1].id
+editor.moverBloqueRelativo(idUltimo, 999)
+
+console.log('\n--- 14. moverBloqueRelativo id inexistente (no debe romper, sin evento) ---')
+editor.moverBloqueRelativo('id_falso', 1)
+
+console.log('\n--- 15. eliminarBloque ---')
+editor.eliminarBloque(editor.modelo.bloques[1].id)
+
+console.log('\n--- 16. eliminarBloque id inexistente (no debe romper, sin evento) ---')
+editor.eliminarBloque('id_falso')
+
+console.log('\n--- 17. obtenerDatos completo ---')
 console.log(JSON.stringify(editor.obtenerDatos(), null, 2))
-// console.log(editor.obtenerDatos())
 
-console.log('\nPaso 2: Agregar bloques (modelo)')
-editor.agregarBloque('titulo',)
-editor.agregarBloque('parrafo', { texto: 'Este es un párrafo de prueba' })
-console.log(editor.modelo.bloques)
+console.log('\n--- 18. guardarNoticia ---')
+editor.guardarNoticia()
 
-console.log('\nPaso 3: Convertir bloques a formato UI')
-const bloquesUI = editor.convertirParaUI(editor.modelo.bloques)
-console.log(bloquesUI)
-// console.log(JSON.stringify(bloquesUI, null, 2))
-
-console.log('\nPaso 4: Convertir nuevamente a formato modelo')
-const bloquesModelo = bloquesUI.map(b => new BloqueAdaptadorModelo(b, CONFIG_BLOQUES).generarConfigModelo())
-console.log(bloquesModelo)
-console.log(JSON.stringify(bloquesModelo, null, 2))
-
-
-console.log('\nPaso 5: Actualizar bloque desde datos UI')
-const primerBloqueUI = bloquesUI[0]
-console.log(editor.modelo.cabecera)
-primerBloqueUI.contenido = {texto :'Título modificado desde la UI'}
-console.log(primerBloqueUI)
-
-const bloqueModeloActualizado = new BloqueAdaptadorModelo(primerBloqueUI, CONFIG_BLOQUES).generarConfigModelo()
-console.log("-----------------------------------")
-console.log(bloqueModeloActualizado)
-console.log("-----------------------------------")
-
-editor.actualizarBloque(bloqueModeloActualizado.id, bloqueModeloActualizado.contenido)
-
-console.log('\nPaso 6: Mover bloque')
-editor.moverBloque(editor.modelo.bloques[0].id, 1)
-console.log(editor.obtenerDatos())
-
-console.log('\nPaso 7: Eliminar bloque')
-editor.eliminarBloque(editor.modelo.bloques[0].id)
-console.log(editor.obtenerDatos())
-
-console.log('\nPaso 8: Establecer estado')
-editor.establecerEstado({ modo: 'edicion' })
-console.log(editor.modelo.estado)
-
-console.log('\nPaso 9: Cargar datos desde UI')
-const datosUI = [
-	{
-		id: 300,
-		tipo: 'titulo',
-		texto: 'Título nuevo desde UI',
-		contenido: { texto: 'Título nuevo desde UI' }
-	},
-	{
-		id: 301,
-		tipo: 'parrafo',
-		texto: 'Párrafo nuevo desde UI',
-		contenido: { texto: 'Texto del párrafo nuevo' }
-	}
-]
-
-// Convertir los datos UI a formato modelo antes de cargarlos
-const datosModelo = datosUI.map(b => new BloqueAdaptadorModelo(b, CONFIG_BLOQUES).generarConfigModelo())
-editor.cargarDatos(datosModelo)
+console.log('\n--- 19. cargarDatos ---')
+const snapshot = editor.obtenerDatos()
+editor.nuevoDocumento()
+editor.cargarDatos(snapshot)
 console.log(JSON.stringify(editor.obtenerDatos(), null, 2))
 
-console.log('\n--- FIN DE PRUEBAS ---')
+console.log('\n--- 20. nuevoDocumento resetea todo ---')
+editor.nuevoDocumento()
+console.log(JSON.stringify(editor.obtenerDatos(), null, 2))

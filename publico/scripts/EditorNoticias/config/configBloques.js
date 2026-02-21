@@ -71,13 +71,13 @@ const CONFIG_BLOQUES = {
 		}
 	},
 	imagen: {
-		tipo: 'imagenes',
-		texto: 'Imagenes',
-		campos: { archivo: '', descripcion: '' },
+		tipo: 'imagen',
+		texto: 'Imagen',
+		campos: { url: '', descripcion: '' },
 		ui: {
 			icono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.imagen,
 			inputs: [
-				{ tipo: 'file', key: 'archivo', aceptar: '.png,.jpg,.jpeg,.webp', requerido: true, className: 'editor-noticia__campo-archivo' },
+				{ tipo: 'file', key: 'url', aceptar: '.png,.jpg,.jpeg,.webp', requerido: true, className: 'editor-noticia__campo-archivo' },
 				{ tipo: 'textarea', key: 'descripcion', requerido: true, placeholder: 'Descripción de la imagen...', className: 'editor-noticia__campo-texto' }
 			]
 		}

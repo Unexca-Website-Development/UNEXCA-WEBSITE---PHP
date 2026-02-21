@@ -1,4 +1,4 @@
-<!--<div id="editor-principal"></div>-->
+<div id="editor-principal"></div>
 
 <form class="editor-noticia" id="formulario-test">
     <section class="editor-noticia__seccion">
@@ -7,6 +7,8 @@
         </button>
         <div class="editor-noticia__contenido-desplegable">
             <div class="editor-noticia__contenido-bloques -estaticos">
+
+                <!--Titulo -->
                 <div class="editor-noticia__bloque">
                     <label for="titulo_principal" class="bloque-titulo">
                         <?= colocar_svg('@imagenes/iconos/icon_h1.svg') ?>
@@ -20,6 +22,8 @@
                         name="titulo_principal"
                     ></textarea>
                 </div>
+
+                <!--Descripcion -->
                 <div class="editor-noticia__bloque">
                     <label for="descripcion_corta" class="bloque-titulo">
                         <?= colocar_svg('@imagenes/iconos/icon_parrafo.svg') ?>
@@ -33,6 +37,8 @@
                         name="descripcion_corta"
                     ></textarea>
                 </div>
+
+                <!--Imagen Principal -->
                 <div class="editor-noticia__bloque">
                     <label for="imagen_principal" class="bloque-titulo">
                         <?= colocar_svg('@imagenes/iconos/icon_imagen.svg') ?>
@@ -47,12 +53,14 @@
                     >
                     <textarea 
                         class="editor-noticia__campo-texto" 
-                        id="imagen_principal" 
+                        id="descripcion_imagen" 
                         placeholder="Descripción de la imagen..." 
                         data-key="descripcion"
                         name="descripcion_imagen"
                     ></textarea>
                 </div>
+
+                <!--Extras -->
                 <div class="editor-noticia__bloque">
                     <label for="url" class="bloque-titulo">
                         <?= colocar_svg('@imagenes/iconos/icon_calendario.svg') ?>
@@ -72,28 +80,36 @@
                 </div>
             </div>
         </div>
-        <button type="button" id="btn-guardar">Guardar Noticia</button>
     </section>
     <section class="editor-noticia__seccion">
-        <!-- Aquí se agregarán los bloques dinámicos -->
+        <button type="button" class ="editor_noticias__boton-desplegable">
+            <span class="editor-noticia__titulo-seccion">Contenido</span>
+        </button>
+        <div class="editor-noticia__contenido-desplegable">
+            <div class="editor-noticia__contenido-bloques -dinamicos">
+                <!-- Aquí se agregarán los bloques dinámicos -->
+            </div>
+        </div>
     </section>
+    <button type="button" id="btn-guardar">Guardar Noticia</button>
 </form>
 
 <script>
     document.getElementById('btn-guardar').addEventListener('click', function() {
-        const form = document.getElementById('formulario-test');
-        const data = Object.fromEntries(new FormData(form).entries());
+        const form = document.getElementById('formulario-test')
+        const data = new FormData(form)
+        data.append('contenido', JSON.stringify([]))
 
-        console.log('Datos a enviar:', JSON.stringify(data));
+        console.log(...data.entries());
+
         fetch('<?= colocar_enlace('noticias_editor') ?>', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: data
         })
         .then(res => res.json())
         .then(res => console.log(res))
-        .catch(err => console.error(err));
-    });
+        .catch(err => console.error(err))
+    })
 </script>
 
 <script type="module" src="<?= colocar_ruta_html('@scripts/EditorNoticias/main.js')?>"></script>
