@@ -1,11 +1,11 @@
 import { CONFIG_RUTAS } from './configRutas.js';
 
 export const CONFIG_MENU_LATERAL = [
-	{
+/* 	{
 		id: 'btn-menu-abrir',
 		rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.menuAbrir,
 		clase: 'menu-editor__boton'
-	},
+	}, */
 	{
 		id: 'btn-nueva-noticia',
 		rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.nuevaNoticia,
@@ -13,13 +13,13 @@ export const CONFIG_MENU_LATERAL = [
 		clase: 'menu-editor__boton',
 		claseSpan: 'menu-editor__texto'
 	},
-	{
+/* 	{
 		id: 'btn-buscar-noticia',
 		rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.buscarNoticia,
 		texto: 'Buscar noticia',
 		clase: 'menu-editor__boton',
 		claseSpan: 'menu-editor__texto'
-	},
+	}, */
 	{
 		id: 'btn-guardar-noticia',
 		rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.guardarNoticia,
@@ -36,10 +36,10 @@ export const CONFIG_MENU_LATERAL = [
 	}
 ]
 
-export const CONFIG_MENU_RECIENTES = {
+/* export const CONFIG_MENU_RECIENTES = {
 	id: 'btn-noticias-recientes',
 	rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.noticiasRecientes,
 	texto: 'Noticias recientes',
 	clase: 'menu-editor__boton menu-editor__boton--recientes',
 	claseSpan: 'menu-editor__texto'
-}
+} */

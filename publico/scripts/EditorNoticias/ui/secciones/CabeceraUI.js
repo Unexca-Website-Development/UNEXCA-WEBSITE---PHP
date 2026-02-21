@@ -1,11 +1,13 @@
 import EditorControlador from '../../controladores/EditorControlador.js'
 import { crearLabelBloque, crearTextareaBloque, crearInputBloque } from '../utilidadesUI.js'
+import { administradorEventos } from '../../utilidades/AdministradorEventos.js'
 import { CONFIG_RUTAS } from '../../config/configRutas.js'
 
 export default class CabeceraUI {
 	constructor() {
 		this.controlador = new EditorControlador()
 		this.elemento = null
+		this.campos = {}
 	}
 
 	async renderizar() {
@@ -58,7 +60,25 @@ export default class CabeceraUI {
 		form.appendChild(desplegable)
 
 		this.elemento = form
+
+		administradorEventos.suscrito('cabeceraActualizada', (datos) => {
+			this._sincronizar(datos)
+		})
+
+		administradorEventos.suscrito('estadoActualizado', (estado) => {
+			if (this.campos['estado']) this.campos['estado'].value = estado
+		})
+
 		return form
+	}
+
+	_sincronizar(datos) {
+		for (const key in datos) {
+			const el = this.campos[key]
+			if (!el) continue
+			if (el.type === 'file') continue
+			el.value = datos[key] ?? ''
+		}
 	}
 
 	async _crearBloqueCampo({ id, label, icono, campos }) {
@@ -72,6 +92,7 @@ export default class CabeceraUI {
 			if (campo.tipo === 'textarea') {
 				const el = crearTextareaBloque(campo.key, campo.key, campo.placeholder, campo.requerido)
 				el.name = campo.key
+				this.campos[campo.key] = el
 				bloque.appendChild(el)
 				el.addEventListener('input', () => {
 					this.controlador.actualizarCabecera(campo.key, el.value)
@@ -81,6 +102,7 @@ export default class CabeceraUI {
 			if (campo.tipo === 'file') {
 				const el = crearInputBloque(campo.key, campo.key, 'file', campo.requerido, campo.aceptar)
 				el.name = campo.key
+				this.campos[campo.key] = el
 				bloque.appendChild(el)
 				el.addEventListener('change', async () => {
 					const archivo = el.files[0]
@@ -106,6 +128,7 @@ export default class CabeceraUI {
 
 		const fecha = crearInputBloque('fecha_publicacion', 'fecha_publicacion', 'date', true)
 		fecha.name = 'fecha_publicacion'
+		this.campos['fecha_publicacion'] = fecha
 		bloque.appendChild(fecha)
 		fecha.addEventListener('change', () => {
 			this.controlador.actualizarCabecera('fecha_publicacion', fecha.value)
@@ -115,6 +138,7 @@ export default class CabeceraUI {
 		select.name = 'estado'
 		select.className = 'editor-noticia__campo-archivo'
 		select.innerHTML = '<option value="borrador">Borrador</option><option value="publicado">Publicado</option>'
+		this.campos['estado'] = select
 		bloque.appendChild(select)
 		select.addEventListener('change', () => {
 			this.controlador.establecerEstado(select.value)
