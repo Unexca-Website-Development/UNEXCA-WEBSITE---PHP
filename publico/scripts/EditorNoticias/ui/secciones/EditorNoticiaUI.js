@@ -1,7 +1,10 @@
 import ContenedorSeccion from '../componentes/ContenedorSeccion.js'
 import Contenedor from '../componentes/Contenedor.js'
 import BloqueAgregar from '../componentes/BloqueAgregar.js'
-import { RenderizadorBloquesEstaticosUI, RenderizadorBloquesDinamicosUI } from '../renderizador/RenderizarBloquesUI.js'
+import RenderizadorBloquesDinamicosUI from '../renderizador/RenderizarBloquesUI.js'
+import CabeceraUI from './CabeceraUI.js'
+import { CONFIG_BLOQUES } from '../../config/configBloques.js'
+import { CONFIG_RUTAS } from '../../config/configRutas.js'
 
 export default class EditorNoticiaUI {
 	constructor() {
@@ -12,45 +15,33 @@ export default class EditorNoticiaUI {
 		const editorNoticia = document.createElement('div')
 		editorNoticia.className = 'editor-noticia'
 
-		// Sección bloques estáticos
-		const seccionEstaticos = new ContenedorSeccion('Titular de la noticia')
-		const contenedorEstaticos = new Contenedor('editor-noticia__contenido-bloques -estaticos')
-		const renderBloquesEstaticos = new RenderizadorBloquesEstaticosUI(contenedorEstaticos.renderizar())
-		const elementosEstaticos = await renderBloquesEstaticos.renderizar()
-		seccionEstaticos.agregarContenido(elementosEstaticos)
+		const cabecera = new CabeceraUI()
+		editorNoticia.appendChild(await cabecera.renderizar())
 
-		// Sección bloques dinámicos
 		const seccionDinamicos = new ContenedorSeccion('Contenido del artículo')
 		const contenedorDinamicos = new Contenedor('editor-noticia__contenido-bloques -dinamicos')
-		seccionDinamicos.agregarContenido(await contenedorDinamicos.renderizar())
-		const renderBloquesDinamicos = new RenderizadorBloquesDinamicosUI(contenedorDinamicos.renderizar())
+		const contenedorDinamicosEl = contenedorDinamicos.renderizar()
 
+		new RenderizadorBloquesDinamicosUI(contenedorDinamicosEl)
 
-		// Opciones para el menú de agregar bloques
-		const opcionesBloques = [
-			{ icono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_h2.svg', texto: 'Subtítulo', tipo: 'subtitulo' },
-			{ icono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_parrafo.svg', texto: 'Párrafo', tipo: 'parrafo' },
-			{ icono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_imagen.svg', texto: 'Imagen', tipo: 'imagen' },
-			{ icono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_cita.svg', texto: 'Cita', tipo: 'cita' },
-			{ icono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_lista.svg', texto: 'Lista', tipo: 'lista' }
-		]
+		const opcionesBloques = Object.values(CONFIG_BLOQUES).map(bloque => ({
+			icono: bloque.ui.icono,
+			texto: bloque.texto,
+			tipo: bloque.tipo
+		}))
 
-		const agregarBloque = new BloqueAgregar(opcionesBloques, 'Agregar bloque', '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_mas.svg')
-		const elementoAgregar = await agregarBloque.renderizar()
+		const agregarBloque = new BloqueAgregar(opcionesBloques, 'Agregar bloque', CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.mas)
 
-		// Agregar el contenedor de bloques y el botón de agregar a la sección dinámica
-		seccionDinamicos.agregarContenido(elementoAgregar)
+		seccionDinamicos.agregarContenido(contenedorDinamicosEl)
+		seccionDinamicos.agregarContenido(await agregarBloque.renderizar())
 
-		// Agregar secciones al editor
-		editorNoticia.appendChild(await seccionEstaticos.renderizar())
 		editorNoticia.appendChild(await seccionDinamicos.renderizar())
 
 		this.dom = {
 			editorNoticia,
-			seccionEstaticos,
+			cabecera,
 			seccionDinamicos,
-			contenedorEstaticos,
-			contenedorDinamicos,
+			contenedorDinamicos: contenedorDinamicosEl,
 			agregarBloque
 		}
 

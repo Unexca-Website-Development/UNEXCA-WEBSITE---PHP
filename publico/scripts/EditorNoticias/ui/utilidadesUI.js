@@ -1,8 +1,8 @@
-import IconoSVG from "./componentes/IconoSVG.js"
-import LabelBloque from "./componentes/LabelBloque.js"
-import TextareaBloque from "./componentes/TextareaBloque.js"
-import InputBloque from "./componentes/InputBloque.js"
-import Boton from "./componentes/Boton.js"
+import IconoSVG from './componentes/IconoSVG.js'
+import LabelBloque from './componentes/LabelBloque.js'
+import TextareaBloque from './componentes/TextareaBloque.js'
+import InputBloque from './componentes/InputBloque.js'
+import Boton from './componentes/Boton.js'
 
 export async function crearIcono(ruta, clase) {
 	const icono = new IconoSVG(ruta, clase)
@@ -15,13 +15,13 @@ export async function crearLabelBloque(id, texto, rutaIcono) {
 	return await label.renderizar()
 }
 
-export function crearTextareaBloque(id, placeholder = '', requerido = false) {
-	const textarea = new TextareaBloque(id, placeholder, requerido)
+export function crearTextareaBloque(id, key, placeholder = '', requerido = false) {
+	const textarea = new TextareaBloque(id, key, placeholder, requerido)
 	return textarea.renderizar()
 }
 
-export function crearInputBloque(id, tipo = '', requerido = false, aceptar = ''){
-	const input = new InputBloque(id, tipo, requerido, aceptar)
+export function crearInputBloque(id, key, tipo = '', requerido = false, aceptar = '') {
+	const input = new InputBloque(id, key, tipo, requerido, aceptar)
 	return input.renderizar()
 }
 

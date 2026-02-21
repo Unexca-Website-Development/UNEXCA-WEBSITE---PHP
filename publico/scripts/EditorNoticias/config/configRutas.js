@@ -14,6 +14,7 @@ export const CONFIG_RUTAS = {
         cita: 'icon_cita.svg',
         lista: 'icon_lista.svg',
         imagen: 'icon_imagen.svg',
+        mas: 'icon_mas.svg',
 
         //Menu lateral
         menuAbrir: 'icon_menu_open.svg',

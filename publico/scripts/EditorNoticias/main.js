@@ -5,9 +5,7 @@ async function iniciarEditor() {
 	if (!contenedor) throw new Error('No se encontró el contenedor #editor-principal')
 
 	const ui = new EditorUI(contenedor)
-
 	await ui.renderizarBase()
-
 }
 
 document.addEventListener('DOMContentLoaded', iniciarEditor)

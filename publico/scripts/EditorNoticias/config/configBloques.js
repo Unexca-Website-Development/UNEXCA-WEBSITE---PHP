@@ -1,6 +1,6 @@
 import { CONFIG_RUTAS } from './configRutas.js';
 
-const CONFIG_BLOQUES = {
+export const CONFIG_BLOQUES = {
 	titulo: {
 		tipo: 'titulo',
 		texto: 'Título',
@@ -23,7 +23,7 @@ const CONFIG_BLOQUES = {
 			]
 		}
 	},
-	fechas: {
+	/* fechas: {
 		tipo: 'fechas',
 		texto: 'Información de la noticia',
 		campos: { creacion: '', modificacion: '', publicacion: '' },
@@ -35,7 +35,7 @@ const CONFIG_BLOQUES = {
 				{ tipo: 'date', key: 'publicacion', requerido: true, className: 'editor-noticia__campo-fecha' }
 			]
 		}
-	},
+	}, */
 	parrafo: {
 		tipo: 'parrafo',
 		texto: 'Párrafo',
@@ -59,7 +59,7 @@ const CONFIG_BLOQUES = {
 			]
 		}
 	},
-	lista: {
+	/* lista: {
 		tipo: 'lista',
 		texto: 'Lista',
 		campos: { items: [] },
@@ -69,8 +69,8 @@ const CONFIG_BLOQUES = {
 				{ tipo: 'textarea', key: 'items', requerido: true, placeholder: 'Agrega elementos de la lista...', className: 'editor-noticia__campo-texto' }
 			]
 		}
-	},
-	imagen: {
+	}, */
+	/* imagen: {
 		tipo: 'imagen',
 		texto: 'Imagen',
 		campos: { url: '', descripcion: '' },
@@ -81,7 +81,5 @@ const CONFIG_BLOQUES = {
 				{ tipo: 'textarea', key: 'descripcion', requerido: true, placeholder: 'Descripción de la imagen...', className: 'editor-noticia__campo-texto' }
 			]
 		}
-	}
+	} */
 }
-
-export { CONFIG_BLOQUES };
