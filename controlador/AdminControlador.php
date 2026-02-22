@@ -48,6 +48,7 @@ class AdminControlador extends BaseControlador {
                 "@estilos/paginas/editorNoticias.css",
                 "@estilos/paginas/admin/autoridades.css",
                 "@estilos/componentes/menu_control.css",
+                "@estilos/paginas/admin/nucleos.css"
                 
             ],
             "meta" => [
