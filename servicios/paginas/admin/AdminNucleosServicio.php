@@ -29,7 +29,7 @@ class AdminNucleosServicio {
             throw new \Exception("El nombre y la dirección son obligatorios.");
         }
 
-        $imagen_url = 'publico/imagenes/nucleos/default_nucleo.jpg';
+        $imagen_url = null; // Inicia como null
         if ($archivo_imagen && isset($archivo_imagen['error']) && $archivo_imagen['error'] === UPLOAD_ERR_OK) {
             $imagen_url = $this->subirImagen($archivo_imagen);
         }
@@ -57,8 +57,10 @@ class AdminNucleosServicio {
 
         $imagen_url = $nucleo_existente['imagen'];
         if ($archivo_imagen && isset($archivo_imagen['error']) && $archivo_imagen['error'] === UPLOAD_ERR_OK) {
-            if (!empty($imagen_url) && strpos($imagen_url, 'default_nucleo.jpg') === false) {
-                $ruta_sistema_anterior = colocar_ruta_sistema('@') . $imagen_url;
+            // Borrar imagen anterior si existe y no es la de por defecto
+            if (!empty($imagen_url) && strpos($imagen_url, 'default_') === false) {
+                $nombre_archivo_anterior = basename($imagen_url);
+                $ruta_sistema_anterior = colocar_ruta_sistema('@imagenes/nucleos/') . $nombre_archivo_anterior;
                 if (file_exists($ruta_sistema_anterior)) {
                     unlink($ruta_sistema_anterior);
                 }
@@ -77,8 +79,10 @@ class AdminNucleosServicio {
     public function eliminar($id) {
         $nucleo = $this->obtenerPorId($id);
         if ($nucleo) {
-            if (!empty($nucleo['imagen']) && strpos($nucleo['imagen'], 'default_nucleo.jpg') === false) {
-                $ruta_sistema = colocar_ruta_sistema('@') . $nucleo['imagen'];
+            // Borrar imagen si existe y no es la de por defecto
+            if (!empty($nucleo['imagen']) && strpos($nucleo['imagen'], 'default_') === false) {
+                $nombre_archivo = basename($nucleo['imagen']);
+                $ruta_sistema = colocar_ruta_sistema('@imagenes/nucleos/') . $nombre_archivo;
                 if (file_exists($ruta_sistema)) {
                     unlink($ruta_sistema);
                 }
@@ -89,28 +93,28 @@ class AdminNucleosServicio {
     }
 
     private function subirImagen($archivo) {
-        $directorio_destino = 'publico/imagenes/nucleos/';
-        $ruta_directorio_sistema = colocar_ruta_sistema('@' . $directorio_destino);
+        $ruta_directorio_sistema = __DIR__ . '/../../../publico/imagenes/nucleos/';
+        $directorio_para_db = 'nucleos/';
 
         if (!file_exists($ruta_directorio_sistema)) {
-            if (!mkdir($ruta_directorio_sistema, 0755, true)) {
+            if (!mkdir($ruta_directorio_sistema, 0775, true)) {
                 throw new \Exception("No se pudo crear el directorio para imágenes de núcleos.");
             }
         }
 
-        $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
+        $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
         $extensiones_permitidas = ['jpg', 'jpeg', 'png', 'webp'];
-        if (!in_array(strtolower($extension), $extensiones_permitidas)) {
-            throw new \Exception("Tipo de imagen no permitido.");
+        if (!in_array($extension, $extensiones_permitidas)) {
+            throw new \Exception("Tipo de imagen no permitido. Solo se aceptan: " . implode(', ', $extensiones_permitidas));
         }
 
         $nombre_archivo = uniqid('nucleo_') . '.' . $extension;
         $ruta_completa_destino = $ruta_directorio_sistema . $nombre_archivo;
 
         if (move_uploaded_file($archivo['tmp_name'], $ruta_completa_destino)) {
-            return $directorio_destino . $nombre_archivo;
+            return $directorio_para_db . $nombre_archivo; // Devuelve la ruta relativa para la BD
         }
 
-        throw new \Exception("Error al subir la imagen al servidor.");
+        throw new \Exception("Error al mover la imagen subida al servidor.");
     }
 }

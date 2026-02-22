@@ -6,3 +6,6 @@
 
 .tools/
 .database/
+
+# Directorio para archivos temporales, sesiones, etc.
+/tmp

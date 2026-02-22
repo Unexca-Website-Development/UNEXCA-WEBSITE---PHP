@@ -27,5 +27,10 @@ return [
     ['GET', 'admin-nucleos', 'AdminNucleosControlador@index'],
     ['POST', 'admin-nucleos', 'AdminNucleosControlador@procesarAccion'],
 
+    // Rutas de subida de imágenes
+    ['POST', 'admin-subir-imagen-autoridad', 'AdminImagenesControlador@subirAutoridad'],
+    ['POST', 'admin-subir-imagen-nucleo', 'AdminImagenesControlador@subirNucleo'],
+    ['POST', 'admin-subir-imagen-noticia', 'AdminImagenesControlador@subirNoticia'],
+
     ['GET', 'admin-opciones', 'AdminControlador@index'],
 ];

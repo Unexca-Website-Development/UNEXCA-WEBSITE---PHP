@@ -49,7 +49,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($autoridades)): ?>
+            <?php if (!isset($autoridades) || count($autoridades) === 0): ?>
                 <tr>
                     <td colspan="5" style="text-align:center">No hay autoridades registradas.</td>
                 </tr>

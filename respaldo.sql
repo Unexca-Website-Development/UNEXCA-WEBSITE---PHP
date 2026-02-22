@@ -86,7 +86,8 @@ CREATE TABLE public.autoridades_academicas (
     id integer NOT NULL,
     nombre character varying(255) NOT NULL,
     cargo character varying(255) NOT NULL,
-    imagen character varying(500)
+    imagen character varying(500),
+    orden integer DEFAULT 0 NOT NULL
 );
 
 
@@ -618,7 +619,9 @@ ALTER SEQUENCE public.noticias_noticia_id_seq OWNED BY public.noticias.noticia_i
 
 CREATE TABLE public.nucleos (
     id integer NOT NULL,
-    nombre character varying(255) NOT NULL
+    nombre character varying(255) NOT NULL,
+    imagen character varying(500),
+    direccion text
 );
 
 
@@ -797,15 +800,15 @@ ALTER TABLE ONLY public.servicios ALTER COLUMN id SET DEFAULT nextval('public.se
 -- Data for Name: autoridades_academicas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.autoridades_academicas (id, nombre, cargo, imagen) FROM stdin;
-1	Dr. Rúben Darío Reinoso Ratjes	Rector	autoridad_1.jpg
-2	Msc. Haydee Corova Rivero	Vicerrectora para el Desarrollo Académico	autoridad_2.jpg
-3	Dr. Ivonne Gómez	Vicerrector de Producción y Comunas	autoridad_3.jpg
-4	Esp. Gamal El Hennaoui	Secretario General	autoridad_4.jpg
-5	E. Néstor Chacón	Vicerrector de Investigación y Postgrado	autoridad_5.jpg
-6	Eneyda Arreaza	Directora del núcleo La Urbina UNEXCA	autoridad_6.jpg
-7	Maria Blanco	Directora del núcleo La Floresta UNEXCA	autoridad_7.jpg
-8	Marta Ávila	Directora del núcleo Altagracia UNEXCA	autoridad_8.jpg
+COPY public.autoridades_academicas (id, nombre, cargo, imagen, orden) FROM stdin;
+1	Dr. Rúben Darío Reinoso Ratjes	Rector	autoridad_1.jpg	1
+2	Msc. Haydee Corova Rivero	Vicerrectora para el Desarrollo Académico	autoridad_2.jpg	2
+3	Dr. Ivonne Gómez	Vicerrector de Producción y Comunas	autoridad_3.jpg	3
+4	Esp. Gamal El Hennaoui	Secretario General	autoridad_4.jpg	4
+5	E. Néstor Chacón	Vicerrector de Investigación y Postgrado	autoridad_5.jpg	5
+6	Eneyda Arreaza	Directora del núcleo La Urbina UNEXCA	autoridad_6.jpg	6
+7	Maria Blanco	Directora del núcleo La Floresta UNEXCA	autoridad_7.jpg	7
+8	Marta Ávila	Directora del núcleo Altagracia UNEXCA	autoridad_8.jpg	8
 \.
 
 

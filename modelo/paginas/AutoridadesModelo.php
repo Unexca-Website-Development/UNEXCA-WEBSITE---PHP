@@ -31,7 +31,9 @@ class AutoridadesModelo extends \Modelo\BaseModelo
      */
     public function obtenerAutoridadesOrdenadas()
     {
-        //$query = "SELECT * FROM autoridades_academicas ORDER BY orden ASC";
-        //return $this->ejecutar($query);
+        $query = "SELECT * FROM autoridades_academicas ORDER BY orden ASC";
+        $resultado = $this->consultar($query);
+
+        return $resultado;
     }
 }

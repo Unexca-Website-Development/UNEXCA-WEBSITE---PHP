@@ -28,8 +28,9 @@ class AdminAutoridadesControlador extends BaseControlador {
             ]
         ]);
 
+        // Usar el layout administrativo
         $this->establecerPlantilla(colocar_ruta_sistema('@vista/plantilla/admin/admin.php'));
-        $this->establecerVista(colocar_ruta_sistema('@paginas/admin/autoridades.php'));
+        $this->establecerVista(colocar_ruta_sistema('@vista/paginas/admin/autoridades.php'));
 
         $this->renderizar([
             'autoridades' => $autoridades,
@@ -71,7 +72,7 @@ class AdminAutoridadesControlador extends BaseControlador {
                 break;
         }
         
-        header('Location: ' . colocar_enlace('admin-autoridades'));
+        header('Location: ' . colocar_enlace('admin', ['seccion' => 'autoridades']));
         exit;
     }
 }

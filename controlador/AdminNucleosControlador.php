@@ -26,8 +26,9 @@ class AdminNucleosControlador extends BaseControlador {
                 ]
         ]);
 
-        $this->establecerVista(colocar_ruta_sistema('@paginas/admin/nucleos.php'));
         $this->establecerPlantilla(colocar_ruta_sistema('@vista/plantilla/admin/admin.php'));
+        $this->establecerVista(colocar_ruta_sistema('@vista/paginas/admin/nucleos.php'));
+
         $this->renderizar([
             'data_menu_control' => $data_menu_control,
             'nucleos' => $nucleos
@@ -39,29 +40,35 @@ class AdminNucleosControlador extends BaseControlador {
         $accion = $_POST['accion'] ?? '';
         $id = $_POST['id'] ?? null;
 
-        switch ($accion) {
-            case 'guardar':
-                $datos = [
-                    'nombre' => $_POST['nombre'],
-                    'direccion' => $_POST['direccion']
-                ];
-                $imagen = $_FILES['imagen'] ?? null;
+        try {
+            switch ($accion) {
+                case 'guardar':
+                    $datos = [
+                        'nombre' => $_POST['nombre'],
+                        'direccion' => $_POST['direccion']
+                    ];
+                    $imagen = $_FILES['imagen'] ?? null;
 
-                if ($id) {
-                    $this->servicio->actualizar($id, $datos, $imagen);
-                } else {
-                    $this->servicio->guardar($datos, $imagen);
-                }
-                break;
+                    if ($id) {
+                        $this->servicio->actualizar($id, $datos, $imagen);
+                    } else {
+                        $this->servicio->guardar($datos, $imagen);
+                    }
+                    break;
 
-            case 'eliminar':
-                if ($id) {
-                    $this->servicio->eliminar($id);
-                }
-                break;
+                case 'eliminar':
+                    if ($id) {
+                        $this->servicio->eliminar($id);
+                    }
+                    break;
+            }
+        } catch (\Throwable $e) {
+            // Deberíamos agregar un sistema de notificaciones/sesiones flash para mostrar errores
+            // Por ahora, morimos para ver el error durante el desarrollo
+            die("Error: " . $e->getMessage());
         }
         
-        header('Location: ' . colocar_enlace('admin-nucleos'));
+        header('Location: ' . colocar_enlace('admin', ['seccion' => 'nucleos']));
         exit;
     }
 }

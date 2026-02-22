@@ -51,7 +51,7 @@
                     <?php foreach ($nucleos as $nucleo): ?>
                         <tr>
                             <td>
-                                <img src="<?= htmlspecialchars(procesar_enlace($nucleo['imagen'] ?? '')) ?>" alt="Imagen de <?= htmlspecialchars($nucleo['nombre']) ?>" class="img-listado-admin">
+                                <img src="<?= colocar_ruta_html('@imagenes/' . ($nucleo['imagen'] ?? '')) ?>" alt="Imagen de <?= htmlspecialchars($nucleo['nombre']) ?>" class="img-listado-admin">
                             </td>
                             <td><?= htmlspecialchars($nucleo['nombre']) ?></td>
                             <td><?= htmlspecialchars($nucleo['direccion']) ?></td>
