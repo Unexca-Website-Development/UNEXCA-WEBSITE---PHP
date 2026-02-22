@@ -13,6 +13,11 @@ return [
 
     ['GET', 'carrera', 'CarreraControlador@mostrar'],
 
+    ['GET', 'nucleos', 'NucleosControlador@index'],
+    ['POST', 'nucleos/guardar', 'NucleosControlador@guardar'],
+    ['POST', 'nucleos/actualizar', 'NucleosControlador@actualizar'],
+    ['POST', 'nucleos/eliminar', 'NucleosControlador@eliminar'],
+
     ['GET', 'noticias_editor', 'NoticiasEditorControlador@Index'],
     ['POST', 'noticias_editor', 'NoticiasEditorControlador@GuardarNoticia'],
 

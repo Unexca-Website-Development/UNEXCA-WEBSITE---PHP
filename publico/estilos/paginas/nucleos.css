@@ -1,0 +1,222 @@
+.main-contenido {
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+.seccion-nucleos {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(27, 2, 255, 0.1);
+}
+.titulo-seccion {
+    color: #333;
+    border-bottom: 2px solid #0056b3;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+.listado-nucleos-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.btn-actualizar {
+    background: linear-gradient(135deg, #17a2b8, #070566);
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.90rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px rgba(23, 162, 184, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-actualizar:hover {
+    background: linear-gradient(135deg, #138496, #0c5460);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+}
+.tabla-contenedor {
+    overflow-x: auto;
+}
+.tabla-nucleos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+.tabla-nucleos th,
+.tabla-nucleos td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+.tabla-nucleos th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: 600;
+}
+.img-nucleo {
+    width: 100px;
+    height: 75px;
+    border-radius: 4px;
+    object-fit: cover;
+    background-color: #eee;
+}
+.acciones {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+.btn-editar,
+.btn-eliminar {
+    padding: 0.1rem 1rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #c9c9c9;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.3s ease;
+}
+.btn-editar {
+    background: linear-gradient(135deg, #12015f, #010301);
+    color: #fcfcfc;
+    box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+}
+.btn-editar:hover {
+    background: linear-gradient(135deg, #420d96, #391ac5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(7, 7, 7, 0.3);
+}
+.form-eliminar {
+    margin: 0;
+}
+.btn-eliminar {
+    background: linear-gradient(135deg, #6e0000, hsl(0, 84%, 40%));
+    box-shadow: 0 4px 6px rgba(205, 88, 252, 0.2);
+}
+.btn-eliminar:hover {
+    background: linear-gradient(135deg, #c82333, #bd2130);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+}
+.separador {
+    margin: 3rem 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.formulario-seccion h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+.form-admin {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 800px;
+}
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-grupo label {
+    font-weight: bold;
+    color: #555;
+}
+.requerido {
+    color: #dc3545;
+}
+.form-grupo input[type="text"],
+.form-grupo textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-grupo input[type="text"]:focus,
+.form-grupo textarea:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+.form-grupo textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+.form-grupo input[type="file"] {
+    padding: 0.5rem 0;
+}
+.hint {
+    color: #666;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+.form-acciones {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.btn-guardar {
+    background: linear-gradient(135deg, #28a745, #021b08);
+    color: #fff;
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+    transition: all 0.3s ease;
+}
+.btn-guardar:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+}
+.btn-cancelar {
+    background: linear-gradient(135deg, #6c757d, #02121f);
+    color: #fff;
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px rgba(108, 117, 125, 0.2);
+    transition: all 0.3s ease;
+}
+.btn-cancelar:hover {
+    background: linear-gradient(135deg, #5a6268, #4e555b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(108, 117, 125, 0.3);
+}
+/* Responsive */
+ @media (max-width: 768px) {
+    .acciones {
+        flex-direction: column;
+    }
+    .btn-editar,
+    .btn-eliminar {
+        width: 100%;
+    }
+}
