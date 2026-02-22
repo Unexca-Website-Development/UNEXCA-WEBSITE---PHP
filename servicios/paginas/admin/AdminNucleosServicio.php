@@ -1,7 +1,7 @@
 <?php
 namespace Servicios\Paginas\Admin;
 
-require_once colocar_ruta_sistema('@modelo/paginas/NucleosModelo.php');
+require_once colocar_ruta_sistema('@modelo/paginas/admin/AdminNucleosModelo.php');
 
 /**
  * Servicio para la gestión de Núcleos en el panel de administración.
@@ -10,7 +10,7 @@ class AdminNucleosServicio {
     private $modelo_nucleos;
 
     public function __construct() {
-        $this->modelo_nucleos = new \Modelo\Paginas\NucleosModelo();
+        $this->modelo_nucleos = new \Modelo\Paginas\Admin\AdminNucleosModelo();
     }
 
     public function obtenerTodos() {

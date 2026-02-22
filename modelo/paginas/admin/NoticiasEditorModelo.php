@@ -1,6 +1,5 @@
 <?php
 namespace Modelo\Paginas\Admin;
-
 require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
 
 /**

@@ -6,7 +6,7 @@
     <!-- Formulario de Creación / Edición -->
     <div class="formulario-seccion" id="seccion-formulario">
         <h2 id="formulario-titulo">Registrar Nuevo Núcleo</h2>
-        <form id="form-nucleos" action="<?= colocar_enlace('admin/nucleos') ?>" method="POST" enctype="multipart/form-data" class="form-admin">
+        <form id="form-nucleos" action="<?= colocar_enlace('admin-nucleos') ?>" method="POST" enctype="multipart/form-data" class="form-admin">
             <input type="hidden" name="accion" value="guardar">
             <input type="hidden" name="id" id="nucleo_id" value="">
             

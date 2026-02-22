@@ -10,25 +10,22 @@ return [
     ['GET', 'faqs', 'FaqsControlador@index'],
     ['GET', 'servicios', 'ServiciosControlador@index'],
     ['GET', 'contactos', 'ContactosControlador@index'],
-
     ['GET', 'carrera', 'CarreraControlador@mostrar'],
-
     ['GET', 'nucleos', 'NucleosControlador@index'],
-
-    ['GET', 'noticias_editor', 'NoticiasEditorControlador@Index'],
-    ['POST', 'noticias_editor', 'NoticiasEditorControlador@GuardarNoticia'],
 
     // Rutas Administrativas <- AnthoFu estuvo aqui
     ['GET', 'admin', 'AdminControlador@index'],
-    ['GET', 'admin/noticias', 'AdminControlador@index'],
+
+    ['GET', 'admin-noticias', 'AdminNoticiasControlador@index'],
+    ['POST', 'admin-noticias', 'AdminNoticiasControlador@GuardarNoticia'],
     
     // Módulo de Autoridades
-    ['GET', 'admin/autoridades', 'AdminAutoridadesControlador@index'],
-    ['POST', 'admin/autoridades', 'AdminAutoridadesControlador@index'],
+    ['GET', 'admin-autoridades', 'AdminAutoridadesControlador@index'],
+    ['POST', 'admin-autoridades', 'AdminAutoridadesControlador@procesarAccion'],
 
     // Módulo de Núcleos
-    ['GET', 'admin/nucleos', 'AdminNucleosControlador@index'],
-    ['POST', 'admin/nucleos', 'AdminNucleosControlador@index'],
+    ['GET', 'admin-nucleos', 'AdminNucleosControlador@index'],
+    ['POST', 'admin-nucleos', 'AdminNucleosControlador@procesarAccion'],
 
-    ['GET', 'admin/opciones', 'AdminControlador@index'],
+    ['GET', 'admin-opciones', 'AdminControlador@index'],
 ];

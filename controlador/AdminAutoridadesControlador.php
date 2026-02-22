@@ -3,45 +3,42 @@
  * Controlador para la gestión de Autoridades Académicas.
  */
 require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
+require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaAdminServicio.php');
 require_once colocar_ruta_sistema('@servicios/paginas/admin/AdminAutoridadesServicio.php');
 
 class AdminAutoridadesControlador extends BaseControlador {
 
     private $servicio;
+    private $servicio_admin;
 
     public function __construct() {
         $this->servicio = new \Servicios\Paginas\Admin\AdminAutoridadesServicio();
+        $this->servicio_admin = new \Servicios\Plantilla\PlantillaAdminServicio();
     }
 
     public function index(): void {
-        // Manejo de acciones POST (Guardar/Eliminar)
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->procesarAccion();
-            return;
-        }
 
-        // Obtener datos para la vista
+        $data_menu_control = $this->servicio_admin->obtenerMenuControl();
         $autoridades = $this->servicio->obtenerListado();
 
         $this->establecerHead([
             "title" => "Gestión de Autoridades - UNEXCA",
             "styles" => [
-                "@estilos/paginas/general.css",
-                "@estilos/componentes/menu_control.css",
-                "@estilos/paginas/admin/autoridades.css" // Estilo específico (lo crearemos luego)
+                "@estilos/paginas/admin/autoridades.css"
             ]
         ]);
 
-        // Usar el layout administrativo
-        $this->establecerPlantilla(colocar_ruta_sistema('@vista/plantilla/admin.php'));
-        $this->establecerVista(colocar_ruta_sistema('@vista/paginas/admin/autoridades.php'));
+        $this->establecerPlantilla(colocar_ruta_sistema('@vista/plantilla/admin/admin.php'));
+        $this->establecerVista(colocar_ruta_sistema('@paginas/admin/autoridades.php'));
 
         $this->renderizar([
-            'autoridades' => $autoridades
+            'autoridades' => $autoridades,
+            'data_menu_control' => $data_menu_control
+            
         ]);
     }
 
-    private function procesarAccion() {
+    public function procesarAccion() {
         $accion = $_POST['accion'] ?? '';
         $id = $_POST['id'] ?? null;
 
@@ -74,8 +71,7 @@ class AdminAutoridadesControlador extends BaseControlador {
                 break;
         }
         
-        // Redireccionar para evitar reenvío de formulario
-        header('Location: ' . colocar_enlace('admin', ['seccion' => 'autoridades']));
+        header('Location: ' . colocar_enlace('admin-autoridades'));
         exit;
     }
 }
