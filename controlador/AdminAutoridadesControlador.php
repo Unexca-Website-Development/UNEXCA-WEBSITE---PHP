@@ -75,7 +75,7 @@ class AdminAutoridadesControlador extends BaseControlador {
         }
         
         // Redireccionar para evitar reenvío de formulario
-        header('Location: ' . colocar_enlace('admin/autoridades'));
+        header('Location: ' . colocar_enlace('admin', ['seccion' => 'autoridades']));
         exit;
     }
 }
