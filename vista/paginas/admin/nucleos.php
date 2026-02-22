@@ -51,13 +51,13 @@
                     <?php foreach ($nucleos as $nucleo): ?>
                         <tr>
                             <td>
-                                <img src="<?= colocar_ruta_html('@imagenes/' . ($nucleo['imagen'] ?? '')) ?>" alt="Imagen de <?= htmlspecialchars($nucleo['nombre']) ?>" class="img-listado-admin">
+                                <img src="<?= resolver_url_asset($nucleo['imagen']) ?>" alt="Imagen de <?= htmlspecialchars($nucleo['nombre']) ?>" class="img-listado-admin">
                             </td>
                             <td><?= htmlspecialchars($nucleo['nombre']) ?></td>
                             <td><?= htmlspecialchars($nucleo['direccion']) ?></td>
                             <td class="acciones">
                                 <button class="btn-editar" onclick="editarNucleo(<?= htmlspecialchars(json_encode($nucleo)) ?>)">✏️ Editar</button>
-                                <form action="<?= colocar_enlace('admin/nucleos') ?>" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este núcleo?');" class="form-eliminar">
+                                <form action="<?= colocar_enlace('admin-nucleos') ?>" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este núcleo?');" class="form-eliminar">
                                     <input type="hidden" name="accion" value="eliminar">
                                     <input type="hidden" name="id" value="<?= $nucleo['id'] ?>">
                                     <button type="submit" class="btn-eliminar">🗑️ Eliminar</button>

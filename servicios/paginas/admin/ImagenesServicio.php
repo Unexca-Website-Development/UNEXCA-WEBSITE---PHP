@@ -101,7 +101,7 @@ class ImagenesServicio
 
         return [
             'directorio' => $directorioCompleto,
-            'publica'    => $publicBase . $subcarpeta
+            'publica'    => $subcarpeta
         ];
     }
 

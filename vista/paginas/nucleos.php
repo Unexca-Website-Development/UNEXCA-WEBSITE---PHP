@@ -20,7 +20,7 @@
                             <?php foreach ($data_nucleos as $nucleo): ?>
                                 <tr>
                                     <td>
-                                        <img src="<?= htmlspecialchars(procesar_enlace($nucleo['imagen'] ?? '')) ?>" alt="Imagen de <?= htmlspecialchars($nucleo['nombre']) ?>" class="img-nucleo">
+                                        <img src="<?= resolver_url_asset($nucleo['imagen']) ?>" alt="Imagen de <?= htmlspecialchars($nucleo['nombre']) ?>" class="img-nucleo">
                                     </td>
                                     <td><?= htmlspecialchars($nucleo['nombre']) ?></td>
                                     <td>

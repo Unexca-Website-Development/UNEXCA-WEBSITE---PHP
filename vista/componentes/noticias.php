@@ -34,7 +34,7 @@ function noticias($data_array){
         <article class="noticia">
             <figure class="noticia__imagen">
                 <a class="noticia__enlace" href="<?= htmlspecialchars($noticia['link']) ?>">
-                    <img class="noticia__img" src="<?= colocar_ruta_html("@imagenes/carreras/") . htmlspecialchars(ltrim($noticia['img'], '/')) ?>" alt="<?= htmlspecialchars($noticia['titulo']) ?>">
+                    <img class="noticia__img" src="<?= resolver_url_asset($noticia['img']) ?>" alt="<?= htmlspecialchars($noticia['titulo']) ?>">
                 </a>
             </figure>
 

@@ -10,7 +10,7 @@
     <!-- Formulario de Creación/Edición -->
     <div id="formulario-autoridad" class="formulario-admin">
         <h3 id="titulo-formulario">Registrar Autoridad</h3>
-        <form action="<?= colocar_enlace('admin/autoridades') ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="accion" value="guardar">
             <input type="hidden" name="id" id="campo-id">
 
@@ -58,7 +58,7 @@
                     <tr>
                         <td class="acciones-orden">
                             <?php if ($index > 0): ?>
-                                <form action="<?= colocar_enlace('admin/autoridades') ?>" method="POST">
+                                <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST">
                                     <input type="hidden" name="accion" value="subir">
                                     <input type="hidden" name="id" value="<?= $aut['id'] ?>">
                                     <button type="submit" class="btn-orden" title="Subir">&uarr;</button>
@@ -66,7 +66,7 @@
                             <?php endif; ?>
                             
                             <?php if ($index < count($autoridades) - 1): ?>
-                                <form action="<?= colocar_enlace('admin/autoridades') ?>" method="POST">
+                                <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST">
                                     <input type="hidden" name="accion" value="bajar">
                                     <input type="hidden" name="id" value="<?= $aut['id'] ?>">
                                     <button type="submit" class="btn-orden" title="Bajar">&darr;</button>
@@ -74,8 +74,7 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <img src="<?= colocar_ruta_html('@imagenes/' . $aut['imagen']) ?>" 
-                                 class="img-miniatura" alt="Foto">
+                            <img src="<?= resolver_url_asset($aut['imagen']) ?>" class="img-miniatura" alt="Foto">
                         </td>
                         <td><?= htmlspecialchars($aut['nombre']) ?></td>
                         <td><?= htmlspecialchars($aut['cargo']) ?></td>
@@ -85,7 +84,7 @@
                                 Editar
                             </button>
                             
-                            <form action="<?= colocar_enlace('admin/autoridades') ?>" method="POST" 
+                            <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST" 
                                   onsubmit="return confirm('¿Estás seguro de eliminar a esta autoridad?');">
                                 <input type="hidden" name="accion" value="eliminar">
                                 <input type="hidden" name="id" value="<?= $aut['id'] ?>">

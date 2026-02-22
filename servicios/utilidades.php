@@ -136,6 +136,44 @@ function obtener_paginas_permitidas(): array {
 }
 
 /**
+ * Resuelve la URL pública de un recurso (imagen, etc.) a partir de su ruta en BD.
+ * Maneja inconsistencias de prefijos como 'publico/imagenes/'.
+ *
+ * @param string|null $ruta Ruta almacenada en la base de datos.
+ * @return string URL pública procesada.
+ */
+function resolver_url_asset(?string $ruta): string {
+    $ruta = trim($ruta ?? '');
+    if ($ruta === '' || $ruta === '#') return '';
+    if (preg_match('/^https?:\/\//i', $ruta)) return $ruta;
+
+    // Obtener la base del sistema para verificar archivos
+    $rutas_sistema = obtener_rutas()['sistema'];
+    $base_imagenes = $rutas_sistema['@imagenes'];
+
+    // Limpiar la ruta de prefijos redundantes para las pruebas
+    $ruta_limpia = ltrim($ruta, '/');
+    $ruta_limpia = str_replace('publico/imagenes/', '', $ruta_limpia);
+
+    // Lista de posibles ubicaciones para probar (en orden de probabilidad)
+    $intentos = [
+        $ruta_limpia,                    // Ruta tal cual (nueva o antigua bien guardada)
+        'autoridades/' . $ruta_limpia,   // Posible ubicación en autoridades
+        'nucleos/' . $ruta_limpia,       // Posible ubicación en núcleos
+        'noticias/' . $ruta_limpia       // Posible ubicación en noticias
+    ];
+
+    foreach ($intentos as $intento) {
+        if (file_exists($base_imagenes . '/' . $intento)) {
+            return colocar_ruta_html('@imagenes/' . $intento);
+        }
+    }
+
+    // Si no se encuentra el archivo, devolver la ruta original procesada como último recurso
+    return colocar_ruta_html('@imagenes/' . $ruta_limpia);
+}
+
+/**
  * Procesa un enlace convirtiéndolo a URL absoluta o relativa según corresponda.
  *
  * @param string|null $url URL o slug a procesar.

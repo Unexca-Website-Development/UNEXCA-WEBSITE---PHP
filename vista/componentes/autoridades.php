@@ -25,7 +25,7 @@ function autoridades($data_array) {
                 <?php foreach($data_array as $autoridad): ?>
                     <li class="autoridad__item">
                         <div class="autoridad__imagen">
-                            <img class="autoridad__img" src="<?= colocar_ruta_html("@imagenes/autoridades/") . htmlspecialchars(ltrim($autoridad['imagen'], '/')) ?>" alt="Imagen de <?= htmlspecialchars($autoridad['nombre']) ?>">
+                            <img class="autoridad__img" src="<?= resolver_url_asset($autoridad['imagen']) ?>" alt="Imagen de <?= htmlspecialchars($autoridad['nombre']) ?>">
                         </div>
 
                         <div class="autoridad__texto">
