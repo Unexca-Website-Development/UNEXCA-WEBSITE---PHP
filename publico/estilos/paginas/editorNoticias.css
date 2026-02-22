@@ -1,7 +1,9 @@
 .principal {
+    flex: 1;
     display: flex;
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
+    --padding-general: 1rem;
+    padding: calc(5 * var(--padding-general));
 }
 
 /* ==============================
@@ -11,9 +13,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    --padding-general: 1rem;
-
-    padding: calc(5*var(--padding-general));
 }
 
 /* ==============================
@@ -165,9 +164,15 @@
 .menu-editor {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.8rem 0;
     gap: 0.5rem;
-    border-left: 0.1rem solid var(--gris-oscuro);
+}
+
+.menu-editor__contenedor {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    gap: 0.5rem;
 }
 
 .menu-editor__boton {
@@ -176,6 +181,7 @@
     gap: 0.5rem;
     padding: 0.5rem;
     cursor: pointer;
+    border: 0.1rem solid var(--gris-oscuro);
 }
 
 .menu-editor__boton > svg {

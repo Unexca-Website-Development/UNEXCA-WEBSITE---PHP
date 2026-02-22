@@ -3,10 +3,11 @@ import ControlBloque from './ControlBloque.js'
 import EditorControlador from '../../controladores/EditorControlador.js'
 
 export default class BloqueBaseUI {
-	constructor(bloqueAdaptado) {
+	constructor(bloqueAdaptado, mostrarControl = true) {
 		this.bloque = bloqueAdaptado
+		this.mostrarControl = mostrarControl
 		this.elemento = null
-		this.control = new ControlBloque()
+		this.control = new ControlBloque(this.bloque.id)
 		this.controlador = new EditorControlador()
 	}
 
@@ -18,28 +19,35 @@ export default class BloqueBaseUI {
 		contenedor.appendChild(label)
 
 		for (const input of this.bloque.inputs) {
-			let campo = null
-
 			if (input.tipo === 'file') {
-				campo = crearInputBloque(this.bloque.id, input.key, input.tipo, input.requerido, input.aceptar)
+				const campo = crearInputBloque(this.bloque.id, input.key, input.tipo, input.requerido, input.aceptar)
 				contenedor.appendChild(campo)
-				campo.addEventListener('change', () => {
-					this.controlador.actualizarBloque(this.bloque.id, this.obtenerContenido())
+				campo.addEventListener('change', async () => {
+					const archivo = campo.files[0]
+					if (!archivo) return
+					const formData = new FormData()
+					formData.append('imagen', archivo)
+					const resp = await fetch('/api/subir-imagen.php', { method: 'POST', body: formData })
+					const data = await resp.json()
+					if (data.url) {
+						this.controlador.actualizarBloque(this.bloque.id, { ...this.obtenerContenido(), url: data.url })
+					}
 				})
 			}
 
 			if (input.tipo === 'textarea') {
-				campo = crearTextareaBloque(this.bloque.id, input.key, input.placeholder, input.requerido)
+				const campo = crearTextareaBloque(this.bloque.id, input.key, input.placeholder, input.requerido)
 				contenedor.appendChild(campo)
 				campo.addEventListener('input', () => {
 					this.controlador.actualizarBloque(this.bloque.id, this.obtenerContenido())
 				})
 			}
-			
 		}
 
-		const controlUI = await this.control.renderizar()
-		contenedor.appendChild(controlUI)
+		if (this.mostrarControl) {
+			const controlUI = await this.control.renderizar()
+			contenedor.appendChild(controlUI)
+		}
 
 		this.elemento = contenedor
 		return contenedor
@@ -51,11 +59,8 @@ export default class BloqueBaseUI {
 		inputs.forEach(input => {
 			const key = input.getAttribute('data-key')
 			if (!key) return
-			if (input.type === 'file') {
-				data[key] = input.files[0] ? input.files[0].name : ''
-			} else {
-				data[key] = input.value
-			}
+			if (input.type === 'file') return
+			data[key] = input.value
 		})
 		return data
 	}

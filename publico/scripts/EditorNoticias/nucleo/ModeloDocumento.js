@@ -2,20 +2,18 @@ import BloqueBase from '../bloques/BloqueBase.js'
 
 export default class ModeloDocumento {
 	constructor() {
+		this.titulo_principal = ''
+		this.descripcion_corta = ''
+		this.descripcion_imagen = ''
+		this.fecha_publicacion = ''
+		this.imagen_principal = ''
 		this.estado = 'borrador'
-		this.cabecera = [
-			new BloqueBase('titulo'),
-			new BloqueBase('fechas'),
-			new BloqueBase('parrafo'),
-			new BloqueBase('imagen')
-		]
 		this.bloques = []
 	}
 
 	agregarBloque(tipo, contenido = {}, indice = null) {
 		const bloque = new BloqueBase(tipo)
 		bloque.asignar(contenido)
-
 		if (indice === null || indice >= this.bloques.length) this.bloques.push(bloque)
 		else if (indice < 0) this.bloques.unshift(bloque)
 		else this.bloques.splice(indice, 0, bloque)
@@ -38,33 +36,44 @@ export default class ModeloDocumento {
 		this.estado = nuevoEstado
 	}
 
+	establecerImagenPrincipal(url) {
+		this.imagen_principal = url
+	}
+
+	nuevoDocumento() {
+		this.titulo_principal = ''
+		this.descripcion_corta = ''
+		this.descripcion_imagen = ''
+		this.fecha_publicacion = ''
+		this.imagen_principal = ''
+		this.estado = 'borrador'
+		this.bloques = []
+	}
+
 	obtenerDatos() {
 		return {
+			titulo_principal: this.titulo_principal,
+			descripcion_corta: this.descripcion_corta,
+			descripcion_imagen: this.descripcion_imagen,
+			fecha_publicacion: this.fecha_publicacion,
+			imagen_principal: this.imagen_principal,
 			estado: this.estado,
-			cabecera: Object.fromEntries(
-				this.cabecera.map(b => [b.tipo, b.obtenerDatos()])
-			),
 			bloques: this.bloques.map(b => b.obtenerDatos())
 		}
 	}
 
 	cargarDatos(datos) {
 		if (!datos || typeof datos !== 'object') return
-		this.estado = datos.estado || this.estado
-
-		if (datos.cabecera) {
-			for (const bloque of this.cabecera) {
-				const key = bloque.tipo
-				if (datos.cabecera[key]) {
-					bloque.asignar(datos.cabecera[key].contenido || {})
-				}
-			}
-		}
-
+		this.titulo_principal = datos.titulo_principal || ''
+		this.descripcion_corta = datos.descripcion_corta || ''
+		this.descripcion_imagen = datos.descripcion_imagen || ''
+		this.fecha_publicacion = datos.fecha_publicacion || ''
+		this.imagen_principal = datos.imagen_principal || ''
+		this.estado = datos.estado || 'borrador'
 		if (Array.isArray(datos.bloques)) {
 			this.bloques = datos.bloques.map(d => {
-				const bloque = new BloqueBase(d.tipo)
-				bloque.asignar(d.contenido || {})
+				const bloque = new BloqueBase(d.tipo_bloque)
+				bloque.asignar(d.datos || {})
 				return bloque
 			})
 		}

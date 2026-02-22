@@ -40,7 +40,7 @@ class InicioServicio
         $carreras_array = [];
 
         foreach ($carreras_lista as $carrera) {
-            $link_carrera = colocar_enlace('carrera', ['nombre' => $carrera['slug']]);
+            $link_carrera = colocar_enlace('carrera', ['slug' => $carrera['slug']]);
             $carreras_array[] = [
                 "titulo"      => $carrera['titulo'],
                 "descripcion" => $carrera['descripcion'],
@@ -50,24 +50,6 @@ class InicioServicio
         }
 
         return $carreras_array;
-    }
-    
-    public function obtenerDatosNoticiasSimples()
-    {
-        $noticias_lista = $this->modelo_inicio->obtenerNoticiasSimples();
-
-        $noticias_array = [];
-
-        foreach ($noticias_lista as $noticia) {
-            $link_noticia = colocar_enlace('noticias', ['url' => $noticia['url']]);
-            $noticias_array[] = [
-                "titulo"       => $noticia['titulo_principal'],
-                "link"        => $link_noticia,
-                "img"          => $noticia['imagen_principal'],
-            ];
-        }
-        
-        return $noticias_array;
     }
 }
 

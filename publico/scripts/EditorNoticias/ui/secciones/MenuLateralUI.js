@@ -1,23 +1,21 @@
+import {CONFIG_MENU_LATERAL} from '../../config/configMenuLateral.js'
 import { crearBoton } from '../utilidadesUI.js'
+import EditorControlador from '../../controladores/EditorControlador.js'
 
 export default class MenuLateralUI {
 	constructor() {
 		this.elemento = null
+		this.controlador = new EditorControlador()
 	}
 
 	async renderizar() {
 		const nav = document.createElement('nav')
 		nav.className = 'menu-editor'
 
-		const botonesConfig = [
-			{ id: 'btn-menu-abrir', rutaIcono: '/imagenes/iconos/icon_menu_open.svg', clase: 'menu-editor__boton' },
-			{ id: 'btn-nueva-noticia', rutaIcono: '/imagenes/iconos/icon_nueva.svg', texto: 'Nueva noticia', clase: 'menu-editor__boton', claseSpan: 'menu-editor__texto' },
-			{ id: 'btn-buscar-noticia', rutaIcono: '/imagenes/iconos/icon_buscar.svg', texto: 'Buscar noticia', clase: 'menu-editor__boton', claseSpan: 'menu-editor__texto' },
-			{ id: 'btn-guardar-noticia', rutaIcono: '/imagenes/iconos/icon_guardar.svg', texto: 'Guardar noticia', clase: 'menu-editor__boton', claseSpan: 'menu-editor__texto' },
-			{ id: 'btn-publicar-noticia', rutaIcono: '/imagenes/iconos/icon_publicar.svg', texto: 'Publicar noticia', clase: 'menu-editor__boton', claseSpan: 'menu-editor__texto' }
-		]
+		const menuContenedor = document.createElement('div')
+		menuContenedor.className = 'menu-editor__contenedor'
 
-		for (const config of botonesConfig) {
+		for (const config of CONFIG_MENU_LATERAL) {
 			const boton = await crearBoton({
 				rutaIcono: config.rutaIcono,
 				texto: config.texto,
@@ -25,29 +23,26 @@ export default class MenuLateralUI {
 				claseSpan: config.claseSpan
 			})
 			boton.id = config.id
-			nav.appendChild(boton)
+			menuContenedor.appendChild(boton)
 		}
 
-		const grupoRecientes = document.createElement('div')
-		grupoRecientes.className = 'menu-editor__grupo menu-editor__grupo--recientes'
-
-		const botonRecientes = await crearBoton({
-			rutaIcono: '/imagenes/iconos/flecha.svg',
-			texto: 'Noticias recientes',
-			clase: 'menu-editor__boton menu-editor__boton--recientes',
-			claseSpan: 'menu-editor__texto'
-		})
-		botonRecientes.id = 'btn-noticias-recientes'
-
-		const contenedorRecientes = document.createElement('div')
-		contenedorRecientes.className = 'menu-editor__contenedor-recientes'
-
-		grupoRecientes.append(botonRecientes, contenedorRecientes)
-
-		const btnGuardar = nav.querySelector('#btn-guardar-noticia')
-		if (btnGuardar) nav.insertBefore(grupoRecientes, btnGuardar)
-
+		nav.appendChild(menuContenedor)
 		this.elemento = nav
+
+		menuContenedor.querySelector('#btn-nueva-noticia')?.addEventListener('click', () => {
+			this.controlador.nuevoDocumento()
+		})
+
+		menuContenedor.querySelector('#btn-guardar-noticia')?.addEventListener('click', () => {
+			this.controlador.establecerEstado('borrador')
+			this.controlador.guardarNoticia()
+		})
+
+		menuContenedor.querySelector('#btn-publicar-noticia')?.addEventListener('click', () => {
+			this.controlador.establecerEstado('publicado')
+			this.controlador.guardarNoticia()
+		})
+
 		return nav
 	}
 }

@@ -2,7 +2,6 @@
 
 return [
 
-    ['GET', '/', 'InicioControlador@index'],
     ['GET', 'inicio', 'InicioControlador@index'],
 
     ['GET', 'historia', 'HistoriaControlador@index'],
@@ -13,6 +12,9 @@ return [
     ['GET', 'contactos', 'ContactosControlador@index'],
 
     ['GET', 'carrera', 'CarreraControlador@mostrar'],
+
+    ['GET', 'noticias_editor', 'NoticiasEditorControlador@Index'],
+    ['POST', 'noticias_editor', 'NoticiasEditorControlador@GuardarNoticia'],
 
     // Rutas Administrativas <- AnthoFu estuvo aqui
     ['GET', 'admin', 'AdminControlador@index'],
