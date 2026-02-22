@@ -12,13 +12,45 @@ class PlantillaAdminServicio
      * 
      * @return array
      */
-    public function obtenerMenuControl()
+    public function obtenerMenuControl($slug_seccion = null)
     {
-        return [
-            ['titulo' => 'Noticias', 'url' => 'admin/noticias', 'icon' => 'noticias'],
-            ['titulo' => 'Autoridades', 'url' => 'admin/autoridades', 'icon' => 'autoridades'],
-            ['titulo' => 'Núcleos y extensiones', 'url' => 'admin/nucleos', 'icon' => 'nucleos'],
-            ['titulo' => 'Opciones generales', 'url' => 'admin/opciones', 'icon' => 'opciones'],
+        $menu = 
+        [
+            'inicio' => [
+                'titulo' => 'Inicio', 
+                'url' => colocar_enlace('admin', ['seccion' => 'inicio']), 
+                'icon' => 'inicio'
+            ],
+            'noticias' => [
+                'titulo' => 'Noticias', 
+                'url' => colocar_enlace('admin', ['seccion' => 'noticias']), 
+                'icon' => 'noticias'
+            ],
+            'autoridades' => [
+                'titulo' => 'Autoridades', 
+                'url' => colocar_enlace('admin', ['seccion' => 'autoridades']), 
+                'icon' => 'autoridades'
+            ],
+            'nucleos' => [
+                'titulo' => 'Núcleos y extensiones', 
+                'url' => colocar_enlace('admin', ['seccion' => 'nucleos']), 
+                'icon' => 'nucleos'
+            ],
+            'opciones' => [
+                'titulo' => 'Opciones generales', 
+                'url' => colocar_enlace('admin', ['seccion' => 'opciones']), 
+                'icon' => 'opciones'
+            ]
         ];
+
+        if ($slug_seccion === null) {
+            return null;
+        }
+
+        if (!isset($menu[$slug_seccion])) {
+            return null;
+        }
+
+        return $menu;
     }
 }

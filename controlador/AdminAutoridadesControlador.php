@@ -45,43 +45,37 @@ class AdminAutoridadesControlador extends BaseControlador {
         $accion = $_POST['accion'] ?? '';
         $id = $_POST['id'] ?? null;
 
-        try {
-            switch ($accion) {
-                case 'guardar':
-                    $datos = [
-                        'nombre' => $_POST['nombre'],
-                        'cargo' => $_POST['cargo']
-                    ];
-                    $imagen = $_FILES['imagen'] ?? null;
+        switch ($accion) {
+            case 'guardar':
+                $datos = [
+                    'nombre' => $_POST['nombre'],
+                    'cargo' => $_POST['cargo']
+                ];
+                $imagen = $_FILES['imagen'] ?? null;
 
-                    if ($id) {
-                        $this->servicio->actualizarAutoridad($id, $datos, $imagen);
-                    } else {
-                        $this->servicio->guardarAutoridad($datos, $imagen);
-                    }
-                    break;
+                if ($id) {
+                    $this->servicio->actualizarAutoridad($id, $datos, $imagen);
+                } else {
+                    $this->servicio->guardarAutoridad($datos, $imagen);
+                }
+                break;
 
-                case 'eliminar':
-                    if ($id) {
-                        $this->servicio->eliminarAutoridad($id);
-                    }
-                    break;
+            case 'eliminar':
+                if ($id) {
+                    $this->servicio->eliminarAutoridad($id);
+                }
+                break;
 
-                case 'subir':
-                case 'bajar':
-                    if ($id) {
-                        $this->servicio->reordenar($id, $accion);
-                    }
-                    break;
-            }
-            
-            // Redireccionar para evitar reenvío de formulario
-            header('Location: ' . colocar_enlace('admin/autoridades'));
-            exit;
-
-        } catch (Exception $e) {
-            // Manejar error (podríamos pasar un mensaje a la vista)
-            die("Error: " . $e->getMessage());
+            case 'subir':
+            case 'bajar':
+                if ($id) {
+                    $this->servicio->reordenar($id, $accion);
+                }
+                break;
         }
+        
+        // Redireccionar para evitar reenvío de formulario
+        header('Location: ' . colocar_enlace('admin/autoridades'));
+        exit;
     }
 }

@@ -4,4 +4,5 @@
 # Asegurar que el archivo de ejemplo SÍ se versione
 !.env.default
 
-tools/
+.tools/
+.database/

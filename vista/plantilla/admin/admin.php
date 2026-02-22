@@ -13,9 +13,7 @@
 <html lang="ES">
     <?php head($head_data ?? []); ?>
     <body class="admin-body">
-        
-        <?php menu_control($data_menu_control ?? [], $_GET['pagina'] ?? 'admin'); ?>
-
+        <?php menu_control($data_menu_control ?? []); ?>
         <main class="admin-layout">
             <header class="admin-layout__header">
                 <h1>Administración UNEXCA</h1>
