@@ -1,0 +1,8 @@
+/* Estilos para la página de gestión de núcleos en el panel de admin */
+/* Hereda la mayoría de los estilos de admin/autoridades.css y general.css */
+
+.img-listado-admin {
+    max-width: 100px;
+    height: auto;
+    border-radius: 4px;
+}

@@ -22,14 +22,27 @@ function obtener_rutas(){
  * @throws Exception Si el alias no concuerda con ninguna ruta.
  */
 function colocar_ruta_sistema(string $alias): string{
+    // Log para depuración
+    error_log("colocar_ruta_sistema: Alias original recibido: '$alias'");
+    
+    // Intento de corrección: eliminar espacios en blanco al inicio y final del alias
+    $alias_limpio = trim($alias);
+    if ($alias !== $alias_limpio) {
+        error_log("colocar_ruta_sistema: Se eliminaron espacios. Alias ahora es: '$alias_limpio'");
+    }
+
     $rutas = obtener_rutas()['sistema'];
 
     foreach ($rutas as $clave => $ruta){
-        if (strpos($alias, $clave) === 0){
-            return $ruta . substr($alias, strlen($clave));
+        if (strpos($alias_limpio, $clave) === 0){
+            return $ruta . substr($alias_limpio, strlen($clave));
         }
     }
-    throw new Exception("Ruta de sistema no encontrada para '$alias'");
+    
+    // Log de las claves que se intentaron
+    error_log("colocar_ruta_sistema: No se encontró coincidencia para el alias '$alias_limpio'. Claves disponibles: " . implode(', ', array_keys($rutas)));
+
+    throw new Exception("Ruta de sistema no encontrada para '$alias_limpio'");
 };
 
 /**

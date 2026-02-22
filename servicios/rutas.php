@@ -14,9 +14,6 @@ return [
     ['GET', 'carrera', 'CarreraControlador@mostrar'],
 
     ['GET', 'nucleos', 'NucleosControlador@index'],
-    ['POST', 'nucleos/guardar', 'NucleosControlador@guardar'],
-    ['POST', 'nucleos/actualizar', 'NucleosControlador@actualizar'],
-    ['POST', 'nucleos/eliminar', 'NucleosControlador@eliminar'],
 
     ['GET', 'noticias_editor', 'NoticiasEditorControlador@Index'],
     ['POST', 'noticias_editor', 'NoticiasEditorControlador@GuardarNoticia'],
@@ -29,6 +26,9 @@ return [
     ['GET', 'admin/autoridades', 'AdminAutoridadesControlador@index'],
     ['POST', 'admin/autoridades', 'AdminAutoridadesControlador@index'],
 
-    ['GET', 'admin/nucleos', 'AdminControlador@index'],
+    // Módulo de Núcleos
+    ['GET', 'admin/nucleos', 'AdminNucleosControlador@index'],
+    ['POST', 'admin/nucleos', 'AdminNucleosControlador@index'],
+
     ['GET', 'admin/opciones', 'AdminControlador@index'],
 ];
