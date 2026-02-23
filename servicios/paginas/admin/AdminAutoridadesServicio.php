@@ -30,8 +30,9 @@ class AdminAutoridadesServicio
             $datos['imagen'] = 'autoridades/default_autoridad.jpg';
         }
 
-        // 2. Asignar orden (último + 1)
-        // $datos['orden'] = ... (pendiente de implementación en BD)
+        //2. Asignar orden (último + 1) AnthoFu Estuvo Aquí
+        $max_orden = $this->modelo->ejecutarYRetornarValor("SELECT COALESCE(MAX(orden), 0) FROM autoridades_academicas");
+        $datos['orden'] = $max_orden + 1;
 
         return $this->modelo->insertar('autoridades_academicas', $datos);
     }
