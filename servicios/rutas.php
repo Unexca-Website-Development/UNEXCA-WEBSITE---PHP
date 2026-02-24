@@ -15,6 +15,9 @@ return [
 
     // Rutas Administrativas <- AnthoFu estuvo aqui
     ['GET', 'admin', 'AdminControlador@index'],
+    ['GET', 'login', 'AuthControlador@mostrarLogin'],
+    ['POST', 'login', 'AuthControlador@login'],
+    ['GET', 'logout', 'AuthControlador@logout'],
 
     ['GET', 'admin-noticias', 'AdminNoticiasControlador@index'],
     ['POST', 'admin-noticias', 'AdminNoticiasControlador@GuardarNoticia'],
