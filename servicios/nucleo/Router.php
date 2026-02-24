@@ -6,6 +6,7 @@ use Servicios\Nucleo\ControladorErroresHTTP;
 
 class Router
 {
+
     public static function enrutar(): void
     {
         $metodoHttp = $_SERVER['REQUEST_METHOD'];
@@ -92,6 +93,7 @@ class Router
                 }
                 break;
         }
+
 
         unset($parametros['pagina']);
 
