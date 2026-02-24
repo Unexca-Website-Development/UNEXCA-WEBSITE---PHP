@@ -11,16 +11,15 @@ class AdminControlador extends BaseControlador {
     private $authServicio;
 
     public function __construct() {
-        $this->servicio_admin = new \Servicios\Plantilla\PlantillaAdminServicio();
         $this->authServicio = new \Servicios\Nucleo\AuthServicio();
-    }
-
-    public function index(array $seccion): void {
         if (!$this->authServicio->estaAutenticado()) {
             header('Location: index.php?pagina=login');
             exit;
         }
+        $this->servicio_admin = new \Servicios\Plantilla\PlantillaAdminServicio();
+    }
 
+    public function index(array $seccion): void {
         $url = $seccion['seccion'] ?? $seccion['seccion']['inicio'];
 
         if (empty($url) || strlen($url) > 100) {

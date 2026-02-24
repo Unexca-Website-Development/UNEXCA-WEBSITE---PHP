@@ -2,12 +2,18 @@
 
 require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/admin/ImagenesServicio.php');
+require_once colocar_ruta_sistema('@servicios/nucleo/AuthServicio.php');
 
 class AdminImagenesControlador extends BaseControlador {
 
     private $servicio;
+    private $authServicio;
 
     public function __construct() {
+        $this->authServicio = new \Servicios\Nucleo\AuthServicio();
+        if (!$this->authServicio->estaAutenticado()) {
+            $this->responderJson(['error' => 'No autorizado. Debe iniciar sesión.'], 401);
+        }
         $this->servicio = new \Servicios\Paginas\Admin\ImagenesServicio();
     }
 

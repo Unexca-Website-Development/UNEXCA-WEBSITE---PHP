@@ -1,13 +1,20 @@
 <?php
 require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaAdminServicio.php');
+require_once colocar_ruta_sistema('@servicios/nucleo/AuthServicio.php');
 
 
 class AdminNoticiasControlador extends BaseControlador {
 
     private $servicio_admin;
+    private $authServicio;
 
     public function __construct() {
+        $this->authServicio = new \Servicios\Nucleo\AuthServicio();
+        if (!$this->authServicio->estaAutenticado()) {
+            header('Location: index.php?pagina=login');
+            exit;
+        }
         $this->servicio_admin = new \Servicios\Plantilla\PlantillaAdminServicio();
     }
 
