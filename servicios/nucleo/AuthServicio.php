@@ -26,11 +26,6 @@ class AuthServicio
         if (session_status() === PHP_SESSION_NONE) {
             // Configurar la ruta de guardado a la carpeta tmp del proyecto
             $rutaTmp = colocar_ruta_sistema('@tmp');
-            
-            if (!is_dir($rutaTmp)) {
-                mkdir($rutaTmp, 0775, true);
-            }
-            
             ini_set('session.save_path', $rutaTmp);
             session_start();
         }

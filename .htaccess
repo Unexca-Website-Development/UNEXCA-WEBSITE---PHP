@@ -1,8 +1,10 @@
-<IfModule mod_rewrite.c>
+ #NO MODIFICAR ESTE ARCHIVO, NO LO USA EL PROYECTO EN LINUX, TAMPOCO MODIFICARLO PARA QUE FUNCIONE EN WINDOWS.
+
+=begin <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
-    # 🛡️ Seguridad: Bloquear el acceso a archivos sensibles y ocultos
+    # Seguridad: Bloquear el acceso a archivos sensibles y ocultos
     # Bloquea .env, .git, .gitignore, Dockerfile, etc.
     RewriteRule ^(\.env|\.git|\.gitignore|\.htaccess|README\.md|Dockerfile|docker-compose\.yml) - [F,L]
 
@@ -14,7 +16,7 @@
     RewriteRule ^(.*)$ index.php?ruta=$1 [QSA,L]
 </IfModule>
 
-# 🛡️ Seguridad: Denegar acceso a archivos por extensión o nombres sensibles
+#Seguridad: Denegar acceso a archivos por extensión o nombres sensibles
 <FilesMatch "^\.|\.(bak|config|sql|ini|log|sh|inc|swp|dist|default)$">
     <IfModule mod_authz_core.c>
         Require all denied
@@ -24,3 +26,4 @@
         Deny from all
     </IfModule>
 </FilesMatch>
+ =end

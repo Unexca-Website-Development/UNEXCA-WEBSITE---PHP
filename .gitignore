@@ -3,10 +3,3 @@
 
 # Asegurar que el archivo de ejemplo SÍ se versione
 !.env.default
-
-.tools/
-.database/
-
-# Directorio para archivos temporales, sesiones, etc.
-/tmp
-respaldo.sql
