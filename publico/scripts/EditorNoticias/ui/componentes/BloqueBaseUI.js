@@ -27,10 +27,11 @@ export default class BloqueBaseUI {
 					if (!archivo) return
 					const formData = new FormData()
 					formData.append('imagen', archivo)
-					const resp = await fetch('/api/subir-imagen.php', { method: 'POST', body: formData })
+					const resp = await fetch('index.php?pagina=admin-subir-imagen-noticia', { method: 'POST', body: formData })
 					const data = await resp.json()
-					if (data.url) {
-						this.controlador.actualizarBloque(this.bloque.id, { ...this.obtenerContenido(), url: data.url })
+					if (data.success && (data.url || data.ruta)) {
+						const urlFinal = data.url || data.ruta
+						this.controlador.actualizarBloque(this.bloque.id, { ...this.obtenerContenido(), url: urlFinal })
 					}
 				})
 			}

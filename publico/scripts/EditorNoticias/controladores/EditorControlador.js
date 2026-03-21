@@ -91,8 +91,40 @@ export default class EditorControlador {
 		administradorEventos.notificar('estadoActualizado', this.modelo.estado)
 	}
 
-	guardarNoticia() {
-		console.log(JSON.stringify(this.modelo.obtenerDatos(), null, 2))
+	async guardarNoticia() {
+		const datos = this.modelo.obtenerDatos()
+		
+		try {
+			const respuesta = await fetch('index.php?pagina=admin-noticias', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(datos)
+			})
+
+			const textoRespuesta = await respuesta.text()
+			let resultado;
+
+			try {
+				resultado = JSON.parse(textoRespuesta)
+			} catch (e) {
+				console.error('Error parseando JSON. Respuesta del servidor:', textoRespuesta)
+				throw new Error('El servidor respondió con un formato inválido (posible error de PHP)')
+			}
+
+			if (resultado.success) {
+				alert(resultado.mensaje || 'Noticia guardada con éxito')
+				if (resultado.id && !datos.id) {
+					this.modelo.id = resultado.id
+				}
+			} else {
+				alert('Error: ' + (resultado.mensaje || 'No se pudo guardar la noticia'))
+			}
+		} catch (error) {
+			console.error('Error al guardar:', error)
+			alert('Error: ' + error.message)
+		}
 	}
 
 	obtenerDatos() {

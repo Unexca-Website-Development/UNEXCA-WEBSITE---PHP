@@ -36,18 +36,20 @@ class AdminImagenesControlador extends BaseControlador {
             if (!isset($_FILES['imagen'])) {
                 throw new \Exception('No se ha enviado ningún archivo.');
             }
-            if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
-                throw new \Exception('No se ha proporcionado un ID de entidad válido.');
-            }
 
-            $idEntidad = (int)$_POST['id'];
+            $idEntidad = isset($_POST['id']) && is_numeric($_POST['id']) ? (int)$_POST['id'] : null;
             
-            $rutaImagen = $this->servicio->subirImagen($_FILES['imagen'], $tipoEntidad, $idEntidad);
+            // Si el servicio requiere ID, pasamos null o un ID temporal
+            $rutaImagen = $this->servicio->subirImagen($_FILES['imagen'], $tipoEntidad, $idEntidad ?? 0);
             
-            $this->responderJson(['ruta' => $rutaImagen]);
+            $this->responderJson([
+                'success' => true,
+                'url' => $rutaImagen,
+                'ruta' => $rutaImagen
+            ]);
 
         } catch (\Exception $e) {
-            $this->responderJson(['error' => $e->getMessage()], 400);
+            $this->responderJson(['error' => $e->getMessage(), 'success' => false], 400);
         }
     }
 

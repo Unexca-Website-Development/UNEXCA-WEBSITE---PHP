@@ -1,61 +1,45 @@
 <?php
-/**
- * Controlador para la gestión de Núcleos en el panel de administración.
- */
-require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
+require_once colocar_ruta_sistema('@controlador/BaseAdminControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/admin/AdminNucleosServicio.php');
-require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaAdminServicio.php');
-require_once colocar_ruta_sistema('@servicios/nucleo/AuthServicio.php');
 
-class AdminNucleosControlador extends BaseControlador {
+class AdminNucleosControlador extends BaseAdminControlador {
         private $servicio;
-        private $servicio_admin;
-        private $authServicio;
 
         public function __construct() {
-            $this->authServicio = new \Servicios\Nucleo\AuthServicio();
-            if (!$this->authServicio->estaAutenticado()) {
-                header('Location: index.php?pagina=login');
-                exit;
-            }
-
+            parent::__construct();
             $this->servicio = new \Servicios\Paginas\Admin\AdminNucleosServicio();
-            $this->servicio_admin = new \Servicios\Plantilla\PlantillaAdminServicio();
         }
 
-    public function index(): void {
-        $data_menu_control = $this->servicio_admin->obtenerMenuControl();
+    public function index(array $params = []): void {
         $nucleos = $this->servicio->obtenerTodos();
 
         $this->establecerHead([
             "title" => "Gestión de Núcleos - UNEXCA",
             "styles" => [
-                "@estilos/paginas/admin/nucleos.css"
+                "@estilos/paginas/admin/general.css"
                 ]
         ]);
 
-        $this->establecerPlantilla(colocar_ruta_sistema('@vista/plantilla/admin/admin.php'));
         $this->establecerVista(colocar_ruta_sistema('@vista/paginas/admin/nucleos.php'));
 
         $this->renderizar([
-            'data_menu_control' => $data_menu_control,
             'nucleos' => $nucleos
         ]);
     }
 
-    public function procesarAccion(): void {
+    public function procesarAccion(array $params = []): void {
 
-        $accion = $_POST['accion'] ?? '';
-        $id = $_POST['id'] ?? null;
+        $accion = $params['accion'] ?? '';
+        $id = $params['id'] ?? null;
 
         try {
             switch ($accion) {
                 case 'guardar':
                     $datos = [
-                        'nombre' => $_POST['nombre'],
-                        'direccion' => $_POST['direccion']
+                        'nombre' => $params['nombre'] ?? '',
+                        'direccion' => $params['direccion'] ?? ''
                     ];
-                    $imagen = $_FILES['imagen'] ?? null;
+                    $imagen = $params['files']['imagen'] ?? null;
 
                     if ($id) {
                         $this->servicio->actualizar($id, $datos, $imagen);
@@ -71,12 +55,11 @@ class AdminNucleosControlador extends BaseControlador {
                     break;
             }
         } catch (\Throwable $e) {
-            // Deberíamos agregar un sistema de notificaciones/sesiones flash para mostrar errores
-            // Por ahora, morimos para ver el error durante el desarrollo
             die("Error: " . $e->getMessage());
         }
-        
+
         header('Location: ' . colocar_enlace('admin', ['seccion' => 'nucleos']));
         exit;
     }
+
 }

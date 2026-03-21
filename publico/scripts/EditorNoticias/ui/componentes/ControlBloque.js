@@ -1,5 +1,6 @@
 import { crearBoton } from '../utilidadesUI.js'
 import EditorControlador from '../../controladores/EditorControlador.js'
+import { CONFIG_RUTAS } from '../../config/configRutas.js'
 
 export default class ControlBloque {
 	constructor(idBloque, { mostrarSubir = true, mostrarBajar = true, mostrarBorrar = true } = {}) {
@@ -20,7 +21,7 @@ export default class ControlBloque {
 
 		if (this.mostrarSubir) {
 			const btnSubir = await crearBoton({
-				rutaIcono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/flecha.svg',
+				rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.noticiasRecientes,
 				clase: 'editor-noticia__boton-control -subir',
 				tipo: 'button'
 			})
@@ -32,7 +33,7 @@ export default class ControlBloque {
 
 		if (this.mostrarBajar) {
 			const btnBajar = await crearBoton({
-				rutaIcono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/flecha.svg',
+				rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.noticiasRecientes,
 				clase: 'editor-noticia__boton-control -bajar',
 				tipo: 'button'
 			})
@@ -44,7 +45,7 @@ export default class ControlBloque {
 
 		if (this.mostrarBorrar) {
 			const btnBorrar = await crearBoton({
-				rutaIcono: '/UNEXCA-WEBSITE---PHP/publico/imagenes/iconos/icon_borrar.svg',
+				rutaIcono: CONFIG_RUTAS.rutaIconos + 'icon_borrar.svg',
 				clase: 'editor-noticia__boton-control -borrar',
 				tipo: 'button'
 			})

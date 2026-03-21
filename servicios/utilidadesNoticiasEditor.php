@@ -17,7 +17,7 @@ function prepararBloquesJSON(array $bloques) {
 	$resultado = [];
 	foreach ($bloques as $posicion => $bloque) {
 		$resultado[] = [
-			'tipo_bloque' => $bloque['tipo'],
+			'tipo_bloque' => $bloque['tipo_bloque'] ?? $bloque['tipo'],
 			'datos'       => json_encode($bloque['datos'], JSON_UNESCAPED_UNICODE),
 			'posicion'    => $posicion + 1
 		];

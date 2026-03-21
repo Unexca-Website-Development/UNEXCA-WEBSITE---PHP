@@ -2,6 +2,7 @@ import BloqueBase from '../bloques/BloqueBase.js'
 
 export default class ModeloDocumento {
 	constructor() {
+		this.id = null
 		this.titulo_principal = ''
 		this.descripcion_corta = ''
 		this.descripcion_imagen = ''
@@ -41,6 +42,7 @@ export default class ModeloDocumento {
 	}
 
 	nuevoDocumento() {
+		this.id = null
 		this.titulo_principal = ''
 		this.descripcion_corta = ''
 		this.descripcion_imagen = ''
@@ -52,6 +54,7 @@ export default class ModeloDocumento {
 
 	obtenerDatos() {
 		return {
+			id: this.id,
 			titulo_principal: this.titulo_principal,
 			descripcion_corta: this.descripcion_corta,
 			descripcion_imagen: this.descripcion_imagen,
@@ -64,6 +67,7 @@ export default class ModeloDocumento {
 
 	cargarDatos(datos) {
 		if (!datos || typeof datos !== 'object') return
+		this.id = datos.id || null
 		this.titulo_principal = datos.titulo_principal || ''
 		this.descripcion_corta = datos.descripcion_corta || ''
 		this.descripcion_imagen = datos.descripcion_imagen || ''

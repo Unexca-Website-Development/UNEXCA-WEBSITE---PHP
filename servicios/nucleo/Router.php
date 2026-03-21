@@ -73,9 +73,9 @@ class Router
             $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
             if (strpos($contentType, 'application/json') !== false) {
                 $input = file_get_contents('php://input');
-                $parametros = json_decode($input, true) ?? [];
+                $parametros = array_merge($_GET, json_decode($input, true) ?? []);
             } else {
-                $parametros = $_POST;
+                $parametros = array_merge($_GET, $_POST);
                 if (!empty($_FILES)) {
                     $parametros['files'] = $_FILES;
                 }
@@ -86,11 +86,13 @@ class Router
             case 'DELETE':
             case 'PATCH':
                 $input = file_get_contents('php://input');
+                $bodyParams = [];
                 if (strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
-                    $parametros = json_decode($input, true) ?? [];
+                    $bodyParams = json_decode($input, true) ?? [];
                 } else {
-                    parse_str($input, $parametros);
+                    parse_str($input, $bodyParams);
                 }
+                $parametros = array_merge($_GET, $bodyParams);
                 break;
         }
 

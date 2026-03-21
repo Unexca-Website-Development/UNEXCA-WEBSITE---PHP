@@ -1,7 +1,5 @@
-
-//const ruta = window.location.pathname.split("/")[1];
-const ruta = "UNEXCA-WEBSITE---PHP";
-const URL_BASE = `/${ruta}/publico/imagenes/iconos/`;
+// Usar rutas relativas al archivo index.php que carga el editor
+const URL_BASE = `publico/imagenes/iconos/`;
 
 export const CONFIG_RUTAS = {
     rutaIconos: URL_BASE,
