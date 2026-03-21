@@ -29,7 +29,7 @@ Ejecuta el siguiente comando para construir y levantar los contenedores:
 docker-compose up -d --build
 ```
 
-Esto descargará las imágenes de PHP 7.4 y PostgreSQL 15, y levantará los servicios. Acceso: **[http://localhost:8080](http://localhost:8080)**.
+El sitio estará disponible en: **[http://localhost:8080](http://localhost:8080)**
 
 ## 4. Importar la Base de Datos (Sin errores de acentos)
 
@@ -48,30 +48,19 @@ cat respaldo.sql | docker-compose exec -T db psql -U postgres -d unexcadb
 # Copiar el archivo al contenedor para evitar problemas de codificación de la terminal
 docker cp respaldo.sql unexca-website---php-db-1:/tmp/respaldo.sql
 docker-compose exec db psql -U postgres -d unexcadb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-docker-compose exec db psql -U postgres -d unexcadb -f /tmp/respaldo.sql
+docker-compose exec db psql -U postgres -d unexcadb -f //tmp/respaldo.sql
 ```
 
 ## 5. Configuración del Acceso Administrativo
 
-Las contraseñas en este proyecto usan `password_hash()` de PHP. Por seguridad, debes generar el hash dentro del mismo entorno donde se validará.
+Para configurar o resetear tu contraseña de administrador de forma segura en Windows, ejecuta este comando único en tu terminal (Git Bash o PowerShell):
 
-### 5.1. Generar el Hash de tu contraseña
-Ejecuta esto para generar el hash de la contraseña que desees (ej: `admin123`):
 ```bash
-docker-compose exec app php -r "echo password_hash('tu_contraseña_aqui', PASSWORD_BCRYPT);"
+docker-compose exec app php scripts/cambiar_pass.php admin admin123
 ```
-*Copia el código resultante (ej: `$2y$10$...`).*
 
-### 5.2. Actualizar el usuario en la Base de Datos
-Para evitar errores con caracteres especiales en la terminal de Windows, crea un archivo temporal `update_pass.sql` con el siguiente contenido:
-```sql
-UPDATE usuarios SET password = 'TU_HASH_COPIADO' WHERE usuario = 'admin';
-```
-Luego ejecútalo:
-```powershell
-docker cp update_pass.sql unexca-website---php-db-1:/tmp/update_pass.sql
-docker-compose exec db psql -U postgres -d unexcadb -f /tmp/update_pass.sql
-```
+*Puedes cambiar `admin123` por la clave que prefieras. El sistema se encargará de hashearla y guardarla correctamente en la base de datos sin errores de caracteres.*
+
 
 ## 6. Comandos Útiles
 
