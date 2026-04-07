@@ -64,7 +64,7 @@ class PlantillaDefaultServicio
             $padre_id = $fila['padre_id'] ? 'e_' . $fila['padre_id'] : null;
 
             $url = !empty($fila['url'])
-                ? colocar_enlace($fila['tabla_origen'], ['nombre' => $fila['url']])
+                ? colocar_enlace($fila['tabla_origen'], ['slug' => $fila['url']])
                 : '#';
 
             if ($padre_id && isset($resultado[$padre_id])) {

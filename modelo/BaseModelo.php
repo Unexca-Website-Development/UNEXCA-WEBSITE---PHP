@@ -46,6 +46,7 @@ class BaseModelo
         'menu_enlaces_dinamicos',
         'noticias',
         'noticias_contenido',
+        'usuarios',
     ];
 
     /**

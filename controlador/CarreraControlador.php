@@ -5,45 +5,44 @@ require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/CarrerasServicio.php');
 require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaDefaultServicio.php');
 
-class CarreraControlador extends BaseControlador {
+class CarreraControlador extends BaseControlador
+{
+    public function mostrar(array $params): void
+    {
+        $slug = $params['slug'] ?? '';
 
-    public function mostrar(string $slug): void {
-
-        if (empty($slug) || !is_string($slug) || strlen($slug) > 100) {
+        if (empty($slug) || strlen($slug) > 100) {
             ControladorErroresHTTP::error404();
             return;
         }
 
-        $slug_normalizado = normalizar_texto($slug, '-');
+        $slug = normalizar_texto($slug, '-');
 
-        if ($slug_normalizado !== normalizar_texto($slug_normalizado, '-') || strpos($slug_normalizado, '--') !== false) {
-             ControladorErroresHTTP::error404();
-             return;
+        if (strpos($slug, '--') !== false) {
+            ControladorErroresHTTP::error404();
+            return;
         }
-
-        $slug = $slug_normalizado;
 
         $servicio = new \Servicios\Paginas\CarrerasServicio();
         $servicio_plantilla = new \Servicios\Plantilla\PlantillaDefaultServicio();
         $data_carreras = $servicio->obtenerDatosCarrera($slug);
 
+        if (!$data_carreras) {
+            ControladorErroresHTTP::error404();
+            return;
+        }
+
         $data_header = $servicio_plantilla->obtenerDatosMenu('Header');
         $data_footer = $servicio_plantilla->obtenerDatosMenu('Footer');
 
-
-        if (!$data_carreras) {
-             ControladorErroresHTTP::error404();
-             return;
-        }
-
         $this->establecerHead([
-            "title" => htmlspecialchars(trim($data_carreras['titulo']), ENT_QUOTES, 'UTF-8') . " - UNEXCA",
-            "styles" => [
-                "@estilos/paginas/carrera.css",
+            'title' => htmlspecialchars(trim($data_carreras['titulo']), ENT_QUOTES, 'UTF-8') . ' - UNEXCA',
+            'styles' => [
+                '@estilos/paginas/carrera.css',
             ],
-            "meta" => [
-                "description" => htmlspecialchars(trim($data_carreras['descripcion']), ENT_QUOTES, 'UTF-8'),
-                "keywords" => "UNEXCA, universidad, carrera, " . htmlspecialchars(trim(strtolower($data_carreras['titulo'])), ENT_QUOTES, 'UTF-8'),
+            'meta' => [
+                'description' => htmlspecialchars(trim($data_carreras['descripcion']), ENT_QUOTES, 'UTF-8'),
+                'keywords' => 'UNEXCA, universidad, carrera, ' . htmlspecialchars(trim(strtolower($data_carreras['titulo'])), ENT_QUOTES, 'UTF-8'),
             ],
         ]);
 
@@ -51,8 +50,8 @@ class CarreraControlador extends BaseControlador {
 
         $this->renderizar([
             'data_carreras' => $data_carreras,
-            'data_header'  => $data_header,
-            'data_footer'  => $data_footer
+            'data_header'   => $data_header,
+            'data_footer'   => $data_footer,
         ]);
     }
 }

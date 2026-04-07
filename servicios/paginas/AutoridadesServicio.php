@@ -33,7 +33,7 @@ class AutoridadesServicio
      */
     public function obtenerDatosAutoridades()
     {
-        $autoridades_lista = $this->modelo_autoridades->obtenerAutoridades();
+        $autoridades_lista = $this->modelo_autoridades->obtenerAutoridadesOrdenadas();
         $autoridades_array = [];
 
         foreach ($autoridades_lista as $autoridad) {

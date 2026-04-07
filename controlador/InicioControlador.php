@@ -3,6 +3,7 @@ require_once colocar_ruta_sistema('@controlador/BaseControlador.php');
 require_once colocar_ruta_sistema('@servicios/paginas/InicioServicio.php');
 require_once colocar_ruta_sistema('@servicios/plantilla/PlantillaDefaultServicio.php');
 
+
 class InicioControlador extends BaseControlador {
 
   public function index(): void {

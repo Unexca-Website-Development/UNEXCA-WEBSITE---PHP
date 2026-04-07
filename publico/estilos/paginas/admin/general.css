@@ -1,0 +1,180 @@
+/* Estilos generales para el Panel Administrativo */
+
+:root {
+    --primary-color: #0056b3;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --bg-light: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-color: #333;
+    --white: #ffffff;
+}
+
+.admin-section {
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.admin-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.admin-section__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Botones */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn--primary { background-color: var(--primary-color); color: white; }
+.btn--primary:hover { background-color: #004494; }
+
+.btn--success { background-color: var(--success-color); color: white; }
+.btn--success:hover { background-color: #218838; }
+
+.btn--danger { background-color: var(--danger-color); color: white; }
+.btn--danger:hover { background-color: #c82333; }
+
+.btn--secondary { background-color: var(--secondary-color); color: white; }
+.btn--secondary:hover { background-color: #5a6268; }
+
+.btn--sm { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+
+/* Tablas */
+.admin-table-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.admin-table th, .admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.admin-table th {
+    background-color: var(--bg-light);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.admin-table tr:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+.img-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+/* Formularios */
+.admin-form-card {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    display: none; /* Se activa con JS */
+}
+
+.admin-form-card.activo {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.text-center { text-align: center; }
+
+/* Utilidades de orden */
+.order-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.btn-order {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.btn-order:hover {
+    background: var(--primary-color);
+    color: white;
+}

@@ -59,6 +59,7 @@ class Router
     {
         if (!method_exists($controlador, $metodo)) {
             ControladorErroresHTTP::error404();
+            return;
         }
 
         $parametros = [];
@@ -69,26 +70,35 @@ class Router
                 break;
 
             case 'POST':
-                $parametros = $_POST;
+            $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+            if (strpos($contentType, 'application/json') !== false) {
+                $input = file_get_contents('php://input');
+                $parametros = array_merge($_GET, json_decode($input, true) ?? []);
+            } else {
+                $parametros = array_merge($_GET, $_POST);
                 if (!empty($_FILES)) {
                     $parametros['files'] = $_FILES;
                 }
-                break;
+            }
+            break;
 
             case 'PUT':
             case 'DELETE':
             case 'PATCH':
                 $input = file_get_contents('php://input');
+                $bodyParams = [];
                 if (strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
-                    $parametros = json_decode($input, true) ?? [];
+                    $bodyParams = json_decode($input, true) ?? [];
                 } else {
-                    parse_str($input, $parametros);
+                    parse_str($input, $bodyParams);
                 }
+                $parametros = array_merge($_GET, $bodyParams);
                 break;
         }
 
+
         unset($parametros['pagina']);
 
-        call_user_func_array([$controlador, $metodo], $parametros);
+        $controlador->$metodo($parametros);
     }
 }

@@ -17,6 +17,7 @@ require_once colocar_ruta_sistema('@componentes/lista_desplegable.php');
 require_once colocar_ruta_sistema('@componentes/detalle_carrera.php');
 require_once colocar_ruta_sistema('@componentes/contactos_admin.php');
 require_once colocar_ruta_sistema('@componentes/contactos_coords.php');
+require_once colocar_ruta_sistema('@componentes/menu_control.php');
 
 require_once colocar_ruta_sistema('@componentes/head.php');
 require_once colocar_ruta_sistema('@componentes/cabecera.php');

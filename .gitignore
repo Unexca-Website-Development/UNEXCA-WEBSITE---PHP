@@ -1,7 +1,9 @@
 # archivos relacionados a API keys
 .env
 
+# Archivos de contexto y respaldos locales
+GEMINI.md
+respaldo.sql
+
 # Asegurar que el archivo de ejemplo SÍ se versione
 !.env.default
-
-tools/

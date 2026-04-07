@@ -14,22 +14,29 @@
  * - Cada bloque desplegable funciona de manera independiente.
  */
 
-const botones = document.querySelectorAll('.desplegable__titulo');
+const inicializarBoton = (boton) => {
+  if (boton.dataset.listened === 'true') return;
 
-botones.forEach(boton => {
   boton.addEventListener('mousedown', () => {
     const currentItem = boton.parentElement;
-
-    // // Cerrar otros
-    // botones.forEach(b => {
-    //   if (b !== boton) {
-    //     b.parentElement.classList.remove('activo');
-    //     b.setAttribute('aria-expanded', 'false');
-    //   }
-    // });
-
-    // Alternar actual
     const activo = currentItem.classList.toggle('activo');
     boton.setAttribute('aria-expanded', activo ? 'true' : 'false');
   });
+
+  boton.dataset.listened = 'true';
+};
+
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach(() => {
+    const botonesNuevos = document.querySelectorAll('.desplegable__titulo');
+    botonesNuevos.forEach(boton => inicializarBoton(boton));
+  });
 });
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+// Ejecución inicial por si algunos ya existen al cargar
+document.querySelectorAll('.desplegable__titulo').forEach(boton => inicializarBoton(boton));

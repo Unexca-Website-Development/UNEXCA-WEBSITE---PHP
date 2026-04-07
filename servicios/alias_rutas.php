@@ -21,7 +21,8 @@ return [
         '@scripts'     => dirname(__DIR__) . '/publico/scripts',
         '@vista'       => dirname(__DIR__) . '/vista',
         '@servicios'   => dirname(__DIR__) . '/servicios',
-        '@logs'        => dirname(__DIR__) . '/logs'
+        '@logs'        => dirname(__DIR__) . '/logs',
+        '@tmp'         => dirname(__DIR__) . '/tmp'
     ],
     'html' => [
         '@estilos'     => 'publico/estilos',

@@ -1,0 +1,115 @@
+.menu-control {
+    width: 280px;
+    height: 100vh;
+    background-color: var(--blanco-claro);
+    color: var(--negro);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 0;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.05);
+    border-left: 1px solid var(--gris-claro);
+    z-index: 1000;
+}
+
+.menu-control__header {
+    padding: 30px 20px;
+    background-color: var(--azul);
+    color: var(--blanco-claro);
+    text-align: center;
+}
+
+.menu-control__titulo {
+    font-family: var(--fuente-titulos);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.menu-control__lista {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.menu-control__item {
+    margin: 5px 15px;
+}
+
+.menu-control__enlace {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--negro);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: var(--fuente-principal);
+    font-size: 1.4rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.menu-control__enlace:hover {
+    background-color: var(--gris-claro);
+    color: var(--azul);
+}
+
+.menu-control__enlace--activo {
+    background-color: var(--azul);
+    color: var(--blanco-claro) !important;
+}
+
+.menu-control__footer {
+    padding: 20px;
+    border-top: 1px solid var(--gris-claro);
+    background-color: var(--blanco);
+}
+
+.menu-control__volver {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: var(--azul);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: 2px solid var(--azul);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.menu-control__volver:hover {
+    background-color: var(--azul);
+    color: var(--blanco-claro);
+}
+
+/* Layout Administrativo */
+.admin-layout {
+    margin-right: 280px;
+    padding: 40px;
+    min-height: 100vh;
+}
+
+.admin-layout__header h1 {
+    font-family: var(--fuente-titulos);
+    color: var(--azul);
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.admin-layout__header hr {
+    border: 0;
+    height: 3px;
+    background-color: var(--azul);
+    width: 60px;
+    margin-bottom: 30px;
+}
+
+.admin-body {
+    background-color: var(--blanco);
+}
