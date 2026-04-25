@@ -43,6 +43,17 @@
         <?php boton(colocar_enlace('historia')); ?>
     </section>
 
+    <?php if (!empty($data_noticias)): ?>
+    <section class="noticias">
+        <div class="noticias__contenido">
+            <h2 class="noticias__titulo">Noticias</h2>
+            <div class="noticias__lista">
+                <?= noticias($data_noticias); ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
     <section class="carreras">
         <div class="carreras__contenido">
             <h2 class="carreras__titulo">Programas Académicos</h2>

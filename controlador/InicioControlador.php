@@ -12,6 +12,7 @@ class InicioControlador extends BaseControlador {
     $servicio_plantilla = new \Servicios\Plantilla\PlantillaDefaultServicio();
 
     $data_carrera = $servicio->obtenerDatosCarreras();
+    $data_noticias = $servicio->obtenerNoticias();
     $data_header = $servicio_plantilla->obtenerDatosMenu('Header');
     $data_footer = $servicio_plantilla->obtenerDatosMenu('Footer');
 
@@ -31,6 +32,7 @@ class InicioControlador extends BaseControlador {
 
     $this->renderizar([
       'data_carrera' => $data_carrera,
+      'data_noticias' => $data_noticias,
       'data_header'  => $data_header,
       'data_footer'  => $data_footer
     ]);

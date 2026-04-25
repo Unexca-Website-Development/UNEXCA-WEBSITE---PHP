@@ -2,6 +2,7 @@
 namespace Servicios\Paginas;
 
 require_once colocar_ruta_sistema('@modelo/paginas/InicioModelo.php');
+require_once colocar_ruta_sistema('@modelo/paginas/NoticiasModelo.php');
 
 /**
  * Servicio para la página de inicio.
@@ -17,6 +18,11 @@ class InicioServicio
     private $modelo_inicio;
 
     /**
+     * @var \NoticiasModelo Instancia del modelo de noticias.
+     */
+    private $modelo_noticias;
+
+    /**
      * Constructor.
      *
      * Inicializa el modelo de inicio.
@@ -24,6 +30,7 @@ class InicioServicio
     public function __construct()
     {
         $this->modelo_inicio = new \Modelo\Paginas\InicioModelo();
+        $this->modelo_noticias = new \NoticiasModelo();
     }
 
     /**
@@ -50,6 +57,27 @@ class InicioServicio
         }
 
         return $carreras_array;
+    }
+
+    /**
+     * Obtiene las noticias publicadas para la página de inicio.
+     *
+     * @return array
+     */
+    public function obtenerNoticias()
+    {
+        $noticias_lista = $this->modelo_noticias->obtenerNoticiasPublicadas(4);
+        $noticias_array = [];
+
+        foreach ($noticias_lista as $noticia) {
+            $noticias_array[] = [
+                'titulo' => $noticia['titulo_principal'],
+                'img'    => $noticia['imagen_principal'],
+                'link'   => colocar_enlace('noticia', ['url' => $noticia['url']])
+            ];
+        }
+
+        return $noticias_array;
     }
 }
 
