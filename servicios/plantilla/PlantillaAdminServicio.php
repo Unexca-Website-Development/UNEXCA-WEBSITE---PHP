@@ -23,17 +23,17 @@ class PlantillaAdminServicio
             ],
             'autoridades' => [
                 'titulo' => 'Autoridades',
-                'url' => colocar_enlace('admin', ['seccion' => 'autoridades']),
+                'url' => colocar_enlace('admin-autoridades'),
                 'icon' => 'autoridades'
             ],
             'nucleos' => [
                 'titulo' => 'Núcleos',
-                'url' => colocar_enlace('admin', ['seccion' => 'nucleos']),
+                'url' => colocar_enlace('admin-nucleos'),
                 'icon' => 'nucleos'
             ],
             'opciones' => [
                 'titulo' => 'Opciones generales',
-                'url' => colocar_enlace('admin', ['seccion' => 'opciones']),
+                'url' => colocar_enlace('admin-opciones'),
                 'icon' => 'opciones'
             ]
         ];

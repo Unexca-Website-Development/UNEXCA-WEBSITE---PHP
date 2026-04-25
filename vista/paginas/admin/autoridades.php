@@ -9,7 +9,7 @@
     <!-- Formulario de Creación/Edición -->
     <div id="formulario-autoridad" class="admin-form-card">
         <h3 id="titulo-formulario">Registrar Autoridad</h3>
-        <form action="<?= colocar_enlace('admin', ['seccion' => 'autoridades']) ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="accion" value="guardar">
             <input type="hidden" name="id" id="campo-id">
 
@@ -59,7 +59,7 @@
                             <td>
                                 <div class="order-controls">
                                     <?php if ($index > 0): ?>
-                                        <form action="<?= colocar_enlace('admin', ['seccion' => 'autoridades']) ?>" method="POST">
+                                        <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST">
                                             <input type="hidden" name="accion" value="subir">
                                             <input type="hidden" name="id" value="<?= $aut['id'] ?>">
                                             <button type="submit" class="btn-order" title="Subir">&uarr;</button>
@@ -67,7 +67,7 @@
                                     <?php endif; ?>
                                     
                                     <?php if ($index < count($autoridades) - 1): ?>
-                                        <form action="<?= colocar_enlace('admin', ['seccion' => 'autoridades']) ?>" method="POST">
+                                        <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST">
                                             <input type="hidden" name="accion" value="bajar">
                                             <input type="hidden" name="id" value="<?= $aut['id'] ?>">
                                             <button type="submit" class="btn-order" title="Bajar">&darr;</button>
@@ -87,7 +87,7 @@
                                         Editar
                                     </button>
                                     
-                                    <form action="<?= colocar_enlace('admin', ['seccion' => 'autoridades']) ?>" method="POST" 
+                                    <form action="<?= colocar_enlace('admin-autoridades') ?>" method="POST" 
                                           onsubmit="return confirm('¿Estás seguro de eliminar a esta autoridad?');" style="display:inline">
                                         <input type="hidden" name="accion" value="eliminar">
                                         <input type="hidden" name="id" value="<?= $aut['id'] ?>">

@@ -9,7 +9,7 @@
     <!-- Formulario de Creación / Edición -->
     <div id="formulario-nucleo" class="admin-form-card">
         <h3 id="formulario-titulo">Registrar Nuevo Núcleo</h3>
-        <form action="<?= colocar_enlace('admin', ['seccion' => 'nucleos']) ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?= colocar_enlace('admin-nucleos') ?>" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="accion" value="guardar">
             <input type="hidden" name="id" id="nucleo_id" value="">
             
@@ -59,7 +59,7 @@
                             <td>
                                 <div class="acciones">
                                     <button class="btn btn--primary btn--sm" onclick="editarNucleo(<?= htmlspecialchars(json_encode($nucleo)) ?>)">Editar</button>
-                                    <form action="<?= colocar_enlace('admin', ['seccion' => 'nucleos']) ?>" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este núcleo?');" style="display:inline">
+                                    <form action="<?= colocar_enlace('admin-nucleos') ?>" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este núcleo?');" style="display:inline">
                                         <input type="hidden" name="accion" value="eliminar">
                                         <input type="hidden" name="id" value="<?= $nucleo['id'] ?>">
                                         <button type="submit" class="btn btn--danger btn--sm">Eliminar</button>

@@ -58,7 +58,7 @@ class AdminNucleosControlador extends BaseAdminControlador {
             die("Error: " . $e->getMessage());
         }
 
-        header('Location: ' . colocar_enlace('admin', ['seccion' => 'nucleos']));
+        header('Location: ' . colocar_enlace('admin-nucleos'));
         exit;
     }
 

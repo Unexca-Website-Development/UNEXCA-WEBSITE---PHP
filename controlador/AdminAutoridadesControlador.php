@@ -62,7 +62,7 @@ class AdminAutoridadesControlador extends BaseAdminControlador {
                 break;
         }
         
-        header('Location: ' . colocar_enlace('admin', ['seccion' => 'autoridades']));
+        header('Location: ' . colocar_enlace('admin-autoridades'));
         exit;
     }
 }
