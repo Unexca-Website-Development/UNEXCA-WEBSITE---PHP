@@ -452,3 +452,119 @@
         padding: 0;
     }
 }
+
+/* ======================= */
+/* Seccion de Sedes */
+.sedes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 5rem 1.5rem;
+    gap: 1.5rem;
+    position: relative;
+    background-color: var(--blanco);
+    flex-direction: row;
+}
+
+.sedes__contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--azul);
+}
+
+.sedes__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    color: var(--azul);
+}
+
+/* ======================= */
+/* Componente Nucleos */
+.componente-nucleos__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.nucleo-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--blanco-claro);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.nucleo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nucleo-card__imagen-contenedor {
+    width: 100%;
+    height: 15rem;
+    overflow: hidden;
+}
+
+.nucleo-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+    transition: transform 0.5s ease;
+}
+
+.nucleo-card:hover .nucleo-card__img {
+    transform: scale(1.05);
+}
+
+.nucleo-card__contenido {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.nucleo-card__nombre {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--azul);
+    margin: 0;
+}
+
+.nucleo-card__direccion {
+    font-size: 1rem;
+    line-height: 1.6rem;
+    color: var(--negro);
+    margin: 0;
+}
+
+.nucleo-card__direccion a {
+    color: var(--azul);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* Resolucion de telefono */
+@media (max-width: 480px) {
+    .sedes__contenido {
+        border: none !important;
+        padding: 0 !important;
+    }
+    
+    .sedes__titulo {
+        font-size: 2rem;
+    }
+
+    .componente-nucleos__grid {
+        grid-template-columns: 1fr;
+    }
+}

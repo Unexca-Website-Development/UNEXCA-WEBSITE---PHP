@@ -13,6 +13,7 @@ class InicioControlador extends BaseControlador {
 
     $data_carrera = $servicio->obtenerDatosCarreras();
     $data_noticias = $servicio->obtenerNoticias();
+    $data_nucleos = $servicio->obtenerNucleos();
     $data_header = $servicio_plantilla->obtenerDatosMenu('Header');
     $data_footer = $servicio_plantilla->obtenerDatosMenu('Footer');
 
@@ -20,7 +21,8 @@ class InicioControlador extends BaseControlador {
       "title" => "Inicio - UNEXCA",
       "styles" => [
         "@estilos/paginas/inicio.css",
-        "@estilos/componentes/botones.css"
+        "@estilos/componentes/botones.css",
+        "@estilos/paginas/nucleos.css"
       ],
       "meta" => [
         "description" => "Página de inicio de la UNEXCA.",
@@ -33,6 +35,7 @@ class InicioControlador extends BaseControlador {
     $this->renderizar([
       'data_carrera' => $data_carrera,
       'data_noticias' => $data_noticias,
+      'data_nucleos'  => $data_nucleos,
       'data_header'  => $data_header,
       'data_footer'  => $data_footer
     ]);

@@ -71,5 +71,14 @@
         </div>
     </section>
 
+    <?php if (!empty($data_nucleos)): ?>
+    <section class="sedes">
+        <div class="sedes__contenido">
+            <h2 class="sedes__titulo">Nuestras Sedes</h2>
+            <?= nucleos($data_nucleos); ?>
+        </div>
+    </section>
+    <?php endif; ?>
+
     <script src="<?= colocar_ruta_html('@scripts/slider.js')?>"> </script>
 </main>

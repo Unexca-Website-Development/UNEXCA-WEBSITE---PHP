@@ -3,6 +3,7 @@ namespace Servicios\Paginas;
 
 require_once colocar_ruta_sistema('@modelo/paginas/InicioModelo.php');
 require_once colocar_ruta_sistema('@modelo/paginas/NoticiasModelo.php');
+require_once colocar_ruta_sistema('@modelo/paginas/NucleosModelo.php');
 
 /**
  * Servicio para la página de inicio.
@@ -23,6 +24,11 @@ class InicioServicio
     private $modelo_noticias;
 
     /**
+     * @var \Modelo\Paginas\NucleosModelo Instancia del modelo de núcleos.
+     */
+    private $modelo_nucleos;
+
+    /**
      * Constructor.
      *
      * Inicializa el modelo de inicio.
@@ -31,6 +37,7 @@ class InicioServicio
     {
         $this->modelo_inicio = new \Modelo\Paginas\InicioModelo();
         $this->modelo_noticias = new \NoticiasModelo();
+        $this->modelo_nucleos = new \Modelo\Paginas\NucleosModelo();
     }
 
     /**
@@ -78,6 +85,16 @@ class InicioServicio
         }
 
         return $noticias_array;
+    }
+
+    /**
+     * Obtiene los núcleos para la página de inicio.
+     *
+     * @return array
+     */
+    public function obtenerNucleos()
+    {
+        return $this->modelo_nucleos->obtenerNucleos();
     }
 }
 

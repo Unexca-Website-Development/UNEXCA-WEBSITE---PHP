@@ -13,6 +13,7 @@ require_once colocar_ruta_sistema('@componentes/boton.php');
 require_once colocar_ruta_sistema('@componentes/carreras.php');
 require_once colocar_ruta_sistema('@componentes/noticias.php');
 require_once colocar_ruta_sistema('@componentes/autoridades.php');
+require_once colocar_ruta_sistema('@componentes/nucleos.php');
 require_once colocar_ruta_sistema('@componentes/lista_desplegable.php');
 require_once colocar_ruta_sistema('@componentes/detalle_carrera.php');
 require_once colocar_ruta_sistema('@componentes/contactos_admin.php');
