@@ -46,6 +46,41 @@ function colocar_ruta_sistema(string $alias): string{
 };
 
 /**
+ * Obtiene la base URL del proyecto de forma dinámica o mediante configuración.
+ * Detecta si el proyecto está en una subcarpeta (ej: /portal_unexca/)
+ * 
+ * @return string La ruta base (ej: '/portal_unexca/' o '/')
+ */
+function obtener_base_url(): string {
+    static $base_url = null;
+    if ($base_url !== null) return $base_url;
+
+    // 1. Intentar obtener de variable de entorno (prioridad)
+    $env_base = $_ENV['URL_BASE'] ?? '';
+    
+    if (!empty($env_base)) {
+        // Si el valor contiene rutas de sistema (como /var/www/html/), intentar limpiar
+        if (strpos($env_base, '/var/www/html') !== false) {
+            $base_url = str_replace('/var/www/html', '', $env_base);
+        } else {
+            $base_url = $env_base;
+        }
+    } else {
+        // 2. Detección automática si no hay variable de entorno
+        $script_name = $_SERVER['SCRIPT_NAME'] ?? '';
+        $base_url = str_replace('\\', '/', dirname($script_name));
+    }
+    
+    // Asegurar que comience y termine en / si no es raíz
+    $base_url = '/' . trim($base_url, '/') . '/';
+    
+    // Si quedó solo //, resetear a /
+    if ($base_url === '//') $base_url = '/';
+
+    return $base_url;
+}
+
+/**
  * Convierte un alias en la ruta de recursos HTML.
  *
  * @param string $alias Alias con prefijo de ruta.
@@ -54,10 +89,13 @@ function colocar_ruta_sistema(string $alias): string{
  */
 function colocar_ruta_html(string $alias): string{
     $rutas = obtener_rutas()['html'];
+    $base_url = obtener_base_url();
 
     foreach ($rutas as $clave => $ruta){
         if (strpos($alias, $clave) === 0){
-            return $ruta . substr($alias, strlen($clave));
+            $recurso = $ruta . substr($alias, strlen($clave));
+            // Si base_url es /, solo devolvemos el recurso. Si es una subcarpeta, la concatenamos.
+            return ($base_url === '/') ? $recurso : $base_url . $recurso;
         }
     }
 
@@ -95,17 +133,11 @@ function colocar_svg(string $alias): string {
  * @param array $params Parámetros opcionales.
  * @return string URL generada.
  */
-// function colocar_enlace(string $pagina, array $params = []): string {
-//     $url = '/' . $pagina;
-//     if (!empty($params)) {
-//         $url .= '/' . implode('/', array_map('urlencode', $params));
-//     }
-//     return $url;
-// };
-
 function colocar_enlace(string $pagina, array $params = []): string {
+    $base_url = obtener_base_url();
     $query = http_build_query(array_merge(['pagina' => $pagina], $params));
-    return "index.php?$query";
+    
+    return $base_url . "index.php?$query";
 }
 
 /**
