@@ -169,7 +169,7 @@ function obtener_paginas_permitidas(): array {
 
 /**
  * Resuelve la URL pública de un recurso (imagen, etc.) a partir de su ruta en BD.
- * Maneja inconsistencias de prefijos como 'publico/imagenes/'.
+ * Maneja inconsistencias de prefijos y subcarpetas del proyecto.
  *
  * @param string|null $ruta Ruta almacenada en la base de datos.
  * @return string URL pública procesada.
@@ -177,31 +177,41 @@ function obtener_paginas_permitidas(): array {
 function resolver_url_asset(?string $ruta): string {
     $ruta = trim($ruta ?? '');
     if ($ruta === '' || $ruta === '#') return '';
+    
+    // Si ya es una URL absoluta, no tocar
     if (preg_match('/^https?:\/\//i', $ruta)) return $ruta;
 
-    // Obtener la base del sistema para verificar archivos
-    $rutas_sistema = obtener_rutas()['sistema'];
-    $base_imagenes = $rutas_sistema['@imagenes'];
+    // Limpiar la ruta de la base URL si por error se guardó con ella
+    $base_url = obtener_base_url();
+    if ($base_url !== '/' && strpos($ruta, $base_url) === 0) {
+        $ruta = substr($ruta, strlen($base_url));
+    }
 
-    // Limpiar la ruta de prefijos redundantes para las pruebas
+    // Limpiar prefijos redundantes
     $ruta_limpia = ltrim($ruta, '/');
     $ruta_limpia = str_replace('publico/imagenes/', '', $ruta_limpia);
 
-    // Lista de posibles ubicaciones para probar (en orden de probabilidad)
+    // Obtener la base del sistema para verificar archivos
+    $rutas_sistema = obtener_rutas()['sistema'];
+    $base_imagenes_sistema = $rutas_sistema['@imagenes'];
+
+    // Lista de posibles ubicaciones físicas para probar
     $intentos = [
-        $ruta_limpia,                    // Ruta tal cual (nueva o antigua bien guardada)
-        'autoridades/' . $ruta_limpia,   // Posible ubicación en autoridades
-        'nucleos/' . $ruta_limpia,       // Posible ubicación en núcleos
-        'noticias/' . $ruta_limpia       // Posible ubicación en noticias
+        $ruta_limpia,
+        'noticias/' . $ruta_limpia,
+        'autoridades/' . $ruta_limpia,
+        'nucleos/' . $ruta_limpia,
+        'decorativos/' . $ruta_limpia
     ];
 
     foreach ($intentos as $intento) {
-        if (file_exists($base_imagenes . '/' . $intento)) {
+        if (file_exists($base_imagenes_sistema . '/' . $intento)) {
             return colocar_ruta_html('@imagenes/' . $intento);
         }
     }
 
-    // Si no se encuentra el archivo, devolver la ruta original procesada como último recurso
+    // Si llegamos aquí y el archivo no existe, intentamos devolver la ruta 
+    // pero asegurándonos de que pase por colocar_ruta_html para tener la base_url
     return colocar_ruta_html('@imagenes/' . $ruta_limpia);
 }
 
