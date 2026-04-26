@@ -29,33 +29,60 @@ class ImagenesServicio
      */
     public function subirImagen(array $archivo, string $tipoEntidad, int $idEntidad): string 
     {
-        $this->validarArchivoSubido($archivo);
+        try {
+            $this->validarArchivoSubido($archivo);
 
-        $rutas = $this->obtenerRutas($tipoEntidad);
-        $directorioDestino = $rutas['directorio'];
-        
-        $nombreArchivo = $this->generarNombreUnico($archivo['name']);
-        $rutaDestinoFinal = $directorioDestino . $nombreArchivo;
+            $rutas = $this->obtenerRutas($tipoEntidad);
+            $directorioDestino = $rutas['directorio'];
+            
+            $nombreArchivo = $this->generarNombreUnico($archivo['name']);
+            $rutaDestinoFinal = $directorioDestino . $nombreArchivo;
 
-        if (!move_uploaded_file($archivo['tmp_name'], $rutaDestinoFinal)) {
-            throw new \Exception('Error al mover el archivo subido a su destino final.');
+            // Verificar si el directorio es escribible antes de intentar mover
+            if (!is_writable($directorioDestino)) {
+                $mensaje = "El directorio de destino no es escribible: $directorioDestino";
+                \Servicios\Nucleo\Logger::registrar('ERROR', $mensaje);
+                throw new \Exception($mensaje);
+            }
+
+            if (!move_uploaded_file($archivo['tmp_name'], $rutaDestinoFinal)) {
+                $error = error_get_last();
+                $mensaje = "Error de PHP al mover el archivo: " . ($error['message'] ?? 'Desconocido');
+                \Servicios\Nucleo\Logger::registrar('ERROR', $mensaje);
+                throw new \Exception('Error al mover el archivo subido a su destino final.');
+            }
+
+            $rutaParaBD = $rutas['publica'] . $nombreArchivo;
+            $this->actualizarRegistroBD($tipoEntidad, $idEntidad, $rutaParaBD);
+
+            \Servicios\Nucleo\Logger::registrar('INFO', "Imagen subida exitosamente: $rutaParaBD para $tipoEntidad ID $idEntidad");
+
+            return $rutaParaBD;
+        } catch (\Exception $e) {
+            \Servicios\Nucleo\Logger::registrar('ERROR', "Fallo en subirImagen: " . $e->getMessage());
+            throw $e;
         }
-
-        $rutaParaBD = $rutas['publica'] . $nombreArchivo;
-        $this->actualizarRegistroBD($tipoEntidad, $idEntidad, $rutaParaBD);
-
-        return $rutaParaBD;
     }
 
     private function validarArchivoSubido(array $archivo): void 
     {
         if ($archivo['error'] !== UPLOAD_ERR_OK) {
-            throw new \Exception("Error en la subida del archivo. Código: " . $archivo['error']);
+            $errores_upload = [
+                UPLOAD_ERR_INI_SIZE   => 'El archivo excede el límite definido en php.ini',
+                UPLOAD_ERR_FORM_SIZE  => 'El archivo excede el límite definido en el formulario HTML',
+                UPLOAD_ERR_PARTIAL    => 'El archivo se subió solo parcialmente',
+                UPLOAD_ERR_NO_FILE    => 'No se subió ningún archivo',
+                UPLOAD_ERR_NO_TMP_DIR => 'Falta la carpeta temporal en el servidor',
+                UPLOAD_ERR_CANT_WRITE => 'Error al escribir el archivo en el disco',
+                UPLOAD_ERR_EXTENSION  => 'Una extensión de PHP detuvo la subida'
+            ];
+            $mensaje = $errores_upload[$archivo['error']] ?? 'Error desconocido en la subida';
+            throw new \Exception($mensaje);
         }
 
         $tipoMime = mime_content_type($archivo['tmp_name']);
-        if (!in_array($tipoMime, ['image/jpeg', 'image/png', 'image/gif'])) {
-            throw new \Exception('Tipo de archivo no permitido. Solo se aceptan imágenes JPG, PNG o GIF.');
+        if (!in_array($tipoMime, ['image/jpeg', 'image/png', 'image/gif', 'image/webp'])) {
+            throw new \Exception('Tipo de archivo no permitido. Solo se aceptan imágenes JPG, PNG, WEBP o GIF.');
         }
 
         if ($archivo['size'] > 5 * 1024 * 1024) { // 5 MB
@@ -71,12 +98,9 @@ class ImagenesServicio
 
     private function obtenerRutas(string $tipo): array 
     {
-        // DOCUMENT_ROOT puede no ser fiable en todos los entornos. Se asume una estructura de carpetas estándar.
-        // La ruta del proyecto es la carpeta padre de 'servicios'
-        $rutaProyecto = dirname(dirname(dirname(__DIR__)));
-        $base = $rutaProyecto . '/publico/imagenes/';
-        $publicBase = '/publico/imagenes/';
-
+        // Usar el sistema de alias de rutas para mayor consistencia
+        $base = colocar_ruta_sistema('@imagenes') . '/';
+        
         $subcarpeta = '';
         switch ($tipo) {
             case 'autoridad':
@@ -93,10 +117,16 @@ class ImagenesServicio
         }
 
         $directorioCompleto = $base . $subcarpeta;
+
+        // Intentar crear el directorio si no existe
         if (!is_dir($directorioCompleto)) {
-            if (!mkdir($directorioCompleto, 0775, true)) {
-                throw new \Exception("No se pudo crear el directorio de destino: $directorioCompleto");
+            if (!mkdir($directorioCompleto, 0777, true)) {
+                $mensaje = "No se pudo crear el directorio de destino: $directorioCompleto. Verifique los permisos de la carpeta padre.";
+                \Servicios\Nucleo\Logger::registrar('ERROR', $mensaje);
+                throw new \Exception($mensaje);
             }
+            // Asegurar permisos en Linux después de crear
+            chmod($directorioCompleto, 0777);
         }
 
         return [

@@ -3,16 +3,20 @@ namespace Servicios\Paginas\Admin;
 
 require_once colocar_ruta_sistema('@modelo/paginas/AutoridadesModelo.php');
 
+require_once colocar_ruta_sistema('@servicios/paginas/admin/ImagenesServicio.php');
+
 /**
  * Servicio para la gestión administrativa de Autoridades.
  */
 class AdminAutoridadesServicio
 {
     private $modelo;
+    private $imagenesServicio;
 
     public function __construct()
     {
         $this->modelo = new \Modelo\Paginas\AutoridadesModelo();
+        $this->imagenesServicio = new \Servicios\Paginas\Admin\ImagenesServicio();
     }
 
     public function obtenerListado()
@@ -22,31 +26,40 @@ class AdminAutoridadesServicio
 
     public function guardarAutoridad($datos, $archivo_imagen)
     {
-        // 1. Manejo de la imagen
-        $ruta_imagen = $this->procesarImagen($archivo_imagen);
-        if ($ruta_imagen) {
-            $datos['imagen'] = $ruta_imagen;
-        } else {
-            $datos['imagen'] = 'autoridades/default_autoridad.jpg';
-        }
-
-        //2. Asignar orden (último + 1) AnthoFu Estuvo Aquí
+        // 1. Insertar primero para obtener el ID
+        // Asignar orden (último + 1)
         $max_orden = $this->modelo->ejecutarYRetornarValor("SELECT COALESCE(MAX(orden), 0) FROM autoridades_academicas");
         $datos['orden'] = $max_orden + 1;
+        
+        // Imagen por defecto inicialmente
+        $datos['imagen'] = 'autoridades/default_autoridad.jpg';
 
-        return $this->modelo->insertar('autoridades_academicas', $datos);
+        $id = $this->modelo->insertar('autoridades_academicas', $datos);
+
+        // 2. Si hay imagen, procesarla con ImagenesServicio (que actualizará la BD)
+        if ($id && $archivo_imagen && $archivo_imagen['error'] === UPLOAD_ERR_OK) {
+            try {
+                $this->imagenesServicio->subirImagen($archivo_imagen, 'autoridad', $id);
+            } catch (\Exception $e) {
+                // El error ya se loguea en ImagenesServicio
+            }
+        }
+
+        return $id;
     }
 
     public function actualizarAutoridad($id, $datos, $archivo_imagen)
     {
         // 1. Manejo de imagen si se subió una nueva
         if ($archivo_imagen && $archivo_imagen['error'] === UPLOAD_ERR_OK) {
-            $ruta_imagen = $this->procesarImagen($archivo_imagen);
-            if ($ruta_imagen) {
-                $datos['imagen'] = $ruta_imagen;
+            try {
+                $this->imagenesServicio->subirImagen($archivo_imagen, 'autoridad', $id);
+            } catch (\Exception $e) {
+                // El error ya se loguea en ImagenesServicio
             }
         }
 
+        // 2. Actualizar el resto de los datos
         return $this->modelo->actualizar('autoridades_academicas', $datos, $id);
     }
 
@@ -84,26 +97,5 @@ class AdminAutoridadesServicio
         }
 
         return false;
-    }
-
-    private function procesarImagen($archivo)
-    {
-        if (!$archivo || $archivo['error'] !== UPLOAD_ERR_OK) {
-            return null;
-        }
-
-        // Definir directorio de destino (publico/imagenes/autoridades/)
-        $directorio_destino = __DIR__ . '/../../../publico/imagenes/autoridades/';
-        
-        // Asegurar que el nombre sea único
-        $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
-        $nombre_archivo = 'aut_' . time() . '.' . $extension;
-        $ruta_destino = $directorio_destino . $nombre_archivo;
-
-        if (move_uploaded_file($archivo['tmp_name'], $ruta_destino)) {
-            return 'autoridades/' . $nombre_archivo; // Ruta relativa para guardar en BD
-        }
-
-        return null;
     }
 }
