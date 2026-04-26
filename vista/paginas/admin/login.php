@@ -3,6 +3,12 @@
         <h1>Panel Administrativo</h1>
         <p>Inicia sesión para continuar</p>
 
+        <?php if (isset($_GET['timeout'])): ?>
+            <div class="alerta alerta--warning" style="background: #fffbeb; color: #92400e; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
+                Su sesión ha expirado por inactividad. Por favor, ingrese de nuevo.
+            </div>
+        <?php endif; ?>
+
         <?php if (isset($error)): ?>
             <div class="alerta alerta--error">
                 <?php echo $error; ?>

@@ -29,6 +29,31 @@ class AuthServicio
             ini_set('session.save_path', $rutaTmp);
             session_start();
         }
+
+        $this->verificarInactividad();
+    }
+
+    /**
+     * Verifica si la sesión ha expirado por inactividad.
+     */
+    private function verificarInactividad(): void
+    {
+        if (!isset($_SESSION['usuario_id'])) return;
+
+        $tiempoInactividadMax = 15 * 60; // 15 minutos en segundos
+        $ahora = time();
+
+        if (isset($_SESSION['ultima_actividad'])) {
+            $transcurrido = $ahora - $_SESSION['ultima_actividad'];
+            if ($transcurrido > $tiempoInactividadMax) {
+                Logger::registrar('INFO', "Sesión expirada por inactividad del usuario ID: " . $_SESSION['usuario_id']);
+                $this->logout();
+                header('Location: ' . colocar_enlace('login', ['timeout' => 1]));
+                exit;
+            }
+        }
+
+        $_SESSION['ultima_actividad'] = $ahora;
     }
 
     /**
