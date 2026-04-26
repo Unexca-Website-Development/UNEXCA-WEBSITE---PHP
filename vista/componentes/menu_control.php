@@ -29,6 +29,7 @@ function menu_control($data) {
             <?php endforeach; ?>
         </ul>
         <div class="menu-control__footer">
+            <a href="<?= colocar_enlace('logout') ?>" class="menu-control__volver" style="background-color: #d32f2f; margin-bottom: 0.5rem; color: white;">Cerrar Sesión</a>
             <a href="<?= colocar_enlace('inicio') ?>" class="menu-control__volver">Volver al Sitio</a>
         </div>
     </nav>
