@@ -118,16 +118,17 @@ class ImagenesServicio
 
         $directorioCompleto = $base . $subcarpeta;
 
-        // Intentar crear el directorio si no existe
+        // Intentar crear el directorio si no existe o asegurar permisos si existe
         if (!is_dir($directorioCompleto)) {
             if (!mkdir($directorioCompleto, 0777, true)) {
                 $mensaje = "No se pudo crear el directorio de destino: $directorioCompleto. Verifique los permisos de la carpeta padre.";
                 \Servicios\Nucleo\Logger::registrar('ERROR', $mensaje);
                 throw new \Exception($mensaje);
             }
-            // Asegurar permisos en Linux después de crear
-            chmod($directorioCompleto, 0777);
         }
+        
+        // Intentar asegurar permisos siempre (útil en Linux si la carpeta existía pero no era escribible)
+        @chmod($directorioCompleto, 0777);
 
         return [
             'directorio' => $directorioCompleto,
