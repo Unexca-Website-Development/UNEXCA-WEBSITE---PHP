@@ -32,7 +32,7 @@ class NoticiasEditorServicio {
             'descripcion_corta'  => $data['descripcion_corta'] ?? '',
             'imagen_principal'   => !empty($data['imagen_principal']) ? $data['imagen_principal'] : 'noticias/default.jpg',
             'descripcion_imagen' => $data['descripcion_imagen'] ?? null,
-            'url'                => !empty($data['url']) ? $data['url'] : 'noticia-' . time(),
+            'url'                => !empty($data['url']) ? $data['url'] : normalizar_texto($data['titulo_principal'] ?? 'noticia-' . time()),
             'estado'             => $data['estado'] ?? 'borrador',
             'fecha_publicacion'  => !empty($data['fecha_publicacion']) ? $data['fecha_publicacion'] : date('Y-m-d H:i:s')
         ];
@@ -41,9 +41,13 @@ class NoticiasEditorServicio {
 
         if ($id) {
             // Actualizar existente
-            $resNoticia = $this->modelo->actualizarNoticia($id, $noticia);
-            $resContenido = $this->modelo->reemplazarContenido($id, $bloques);
-            return $id;
+            $this->modelo->actualizarNoticia($id, $noticia);
+            
+            if ($this->modelo->reemplazarContenido($id, $bloques)) {
+                return $id;
+            }
+            
+            return false;
         } else {
             // Crear nueva
             $estructura = [
@@ -52,6 +56,14 @@ class NoticiasEditorServicio {
             ];
             return $this->modelo->guardarNoticiaCompleta($estructura);
         }
+    }
+
+    /**
+     * Obtiene todas las noticias registradas.
+     */
+    public function listarNoticias()
+    {
+        return $this->modelo->obtenerTodas();
     }
 
     /**

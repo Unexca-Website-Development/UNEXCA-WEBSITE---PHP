@@ -14,20 +14,26 @@ class NoticiasModelo extends \Modelo\BaseModelo
         $sql = "SELECT * FROM noticias 
                 WHERE estado = 'publicado' 
                 ORDER BY fecha_publicacion DESC 
-                LIMIT :limite";
+                LIMIT " . (int)$limite;
         
-        return $this->consultar($sql, ['limite' => $limite]);
+        return $this->consultar($sql);
     }
 
     /**
      * Obtiene una noticia y sus bloques de contenido por su URL.
      * 
      * @param string $url
+     * @param bool $soloPublicadas Si es true, solo busca noticias publicadas.
      * @return array|null
      */
-    public function obtenerPorUrl(string $url): ?array
+    public function obtenerPorUrl(string $url, bool $soloPublicadas = true): ?array
     {
-        $sql = "SELECT * FROM noticias WHERE url = :url AND estado = 'publicado' LIMIT 1";
+        $sql = "SELECT * FROM noticias WHERE url = :url";
+        if ($soloPublicadas) {
+            $sql .= " AND estado = 'publicado'";
+        }
+        $sql .= " LIMIT 1";
+
         $resultado = $this->consultar($sql, ['url' => $url]);
 
         if (empty($resultado)) {

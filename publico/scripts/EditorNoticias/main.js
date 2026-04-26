@@ -8,6 +8,8 @@ async function iniciarEditor() {
 	const ui = new EditorUI(contenedor)
 	await ui.renderizarBase()
 
+	window.EditorControlador = EditorControlador;
+
 	// Cargar datos si existen
 	if (window.noticiaData) {
 		const controlador = new EditorControlador()
@@ -17,8 +19,8 @@ async function iniciarEditor() {
 			...window.noticiaData.noticia,
 			id: window.noticiaData.noticia.noticia_id,
 			bloques: window.noticiaData.contenido.map(b => ({
-				tipo: b.tipo_bloque,
-				datos: JSON.parse(b.datos)
+				tipo_bloque: b.tipo_bloque || b.tipo,
+				datos: typeof b.datos === 'string' ? JSON.parse(b.datos) : b.datos
 			}))
 		}
 		

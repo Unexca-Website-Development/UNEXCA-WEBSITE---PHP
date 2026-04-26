@@ -22,6 +22,7 @@ return [
 
     ['GET', 'admin-noticias', 'AdminNoticiasControlador@index'],
     ['POST', 'admin-noticias', 'AdminNoticiasControlador@GuardarNoticia'],
+    ['POST', 'admin-noticias-eliminar', 'AdminNoticiasControlador@EliminarNoticia'],
     
     // Módulo de Autoridades
     ['GET', 'admin-autoridades', 'AdminAutoridadesControlador@index'],

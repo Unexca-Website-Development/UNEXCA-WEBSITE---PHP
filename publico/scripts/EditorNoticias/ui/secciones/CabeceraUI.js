@@ -75,6 +75,20 @@ export default class CabeceraUI {
 	_sincronizar(datos) {
 		for (const key in datos) {
 			const el = this.campos[key]
+			const preview = this.campos['preview_' + key]
+			
+			if (preview && datos[key]) {
+				// Si hay previsualización para este campo y hay dato
+				// (Aquí asumimos que el dato es una URL relativa que debe procesarse o es absoluta)
+				// Dado que en el editor las rutas suelen venir del servidor, las tratamos como assets
+				let url = datos[key]
+				if (url && !url.startsWith('http') && !url.startsWith('/')) {
+					url = '/publico/imagenes/' + url
+				}
+				preview.src = url
+				preview.style.display = 'block'
+			}
+
 			if (!el) continue
 			if (el.type === 'file') continue
 			el.value = datos[key] ?? ''
@@ -104,6 +118,15 @@ export default class CabeceraUI {
 				el.name = campo.key
 				this.campos[campo.key] = el
 				bloque.appendChild(el)
+
+				// Contenedor de previsualización
+				const preview = document.createElement('div')
+				preview.className = 'editor-noticia__preview-imagen'
+				preview.style.marginTop = '10px'
+				preview.innerHTML = '<img src="" style="max-width: 100%; height: 150px; object-fit: cover; border-radius: 4px; display: none;">'
+				bloque.appendChild(preview)
+				this.campos['preview_' + campo.key] = preview.querySelector('img')
+
 				el.addEventListener('change', async () => {
 					const archivo = el.files[0]
 					if (!archivo) return
@@ -125,6 +148,14 @@ export default class CabeceraUI {
 
 		const labelEl = await crearLabelBloque('fecha_publicacion', 'Información Adicional', CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.fechas)
 		bloque.appendChild(labelEl)
+
+		const url = crearInputBloque('url', 'url', 'text', false, '', 'URL de la noticia (opcional)')
+		url.name = 'url'
+		this.campos['url'] = url
+		bloque.appendChild(url)
+		url.addEventListener('input', () => {
+			this.controlador.actualizarCabecera('url', url.value)
+		})
 
 		const fecha = crearInputBloque('fecha_publicacion', 'fecha_publicacion', 'date', true)
 		fecha.name = 'fecha_publicacion'

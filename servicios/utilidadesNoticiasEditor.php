@@ -16,9 +16,12 @@ function prepararBloquesJSON(array $bloques) {
 	// Recibe array de bloques y devuelve array listo para insertar en DB
 	$resultado = [];
 	foreach ($bloques as $posicion => $bloque) {
+		$tipo = $bloque['tipo_bloque'] ?? ($bloque['tipo'] ?? null);
+		if (!$tipo) continue; // No insertar bloques sin tipo
+
 		$resultado[] = [
-			'tipo_bloque' => $bloque['tipo_bloque'] ?? $bloque['tipo'],
-			'datos'       => json_encode($bloque['datos'], JSON_UNESCAPED_UNICODE),
+			'tipo_bloque' => $tipo,
+			'datos'       => json_encode($bloque['datos'] ?? [], JSON_UNESCAPED_UNICODE),
 			'posicion'    => $posicion + 1
 		];
 	}

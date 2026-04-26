@@ -25,6 +25,7 @@ export default class RenderizadorBloquesDinamicosUI {
 				this.contenedor.insertBefore(elemento, this.contenedor.children[i] || null)
 			} else {
 				const bloqueUI = this.bloquesMap.get(bloqueAdaptado.id)
+				bloqueUI.sincronizar(bloqueAdaptado) // Sincronizar datos incluso si ya existe
 				const nodoActual = bloqueUI.elemento
 				if (this.contenedor.children[i] !== nodoActual) {
 					this.contenedor.insertBefore(nodoActual, this.contenedor.children[i] || null)

@@ -14,27 +14,50 @@ class AdminNoticiasControlador extends BaseAdminControlador {
     public function index(array $params = []): void 
     {
         $noticiaData = null;
+        $listaNoticias = null;
         $id = $params['id'] ?? null;
+        $nueva = isset($params['nueva']);
 
-        if ($id) {
-            $noticiaData = $this->servicio->cargarNoticia($id);
+        // Si se pide una nueva o editar una, cargamos datos para el editor
+        if ($nueva || $id) {
+            if ($id) {
+                $noticiaData = $this->servicio->cargarNoticia($id);
+            }
+        } else {
+            // Si no, cargamos la lista
+            $listaNoticias = $this->servicio->listarNoticias();
         }
 
         $this->establecerHead([
-            "title" => ($id ? "Editar" : "Nueva") . " Noticia - UNEXCA",
+            "title" => "Gestión de Noticias - UNEXCA",
             "styles" => [
                 "@estilos/paginas/admin/general.css",
                 "@estilos/paginas/editorNoticias.css"
             ],
             "meta" => [
-                "description" => "Editor de Noticias.",
+                "description" => "Gestión de Noticias.",
             ]
         ]);
 
         $this->establecerVista(colocar_ruta_sistema('@paginas/admin/noticias.php'));
         $this->renderizar([
-            'noticiaData' => $noticiaData
+            'noticiaData'   => $noticiaData,
+            'listaNoticias' => $listaNoticias,
+            'modoEditor'    => ($nueva || $id)
         ]);
+    }
+
+    /**
+     * Procesa la eliminación de una noticia.
+     */
+    public function EliminarNoticia(array $params): void
+    {
+        $id = $params['id'] ?? null;
+        if ($id) {
+            $this->servicio->eliminarNoticia($id);
+        }
+        header('Location: ' . colocar_enlace('admin-noticias'));
+        exit;
     }
 
     /**

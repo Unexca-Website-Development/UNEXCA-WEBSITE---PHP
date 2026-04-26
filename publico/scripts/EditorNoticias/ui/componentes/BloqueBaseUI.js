@@ -51,7 +51,23 @@ export default class BloqueBaseUI {
 		}
 
 		this.elemento = contenedor
+		this.sincronizar(this.bloque)
 		return contenedor
+	}
+
+	sincronizar(bloqueAdaptado) {
+		this.bloque = bloqueAdaptado
+		if (!this.elemento) return
+
+		const inputs = this.elemento.querySelectorAll('input, textarea')
+		inputs.forEach(input => {
+			const key = input.getAttribute('data-key')
+			if (!key) return
+			if (input.type === 'file') return
+			
+			const valor = this.bloque.contenido?.[key] ?? ''
+			input.value = valor
+		})
 	}
 
 	obtenerContenido() {

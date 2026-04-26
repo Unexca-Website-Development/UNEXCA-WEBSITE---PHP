@@ -13,6 +13,16 @@ require_once colocar_ruta_sistema('@modelo/BaseModelo.php');
 class NoticiasEditorModelo extends \Modelo\BaseModelo
 {
     /**
+     * Obtiene todas las noticias registradas para el listado administrativo.
+     * 
+     * @return array
+     */
+    public function obtenerTodas(): array
+    {
+        return $this->consultar("SELECT * FROM noticias ORDER BY fecha_creacion DESC");
+    }
+
+    /**
      * Guarda una noticia completa con sus bloques de contenido de forma atómica
      *
      * @param array $estructura ['noticia' => [...], 'contenido' => [...]]

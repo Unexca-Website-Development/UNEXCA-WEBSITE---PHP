@@ -8,6 +8,7 @@ export default class ModeloDocumento {
 		this.descripcion_imagen = ''
 		this.fecha_publicacion = ''
 		this.imagen_principal = ''
+		this.url = ''
 		this.estado = 'borrador'
 		this.bloques = []
 	}
@@ -48,6 +49,7 @@ export default class ModeloDocumento {
 		this.descripcion_imagen = ''
 		this.fecha_publicacion = ''
 		this.imagen_principal = ''
+		this.url = ''
 		this.estado = 'borrador'
 		this.bloques = []
 	}
@@ -60,6 +62,7 @@ export default class ModeloDocumento {
 			descripcion_imagen: this.descripcion_imagen,
 			fecha_publicacion: this.fecha_publicacion,
 			imagen_principal: this.imagen_principal,
+			url: this.url,
 			estado: this.estado,
 			bloques: this.bloques.map(b => b.obtenerDatos())
 		}
@@ -73,10 +76,15 @@ export default class ModeloDocumento {
 		this.descripcion_imagen = datos.descripcion_imagen || ''
 		this.fecha_publicacion = datos.fecha_publicacion || ''
 		this.imagen_principal = datos.imagen_principal || ''
+		this.url = datos.url || ''
 		this.estado = datos.estado || 'borrador'
 		if (Array.isArray(datos.bloques)) {
 			this.bloques = datos.bloques.map(d => {
-				const bloque = new BloqueBase(d.tipo_bloque)
+				const tipoReal = d.tipo_bloque || d.tipo;
+				if (!tipoReal) {
+					console.error('ModeloDocumento: Bloque sin tipo detectado:', d);
+				}
+				const bloque = new BloqueBase(tipoReal)
 				bloque.asignar(d.datos || {})
 				return bloque
 			})

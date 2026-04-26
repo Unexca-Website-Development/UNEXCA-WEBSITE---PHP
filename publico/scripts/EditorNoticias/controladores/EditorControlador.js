@@ -88,6 +88,9 @@ export default class EditorControlador {
 		this.modelo.cargarDatos(datos)
 		this._notificarBloques()
 		this._notificarCabecera()
+		if (datos.imagen_principal) {
+			this.establecerImagenPrincipal(datos.imagen_principal)
+		}
 		administradorEventos.notificar('estadoActualizado', this.modelo.estado)
 	}
 

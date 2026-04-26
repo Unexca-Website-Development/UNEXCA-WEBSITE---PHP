@@ -1,11 +1,12 @@
 import { CONFIG_BLOQUES } from '../config/configBloques.js'
 
 export function bloqueAUI(bloque, config) {
-	const ui = config[bloque.tipo]?.ui || {}
+	const tipo = bloque.tipo_bloque || bloque.tipo
+	const ui = config[tipo]?.ui || {}
 	return {
 		id: bloque.id,
-		tipo: bloque.tipo,
-		texto: config[bloque.tipo]?.texto || '',
+		tipo: tipo,
+		texto: config[tipo]?.texto || '',
 		icono: ui.icono || '',
 		inputs: ui.inputs || [],
 		contenido: { ...bloque.contenido }
