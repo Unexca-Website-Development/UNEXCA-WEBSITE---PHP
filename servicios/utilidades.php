@@ -55,26 +55,26 @@ function obtener_base_url(): string {
     static $base_url = null;
     if ($base_url !== null) return $base_url;
 
-    // 1. Intentar obtener de variable de entorno (prioridad)
+    // 1. Intentar obtener de variable de entorno
     $env_base = $_ENV['URL_BASE'] ?? '';
     
-    if (!empty($env_base)) {
-        // Si el valor contiene rutas de sistema (como /var/www/html/), intentar limpiar
-        if (strpos($env_base, '/var/www/html') !== false) {
-            $base_url = str_replace('/var/www/html', '', $env_base);
-        } else {
-            $base_url = $env_base;
-        }
+    // Si el env_base parece una ruta de sistema (contiene var, www o html), lo ignoramos
+    // porque es un error común configurar la ruta de disco en lugar de la URL.
+    $es_ruta_sistema = preg_match('/var|www|html/i', $env_base);
+
+    if (!empty($env_base) && !$es_ruta_sistema) {
+        $base_url = $env_base;
     } else {
-        // 2. Detección automática si no hay variable de entorno
+        // 2. Detección automática (Más segura si el .env está mal configurado)
         $script_name = $_SERVER['SCRIPT_NAME'] ?? '';
+        // dirname puede devolver \ en Windows, normalizamos a /
         $base_url = str_replace('\\', '/', dirname($script_name));
     }
     
-    // Asegurar que comience y termine en / si no es raíz
+    // Asegurar que comience y termine en /
     $base_url = '/' . trim($base_url, '/') . '/';
     
-    // Si quedó solo //, resetear a /
+    // Si quedó solo //, corregir a /
     if ($base_url === '//') $base_url = '/';
 
     return $base_url;
