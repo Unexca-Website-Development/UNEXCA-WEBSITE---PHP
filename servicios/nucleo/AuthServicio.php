@@ -24,10 +24,20 @@ class AuthServicio
     private function inicializarSesion(): void 
     {
         if (session_status() === PHP_SESSION_NONE) {
-            // Configurar la ruta de guardado a la carpeta tmp del proyecto
+            // Intentar usar la carpeta tmp del proyecto, pero validar permisos primero
             $rutaTmp = colocar_ruta_sistema('@tmp');
-            ini_set('session.save_path', $rutaTmp);
-            session_start();
+            
+            if (is_dir($rutaTmp) && is_writable($rutaTmp)) {
+                ini_set('session.save_path', $rutaTmp);
+            } else {
+                // Si no es escribible, dejamos que PHP use la ruta por defecto del sistema
+                // y registramos un aviso para el administrador.
+                Logger::registrar('WARNING', "La ruta de sesión personalizada no es escribible o no existe: $rutaTmp. Se usará la ruta por defecto del servidor.");
+            }
+
+            if (!session_start()) {
+                Logger::registrar('ERROR', "Fallo crítico: No se pudo iniciar la sesión de PHP.");
+            }
         }
 
         $this->verificarInactividad();
