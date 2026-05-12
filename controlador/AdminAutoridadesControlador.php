@@ -35,20 +35,27 @@ class AdminAutoridadesControlador extends BaseAdminControlador {
 
         switch ($accion) {
             case 'guardar':
-                $datos = [
-                    'nombre' => $params['nombre'] ?? '',
-                    'cargo' => $params['cargo'] ?? ''
-                ];
-                $imagen = $params['files']['imagen'] ?? null;
-
                 if ($id) {
+                    $this->validarPermiso('autoridades.editar');
+                    $datos = [
+                        'nombre' => $params['nombre'] ?? '',
+                        'cargo' => $params['cargo'] ?? ''
+                    ];
+                    $imagen = $params['files']['imagen'] ?? null;
                     $this->servicio->actualizarAutoridad($id, $datos, $imagen);
                 } else {
+                    $this->validarPermiso('autoridades.crear');
+                    $datos = [
+                        'nombre' => $params['nombre'] ?? '',
+                        'cargo' => $params['cargo'] ?? ''
+                    ];
+                    $imagen = $params['files']['imagen'] ?? null;
                     $this->servicio->guardarAutoridad($datos, $imagen);
                 }
                 break;
 
             case 'eliminar':
+                $this->validarPermiso('autoridades.borrar');
                 if ($id) {
                     $this->servicio->eliminarAutoridad($id);
                 }
@@ -56,6 +63,7 @@ class AdminAutoridadesControlador extends BaseAdminControlador {
 
             case 'subir':
             case 'bajar':
+                $this->validarPermiso('autoridades.editar');
                 if ($id) {
                     $this->servicio->reordenar($id, $accion);
                 }

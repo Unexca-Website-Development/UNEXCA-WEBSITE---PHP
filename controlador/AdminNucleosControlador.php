@@ -35,20 +35,27 @@ class AdminNucleosControlador extends BaseAdminControlador {
         try {
             switch ($accion) {
                 case 'guardar':
-                    $datos = [
-                        'nombre' => $params['nombre'] ?? '',
-                        'direccion' => $params['direccion'] ?? ''
-                    ];
-                    $imagen = $params['files']['imagen'] ?? null;
-
                     if ($id) {
+                        $this->validarPermiso('nucleos.editar');
+                        $datos = [
+                            'nombre' => $params['nombre'] ?? '',
+                            'direccion' => $params['direccion'] ?? ''
+                        ];
+                        $imagen = $params['files']['imagen'] ?? null;
                         $this->servicio->actualizar($id, $datos, $imagen);
                     } else {
+                        $this->validarPermiso('nucleos.crear');
+                        $datos = [
+                            'nombre' => $params['nombre'] ?? '',
+                            'direccion' => $params['direccion'] ?? ''
+                        ];
+                        $imagen = $params['files']['imagen'] ?? null;
                         $this->servicio->guardar($datos, $imagen);
                     }
                     break;
 
                 case 'eliminar':
+                    $this->validarPermiso('nucleos.borrar');
                     if ($id) {
                         $this->servicio->eliminar($id);
                     }

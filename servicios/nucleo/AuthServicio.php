@@ -88,7 +88,11 @@ class AuthServicio
         if (password_verify($password, $usuarioData['password'])) {
             $_SESSION['usuario_id'] = $usuarioData['id'];
             $_SESSION['usuario_nombre'] = $usuarioData['nombre'];
-            $_SESSION['usuario_rol'] = $usuarioData['rol'];
+            
+            // Cargar todos los roles y permisos del usuario
+            $rolesData = $this->cargarRolesYPermisos($usuarioData['id']);
+            $_SESSION['usuario_roles_ids'] = $rolesData['roles_ids'];
+            $_SESSION['usuario_permisos'] = $rolesData['permisos'];
             
             // Actualizar último login
             $this->modelo->actualizar('usuarios', ['ultimo_login' => date('Y-m-d H:i:s')], $usuarioData['id']);
@@ -99,6 +103,39 @@ class AuthServicio
 
         Logger::registrar('WARNING', "Contraseña incorrecta para usuario: $usuario");
         return false;
+    }
+
+    /**
+     * Obtiene todos los IDs de roles y la suma de permisos para un usuario.
+     * 
+     * @param int $usuarioId
+     * @return array ['roles_ids' => [...], 'permisos' => [...]]
+     */
+    private function cargarRolesYPermisos(int $usuarioId): array
+    {
+        // 1. Obtener IDs de los roles
+        $sqlRoles = "SELECT rol_id FROM usuario_roles WHERE usuario_id = :usuario_id";
+        $resRoles = $this->modelo->consultar($sqlRoles, ['usuario_id' => $usuarioId]);
+        $rolesIds = array_column($resRoles, 'rol_id');
+
+        if (empty($rolesIds)) {
+            return ['roles_ids' => [], 'permisos' => []];
+        }
+
+        // 2. Obtener la suma de permisos de todos esos roles
+        // Usamos DISTINCT para no repetir permisos si dos roles tienen el mismo
+        $placeholders = implode(',', array_fill(0, count($rolesIds), '?'));
+        $sqlPermisos = "SELECT DISTINCT p.clave 
+                        FROM permisos p
+                        JOIN rol_permisos rp ON p.id = rp.permiso_id
+                        WHERE rp.rol_id IN ($placeholders)";
+        
+        $resPermisos = $this->modelo->consultar($sqlPermisos, $rolesIds);
+        
+        return [
+            'roles_ids' => $rolesIds,
+            'permisos' => array_column($resPermisos, 'clave')
+        ];
     }
 
     public function logout(): void 
@@ -119,6 +156,20 @@ class AuthServicio
         return isset($_SESSION['usuario_id']);
     }
 
+    /**
+     * Verifica si el usuario actual tiene un permiso específico.
+     * 
+     * @param string $clavePermiso
+     * @return bool
+     */
+    public function tienePermiso(string $clavePermiso): bool
+    {
+        if (!$this->estaAutenticado()) return false;
+        
+        $permisos = $_SESSION['usuario_permisos'] ?? [];
+        return in_array($clavePermiso, $permisos);
+    }
+
     public function obtenerUsuarioActual(): ?array 
     {
         if (!$this->estaAutenticado()) {
@@ -128,7 +179,8 @@ class AuthServicio
         return [
             'id' => $_SESSION['usuario_id'],
             'nombre' => $_SESSION['usuario_nombre'],
-            'rol' => $_SESSION['usuario_rol']
+            'roles_ids' => $_SESSION['usuario_roles_ids'] ?? [],
+            'permisos' => $_SESSION['usuario_permisos'] ?? []
         ];
     }
 }

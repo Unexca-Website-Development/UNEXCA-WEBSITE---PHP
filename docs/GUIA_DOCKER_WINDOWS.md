@@ -1,13 +1,13 @@
 # Guía de Instalación y Configuración (Docker en Windows)
 
-Esta guía unificada te permitirá levantar el entorno de desarrollo completo, importar la base de datos correctamente y configurar tu acceso administrativo en pocos minutos.
+Esta guía unificada te permitirá levantar el entorno de desarrollo completo con los nuevos estándares de seguridad, importar la base de datos e implementar el sistema de roles en pocos minutos.
 
 ## 1. Prerrequisitos
 
 *   **Docker Desktop para Windows**: [Descargar aquí](https://www.docker.com/products/docker-desktop/).
 *   **Terminal**: Se recomienda **Git Bash** o **PowerShell**.
 
-## 2. Preparación del Proyecto
+## 2. Preparación del Entorno
 
 1.  **Clonar el repositorio**:
     ```bash
@@ -15,59 +15,67 @@ Esta guía unificada te permitirá levantar el entorno de desarrollo completo, i
     cd UNEXCA-WEBSITE---PHP
     ```
 
-2.  **Crear el archivo de entorno (.env)**:
-    *   **En Git Bash / PowerShell**: `cp .env.default .env`
-    *   **En CMD**: `copy .env.default .env`
+2.  **Configurar variables de entorno**:
+    *   Copia el archivo base: `cp .env.default .env`
+    *   Asegúrate de que `DB_USER=unexca_user` y `DB_PASS=1234` estén configurados.
 
-3.  **Verificar archivos**: Asegúrate de que el archivo `respaldo.sql` esté en la raíz del proyecto.
-
-## 3. Iniciar el Entorno
-
-Ejecuta el siguiente comando para construir y levantar los contenedores:
-
-```bash
-docker-compose up -d --build
-```
-
-El sitio estará disponible en: **[http://localhost:8080](http://localhost:8080)**
-
-## 4. Importar la Base de Datos (Sin errores de acentos)
-
-Para garantizar que los acentos (UTF-8) se importen correctamente en Windows, utiliza estos comandos según tu terminal:
-
-### Opción A: Desde Git Bash (Recomendado)
-```bash
-# Limpiar e importar
-docker-compose exec -T db psql -U postgres -d postgres -c "DROP DATABASE IF EXISTS unexcadb WITH (FORCE);"
-docker-compose exec -T db psql -U postgres -d postgres -c "CREATE DATABASE unexcadb;"
-cat respaldo.sql | docker-compose exec -T db psql -U postgres -d unexcadb
-```
-
-### Opción B: Desde PowerShell (Más robusto)
-```powershell
-# Copiar el archivo al contenedor para evitar problemas de codificación de la terminal
-docker cp respaldo.sql unexca-website---php-db-1:/tmp/respaldo.sql
-docker-compose exec db psql -U postgres -d unexcadb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-docker-compose exec db psql -U postgres -d unexcadb -f //tmp/respaldo.sql
-```
-
-## 5. Configuración del Acceso Administrativo
-
-Para configurar o resetear tu contraseña de administrador de forma segura en Windows, ejecuta este comando único en tu terminal (Git Bash o PowerShell):
-
-```bash
-docker-compose exec app php scripts/cambiar_pass.php admin admin123
-```
-
-*Puedes cambiar `admin123` por la clave que prefieras. El sistema se encargará de hashearla y guardarla correctamente en la base de datos sin errores de caracteres.*
-
-
-## 6. Comandos Útiles
-
-*   **Acceder al Panel Admin:** `http://localhost:8080/?pagina=login`
-*   **Reiniciar entorno (limpio):** `docker-compose down -v && docker-compose up -d`
-*   **Ver errores en tiempo real:** `docker-compose logs -f app`
-*   **Consola de Postgres:** `docker-compose exec db psql -U postgres -d unexcadb`
+3.  **Iniciar Docker**:
+    ```bash
+    docker-compose up -d --build
+    ```
+    El sitio estará disponible en: **[http://localhost:8080](http://localhost:8080)**
 
 ---
-*Nota: Para entornos de producción (Debian), consulta el procedimiento de hash en el servidor destino para asegurar la compatibilidad del algoritmo.*
+
+## 3. Configuración de la Base de Datos (Paso Crítico)
+
+Para que el sistema funcione correctamente con el nuevo esquema de seguridad, debes seguir estos tres pasos en tu terminal (Git Bash o PowerShell):
+
+### A. Importar Datos y Estructura RBAC
+Este comando crea todas las tablas y el sistema de roles:
+```bash
+docker-compose exec -T db psql -U unexca_user -d unexcadb < "respaldo.sql"
+```
+
+### B. Aplicar Blindaje de Seguridad
+Este comando limita los permisos del usuario web para que no pueda borrar tablas, solo manejar datos:
+```bash
+docker-compose exec -T db psql -U unexca_user -d unexcadb < "scripts/db_security_setup.sql"
+```
+
+---
+
+## 4. Gestión de Usuarios Administrativos
+
+Ya no es necesario usar scripts de cambio de contraseña manuales. Utiliza la nueva herramienta CLI que gestiona nombres, claves y roles al mismo tiempo:
+
+```bash
+docker-compose exec app php scripts/gestionar_usuario.php admin admin123 "Administrador UNEXCA" 1
+```
+
+*   **1**: ID para el rol de Super Administrador.
+*   **2**: ID para el rol de Editor.
+*   **3**: ID para el rol de Coordinador.
+
+---
+
+## 5. Comandos de Mantenimiento
+
+*   **Reset Completo (Borrón y cuenta nueva):**
+    ```bash
+    docker-compose down -v && docker-compose up -d
+    ```
+    *(Recuerda repetir el Paso 3 tras un reset).*
+
+*   **Ver logs de errores:**
+    ```bash
+    docker-compose logs -f app
+    ```
+
+*   **Acceso a consola SQL:**
+    ```bash
+    docker-compose exec db psql -U unexca_user -d unexcadb
+    ```
+
+---
+*Nota: Para despliegue en producción (Debian), consulta la documentación específica del manual de integración migración en la carpeta `docs/`.*

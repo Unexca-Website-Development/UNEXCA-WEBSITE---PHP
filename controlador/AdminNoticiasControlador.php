@@ -18,6 +18,13 @@ class AdminNoticiasControlador extends BaseAdminControlador {
         $id = $params['id'] ?? null;
         $nueva = isset($params['nueva']);
 
+        // Validar permisos según la acción
+        if ($nueva) {
+            $this->validarPermiso('noticias.crear');
+        } elseif ($id) {
+            $this->validarPermiso('noticias.editar');
+        }
+
         // Si se pide una nueva o editar una, cargamos datos para el editor
         if ($nueva || $id) {
             if ($id) {
@@ -52,6 +59,8 @@ class AdminNoticiasControlador extends BaseAdminControlador {
      */
     public function EliminarNoticia(array $params): void
     {
+        $this->validarPermiso('noticias.borrar');
+
         $id = $params['id'] ?? null;
         if ($id) {
             $this->servicio->eliminarNoticia($id);
@@ -65,6 +74,14 @@ class AdminNoticiasControlador extends BaseAdminControlador {
      */
     public function GuardarNoticia(array $params): void
     {
+        // Validar permisos según si es creación o edición
+        $id = $params['id'] ?? null;
+        if ($id) {
+            $this->validarPermiso('noticias.editar');
+        } else {
+            $this->validarPermiso('noticias.crear');
+        }
+
         // Limpiar cualquier buffer previo para evitar que se cuele HTML o avisos
         if (ob_get_level()) {
             ob_end_clean();

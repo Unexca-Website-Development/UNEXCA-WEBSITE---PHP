@@ -1,96 +1,63 @@
-# Guía para la Gestión de Contraseñas de Usuarios
+# Guía para la Gestión de Usuarios y Contraseñas
 
-Esta guía detalla el procedimiento correcto para crear y actualizar las contraseñas de los usuarios administrativos, tanto en el entorno de desarrollo local (Windows con Docker) como en el de producción (servidor Debian). El objetivo es asegurar la compatibilidad de los hashes de contraseña y prevenir errores de autenticación.
+Esta guía detalla el procedimiento profesional para crear, actualizar y gestionar los usuarios administrativos y sus permisos en el Portal UNEXCA, utilizando las herramientas automatizadas del proyecto.
 
-## Principio Fundamental
+## Principio Fundamental de Seguridad
 
-La función `password_hash()` de PHP genera un hash diferente cada vez, incluso para la misma contraseña, debido a que incorpora una "sal" (salt) aleatoria. Por ello, es **CRÍTICO** que el hash de la contraseña de un usuario se genere **EN EL MISMO ENTORNO PHP** donde se va a verificar.
+El sistema utiliza el algoritmo **BCRYPT** para el hash de contraseñas. Por seguridad, las contraseñas nunca se almacenan en texto plano. La gestión debe realizarse siempre a través de los scripts de la aplicación para garantizar la integridad de los datos y el sistema de roles (RBAC).
 
-## 1. Entorno de Desarrollo (Windows con Docker)
+---
 
-### 1.1. Generar el Hash de la Contraseña
+## 1. La Herramienta de Gestión (CLI)
 
-Para generar un hash válido para una contraseña (ej. `admin123`) desde el contenedor PHP de Docker:
+Se ha creado un script especializado en `scripts/gestionar_usuario.php` que automatiza el hasheo, la creación del registro y la asignación de roles.
+
+**Parámetros requeridos:**
+`php gestionar_usuario.php <usuario> <password> <nombre_completo> <rol_id>`
+
+---
+
+## 2. Uso en Entorno de Desarrollo (Docker)
+
+Para crear o actualizar un usuario en tu computadora local:
 
 ```bash
-docker-compose exec app php -r "echo password_hash('tu_contraseña_aqui', PASSWORD_BCRYPT);"
+docker-compose exec app php scripts/gestionar_usuario.php admin admin123 "Administrador Principal" 1
 ```
 
-**Ejemplo:** Para la contraseña `admin123`:
+*   **admin**: El nombre de usuario para el login.
+*   **admin123**: La contraseña (el script se encargará de hashearla).
+*   **"Administrador Principal"**: Nombre que se mostrará en el panel.
+*   **1**: ID del rol (Normalmente 1 es Super Administrador).
+
+---
+
+## 3. Uso en Entorno de Producción (Debian)
+
+1.  Conéctate a tu servidor vía SSH.
+2.  Ve a la carpeta del proyecto.
+3.  Ejecuta el script directamente con PHP:
+
 ```bash
-docker-compose exec app php -r "echo password_hash('admin123', PASSWORD_BCRYPT);"
+php scripts/gestionar_usuario.php coordinador clave_segura "Nombre del Coordinador" 3
 ```
-Copia la cadena completa que aparecerá en tu terminal (empezará por `$2y$10$...`).
 
-### 1.2. Actualizar la Contraseña en la Base de Datos
+---
 
-Una vez que tengas el hash generado, debes actualizarlo en la tabla `usuarios` de tu base de datos PostgreSQL.
+## 4. Gestión de Roles y Permisos (RBAC)
 
-1.  **Accede a la consola de PostgreSQL de Docker:**
-    ```bash
-    docker-compose exec db psql -U postgres -d unexcadb
-    ```
+El sistema ahora soporta múltiples roles por usuario. El script de gestión asignará el rol indicado al usuario. Los IDs de roles por defecto son:
 
-2.  **Ejecuta el comando SQL `UPDATE`** (reemplaza `TU_HASH_GENERADO` con la cadena que copiaste):
-    ```sql
-    UPDATE usuarios
-    SET password = 'TU_HASH_GENERADO'
-    WHERE usuario = 'admin'; -- O el nombre de usuario que quieras actualizar
-    ```
+1.  **Super Administrador**: Acceso total.
+2.  **Editor de Contenido**: Noticias y Autoridades.
+3.  **Coordinador**: Gestión de contactos.
 
-3.  **Sal de la consola de `psql`:**
-    ```sql
-    \q
-    ```
+> **Nota:** Si un usuario ya existe, el script actualizará su contraseña, nombre y rol al ejecutar el comando con el mismo nombre de usuario.
 
-## 2. Entorno de Producción (Debian con PHP)
-
-### 2.1. Generar el Hash de la Contraseña
-
-Para generar un hash válido para una contraseña (ej. `admin123`) en tu servidor de producción:
-
-1.  **Conéctate a tu servidor Debian vía SSH.**
-
-2.  **Ejecuta el siguiente comando** en la terminal del servidor. Asegúrate de que `php` esté disponible en la ruta (es lo habitual en instalaciones de PHP en Debian):
-
-    ```bash
-    php -r "echo password_hash('tu_contraseña_aqui', PASSWORD_BCRYPT);"
-    ```
-    **Ejemplo:** Para la contraseña `admin123`:
-    ```bash
-    php -r "echo password_hash('admin123', PASSWORD_BCRYPT);"
-    ```
-    Copia la cadena completa que aparecerá en tu terminal (empezará por `$2y$10$...`).
-
-### 2.2. Actualizar la Contraseña en la Base de Datos
-
-Una vez que tengas el hash generado en producción, actualízalo en la tabla `usuarios` de tu base de datos PostgreSQL de producción.
-
-1.  **Accede a la consola de PostgreSQL:**
-    *   Si usas el usuario `postgres`:
-        ```bash
-        sudo -u postgres psql unexcadb
-        ```
-    *   Si usas otro usuario de base de datos (ej. `unexca_user`):
-        ```bash
-        psql -U unexca_user -d unexcadb
-        ```
-
-2.  **Ejecuta el comando SQL `UPDATE`** (reemplaza `TU_HASH_GENERADO` con la cadena que copiaste):
-    ```sql
-    UPDATE usuarios
-    SET password = 'TU_HASH_GENERADO'
-    WHERE usuario = 'admin'; -- O el nombre de usuario que quieras actualizar
-    ```
-
-3.  **Sal de la consola de `psql`:**
-    ```sql
-    \q
-    ```
+---
 
 ## Notas Importantes de Seguridad
 
-*   **Nunca hardcodees contraseñas** directamente en el código o en scripts de instalación permanentes.
-*   Asegúrate de que la columna `password` en tu tabla `usuarios` sea de tipo **`VARCHAR(255)`** para que pueda almacenar correctamente el hash completo sin truncamientos.
-*   Siempre usa contraseñas fuertes, únicas y complejas para los entornos de producción.
-*   En entornos de producción, considera la gestión de secretos (por ejemplo, con HashiCorp Vault o Kubernetes Secrets) para cualquier credencial sensible.
+*   **Tabla Usuarios**: La columna `password` debe ser siempre `VARCHAR(255)`.
+*   **Mínimo Privilegio**: No asigne el rol ID 1 (Super Admin) a menos que sea estrictamente necesario.
+*   **Entorno**: Siempre genere los usuarios dentro del entorno donde residirá la base de datos (Docker para local, PHP nativo para producción).

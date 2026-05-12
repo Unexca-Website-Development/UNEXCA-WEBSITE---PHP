@@ -35,6 +35,21 @@ class BaseAdminControlador extends BaseControlador {
     }
 
     /**
+     * Valida si el usuario tiene un permiso específico.
+     * Si no lo tiene, redirige a una página de error o al inicio del admin.
+     * 
+     * @param string $permiso Clave del permiso (ej: 'noticias.borrar')
+     */
+    protected function validarPermiso(string $permiso): void {
+        if (!$this->authServicio->tienePermiso($permiso)) {
+            // Podrías redirigir a una página 403 personalizada
+            // Por ahora, redirigimos al inicio con un mensaje de error simple
+            header('Location: ' . colocar_enlace('admin', ['error' => 'sin_permiso']));
+            exit;
+        }
+    }
+
+    /**
      * Sobrescribe el método renderizar para incluir siempre el menú de control.
      */
     protected function renderizar(array $datos = []): void {
