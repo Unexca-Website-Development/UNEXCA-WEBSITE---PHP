@@ -21,9 +21,10 @@ export default class ControlBloque {
 
 		if (this.mostrarSubir) {
 			const btnSubir = await crearBoton({
-				rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.noticiasRecientes,
+				rutaIcono: CONFIG_RUTAS.rutaIconos + 'flecha.svg',
 				clase: 'editor-noticia__boton-control -subir',
-				tipo: 'button'
+				tipo: 'button',
+				titulo: 'Subir bloque'
 			})
 			btnSubir.addEventListener('click', () => {
 				this.controlador.moverBloqueRelativo(this.idBloque, -1)
@@ -33,9 +34,10 @@ export default class ControlBloque {
 
 		if (this.mostrarBajar) {
 			const btnBajar = await crearBoton({
-				rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.noticiasRecientes,
+				rutaIcono: CONFIG_RUTAS.rutaIconos + 'flecha.svg',
 				clase: 'editor-noticia__boton-control -bajar',
-				tipo: 'button'
+				tipo: 'button',
+				titulo: 'Bajar bloque'
 			})
 			btnBajar.addEventListener('click', () => {
 				this.controlador.moverBloqueRelativo(this.idBloque, 1)

@@ -13,6 +13,9 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 /* ==============================
@@ -20,14 +23,16 @@
 ============================== */
 .editor-noticia__seccion {
     width: 100%;
-    max-width: var(--max-size-seccion-general);
+    margin-bottom: 2rem;
 }
 
 .editor-noticia__boton-desplegable {
     display: flex;
     align-items: center;
-    padding: var(--padding-general);
-    cursor: pointer;
+    padding: 1rem 0;
+    cursor: default;
+    border: none;
+    background: transparent;
 }
 
 .editor-noticia__titulo-seccion {   
@@ -36,13 +41,16 @@
     color: var(--azul);
     font-family: var(--fuente-titulos);
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    border-bottom: 2px solid var(--azul-claro);
+    padding-bottom: 0.5rem;
 }
 
 .editor-noticia__contenido-desplegable {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
+    padding: 1rem 0;
 }
 
 /* ==============================
@@ -52,13 +60,23 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: var(--padding-general);
-    border: 0.1rem solid var(--gris-oscuro);
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: var(--blanco);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    border: 1px solid transparent;
 }
 
-.editor-noticia__bloque--fechas {
-    border-color: var(--gris-oscuro);
+.editor-noticia__bloque:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: var(--azul-claro);
+}
+
+.editor-noticia__bloque--focused {
+    border-color: var(--azul);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
 }
 
 /* ==============================
@@ -67,27 +85,25 @@
 .bloque-titulo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
 }
 
 .bloque-titulo > svg {
-    height: 1.25rem;
+    height: 1.1rem;
     width: auto;
 }
 
 .bloque-titulo > svg path {
-    fill: var(--gris-oscuro);
+    fill: var(--azul);
 }
 
 .bloque-titulo__texto {
-    font-size: 1rem;
-    color: var(--gris-oscuro);
+    font-size: 0.9rem;
+    color: var(--azul);
     font-weight: 700;
-}
-
-.bloque-titulo--accion {
-    justify-content: center;
-    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* ==============================
@@ -96,223 +112,167 @@
 .editor-noticia__campo-texto,
 .editor-noticia__campo-archivo {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     font-size: 1rem;
     font-family: var(--fuente-principal);
     background-color: var(--blanco-claro);
-    border: none;
+    border: 1px solid var(--gris-claro);
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+}
+
+.editor-noticia__campo-texto:focus {
+    outline: none;
+    border-color: var(--azul);
+    background-color: var(--blanco);
 }
 
 .editor-noticia__campo-texto--titulo {
     font-size: 1.5rem;
     font-family: var(--fuente-titulos);
     color: var(--azul);
+    font-weight: 700;
 }
 
 /* ==============================
-   GRUPO DE FECHAS
-============================== */
-.editor-noticia__grupo-fechas {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.editor-noticia__campo-fecha {
-    display: flex;
-    flex-direction: column;
-}
-
-/* ==============================
-   AGREGAR BLOQUES
+   AGREGAR BLOQUES (MODERNO)
 ============================== */
 .agregar-bloque__boton {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    margin: 2rem 0;
+    background: var(--blanco-claro);
+    border: 2px dashed var(--gris-claro);
+    border-radius: 8px;
+    color: var(--gris-oscuro);
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.agregar-bloque__boton:hover {
+    background: var(--azul-claro);
+    border-color: var(--azul);
+    color: var(--azul);
 }
 
 .agregar-bloque__menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--blanco);
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.agregar-bloque__menu.--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .agregar-bloque__opcion {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-}
-
-.agregar-bloque__opcion > svg {
-    height: 1.25rem;
-    width: auto;
-}
-
-.agregar-bloque__opcion > svg path {
-    fill: var(--gris-oscuro);
-}
-
-.agregar-bloque__texto {
-    font-size: 1rem;
-    color: var(--gris-oscuro);
-}
-
-/* ==============================
-   MENÚ LATERAL
-============================== */
-.menu-editor {
-    display: flex;
     flex-direction: column;
-    padding: 0.8rem 0;
-    gap: 0.5rem;
-}
-
-.menu-editor__contenedor {
-    display: flex;
-    width: 100%;
-    justify-content: end;
-    gap: 0.5rem;
-}
-
-.menu-editor__boton {
-    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--blanco-claro);
+    border: 1px solid var(--gris-claro);
+    border-radius: 6px;
     cursor: pointer;
-    border: 0.1rem solid var(--gris-oscuro);
+    transition: all 0.2s ease;
+    gap: 0.5rem;
 }
 
-.menu-editor__boton > svg {
-    height: 1.25rem;
-    width: auto;
+.agregar-bloque__opcion:hover {
+    background: var(--azul);
+    border-color: var(--azul);
 }
 
-.menu-editor__boton > svg path {
-    fill: var(--azul);
-}
-
-.menu-editor__texto {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--azul);
-}
-
-.menu-editor__boton:hover {
-    background-color: var(--azul);
-}
-
-.menu-editor__boton:hover .menu-editor__texto {
-    color: var(--blanco);
-}
-
-.menu-editor__boton:hover > svg path {
+.agregar-bloque__opcion:hover svg path {
     fill: var(--blanco);
 }
 
+.agregar-bloque__opcion:hover .agregar-bloque__texto {
+    color: var(--blanco);
+}
+
+.agregar-bloque__opcion svg {
+    height: 1.5rem;
+    width: auto;
+}
+
+.agregar-bloque__texto {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--azul);
+}
+
 /* ==============================
-   NOTICIAS RECIENTES
+   CONTROLES DE BLOQUE (MEJORADOS)
 ============================== */
-.menu-editor__grupo--recientes {
+.editor-noticia__bloque-control {
     display: flex;
-    flex-direction: column;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem;
+    background: var(--blanco);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
 }
 
-.menu-editor__boton--recientes {
-    justify-content: space-between;
+.editor-noticia__bloque:hover .editor-noticia__bloque-control {
+    opacity: 1;
 }
 
-.menu-editor__contenedor-recientes {
+.editor-noticia__bloque-control-contenedor {
     display: flex;
-    flex-direction: column;
     gap: 0.25rem;
+}
+
+.editor-noticia__boton-control {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+    transition: background-color 0.2s ease;
+}
+
+.editor-noticia__boton-control:hover {
+    background-color: var(--blanco-claro);
+}
+
+.editor-noticia__boton-control.-borrar:hover {
+    background-color: #fee2e2;
+}
+
+.editor-noticia__boton-control.-borrar:hover svg path {
+    fill: #dc2626;
 }
 
 /* ==============================
    CONTENEDOR DE ARTICULOS
 ============================== */
-
-.editor-noticia__contenido-bloques{
+.editor-noticia__contenido-bloques {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-}
-
-.editor-noticia__bloque-campos{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-/* ==============================
-   LISTA EDITABLE
-============================== */
-.editor-noticia__lista {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.editor-noticia__lista-item {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-}
-
-.editor-noticia__campo-texto--lista {
-    flex: 1;
-}
-
-/* ==============================
-   CONTROLES DE BLOQUE
-============================== */
-.editor-noticia__bloque-control {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: max-content;
-    transform: translateX(0.5rem); 
-    padding: 0.5rem;
-    gap: 0.5rem;
-}
-
-.editor-noticia__bloque-control-contenedor {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.editor-noticia__boton-control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.editor-noticia__boton-control.-subir {
-    transform: rotate(180deg);
-}
-
-.editor-noticia__boton-control > svg {
-    height: 1.25rem;
-    width: auto;
-}
-
-.editor-noticia__boton-control > svg path {
-    fill: var(--gris-oscuro);
-}
-
-/* Control interno */
-.editor-noticia__bloque-control--interno {
-    position: relative;
-    inset: auto;
-    transform: none;
-}
-
-/* ==============================
-   BOTÓN AGREGAR BLOQUE
-============================== */
-.editor-noticia__boton-agregar-bloque {
-    justify-content: center;
-    cursor: pointer;
+    gap: 1.5rem;
 }

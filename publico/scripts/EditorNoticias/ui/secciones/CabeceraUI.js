@@ -98,6 +98,14 @@ export default class CabeceraUI {
 	async _crearBloqueCampo({ id, label, icono, campos }) {
 		const bloque = document.createElement('div')
 		bloque.className = 'editor-noticia__bloque'
+		bloque.tabIndex = 0
+
+		bloque.addEventListener('focusin', () => {
+			document.querySelectorAll('.editor-noticia__bloque--focused').forEach(el => {
+				el.classList.remove('editor-noticia__bloque--focused')
+			})
+			bloque.classList.add('editor-noticia__bloque--focused')
+		})
 
 		const labelEl = await crearLabelBloque(id, label, icono)
 		bloque.appendChild(labelEl)

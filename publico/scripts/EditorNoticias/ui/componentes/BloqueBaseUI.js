@@ -14,6 +14,14 @@ export default class BloqueBaseUI {
 	async renderizar() {
 		const contenedor = document.createElement('div')
 		contenedor.className = 'editor-noticia__bloque'
+		contenedor.tabIndex = 0 // Hacerlo enfocable
+
+		contenedor.addEventListener('focusin', () => {
+			document.querySelectorAll('.editor-noticia__bloque--focused').forEach(el => {
+				el.classList.remove('editor-noticia__bloque--focused')
+			})
+			contenedor.classList.add('editor-noticia__bloque--focused')
+		})
 
 		const label = await crearLabelBloque(this.bloque.id, this.bloque.texto, this.bloque.icono)
 		contenedor.appendChild(label)
