@@ -37,51 +37,50 @@
 
         <div class="noticia-detalle__bloques">
             <?php foreach ($contenido as $bloque): 
-                $datos = json_decode($bloque['datos'], true);
-                $tipo = $bloque['tipo_bloque'];
+                $tipo = $bloque['tipo_bloque'] ?? '';
+                $datosRaw = $bloque['datos'] ?? '';
+                
+                // Algunos drivers de PDO pueden retornar JSONB como array directamente
+                $datos = is_array($datosRaw) ? $datosRaw : json_decode($datosRaw, true);
+                
+                if (empty($datos) || !is_array($datos)) continue;
             ?>
-                <div class="bloque bloque--<?= $tipo ?>" style="margin-bottom: 2rem;">
-                    <?php switch ($tipo):
-                        case 'titulo': ?>
-                            <h2 style="font-size: 2rem; color: var(--azul); margin-top: 3rem; margin-bottom: 1.5rem; font-family: var(--fuente-titulos);">
-                                <?= htmlspecialchars($datos['texto'] ?? '') ?>
-                            </h2>
-                            <?php break; ?>
+                <div class="bloque bloque--<?= htmlspecialchars($tipo) ?>" style="margin-bottom: 2.5rem;">
+                    <?php if ($tipo === 'titulo'): ?>
+                        <h2 style="font-size: 2rem; color: var(--azul); margin-top: 3rem; margin-bottom: 1.5rem; font-family: var(--fuente-titulos);">
+                            <?= htmlspecialchars($datos['texto'] ?? '') ?>
+                        </h2>
 
-                        case 'subtitulo': ?>
-                            <h3 style="font-size: 1.5rem; color: var(--azul); margin-top: 2.5rem; margin-bottom: 1.2rem; font-family: var(--fuente-titulos);">
-                                <?= htmlspecialchars($datos['texto'] ?? '') ?>
-                            </h3>
-                            <?php break; ?>
+                    <?php elseif ($tipo === 'subtitulo'): ?>
+                        <h3 style="font-size: 1.5rem; color: var(--azul); margin-top: 2.5rem; margin-bottom: 1.2rem; font-family: var(--fuente-titulos);">
+                            <?= htmlspecialchars($datos['texto'] ?? '') ?>
+                        </h3>
 
-                        case 'parrafo': ?>
-                            <p>
-                                <?= nl2br(htmlspecialchars($datos['texto'] ?? '')) ?>
-                            </p>
-                            <?php break; ?>
+                    <?php elseif ($tipo === 'parrafo'): ?>
+                        <p style="margin-bottom: 1rem;">
+                            <?= nl2br(htmlspecialchars($datos['texto'] ?? '')) ?>
+                        </p>
 
-                        case 'cita': ?>
-                            <blockquote style="border-left: 4px solid var(--azul); padding-left: 1.5rem; font-style: italic; margin: 2rem 0;">
-                                <p style="font-size: 1.4rem; margin-bottom: 0.5rem;">"<?= htmlspecialchars($datos['texto'] ?? '') ?>"</p>
-                                <?php if (!empty($datos['autor'])): ?>
-                                    <cite style="display: block; text-align: right; font-weight: bold;">— <?= htmlspecialchars($datos['autor']) ?></cite>
-                                <?php endif; ?>
-                            </blockquote>
-                            <?php break; ?>
+                    <?php elseif ($tipo === 'cita'): ?>
+                        <blockquote style="border-left: 4px solid var(--azul); padding-left: 1.5rem; font-style: italic; margin: 2rem 0; background: #f9f9f9; padding: 1.5rem;">
+                            <p style="font-size: 1.4rem; margin-bottom: 1rem; color: #444;">"<?= htmlspecialchars($datos['texto'] ?? '') ?>"</p>
+                            <?php if (!empty($datos['autor'])): ?>
+                                <cite style="display: block; text-align: right; font-weight: bold; color: var(--azul);">— <?= htmlspecialchars($datos['autor']) ?></cite>
+                            <?php endif; ?>
+                        </blockquote>
 
-                        case 'imagen': ?>
-                            <figure style="margin: 3rem 0; text-align: center;">
-                                <img src="<?= resolver_url_asset($datos['url'] ?? '') ?>" 
-                                     alt="<?= htmlspecialchars($datos['descripcion'] ?? '') ?>"
-                                     style="max-width: 100%; height: auto; border-radius: 4px;">
-                                <?php if (!empty($datos['descripcion'])): ?>
-                                    <figcaption style="margin-top: 1rem; font-style: italic; color: #666; font-size: 0.9rem;">
-                                        <?= htmlspecialchars($datos['descripcion']) ?>
-                                    </figcaption>
-                                <?php endif; ?>
-                            </figure>
-                            <?php break; ?>
-                    <?php endswitch; ?>
+                    <?php elseif ($tipo === 'imagen'): ?>
+                        <figure style="margin: 3rem 0; text-align: center;">
+                            <img src="<?= resolver_url_asset($datos['url'] ?? '') ?>" 
+                                 alt="<?= htmlspecialchars($datos['descripcion'] ?? '') ?>"
+                                 style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <?php if (!empty($datos['descripcion'])): ?>
+                                <figcaption style="margin-top: 1rem; font-style: italic; color: #666; font-size: 0.9rem;">
+                                    <?= htmlspecialchars($datos['descripcion']) ?>
+                                </figcaption>
+                            <?php endif; ?>
+                        </figure>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
