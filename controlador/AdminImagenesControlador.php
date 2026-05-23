@@ -14,6 +14,12 @@ class AdminImagenesControlador extends BaseControlador {
         if (!$this->authServicio->estaAutenticado()) {
             $this->responderJson(['error' => 'No autorizado. Debe iniciar sesión.'], 401);
         }
+        
+        // Validar permiso general de gestión de imágenes
+        if (!$this->authServicio->tienePermiso('imagenes.gestionar')) {
+            $this->responderJson(['error' => 'No tiene permisos para gestionar imágenes.'], 403);
+        }
+
         $this->servicio = new \Servicios\Paginas\Admin\ImagenesServicio();
     }
 

@@ -107,34 +107,44 @@ class AuthServicio
 
     /**
      * Obtiene todos los IDs de roles y la suma de permisos para un usuario.
+     * Incluye permisos heredados de roles y permisos específicos asignados al usuario.
      * 
      * @param int $usuarioId
      * @return array ['roles_ids' => [...], 'permisos' => [...]]
      */
     private function cargarRolesYPermisos(int $usuarioId): array
     {
-        // 1. Obtener IDs de los roles
+        // 1. Obtener IDs de los roles asignados
         $sqlRoles = "SELECT rol_id FROM usuario_roles WHERE usuario_id = :usuario_id";
         $resRoles = $this->modelo->consultar($sqlRoles, ['usuario_id' => $usuarioId]);
         $rolesIds = array_column($resRoles, 'rol_id');
 
-        if (empty($rolesIds)) {
-            return ['roles_ids' => [], 'permisos' => []];
+        // 2. Obtener permisos de los roles
+        $permisosRoles = [];
+        if (!empty($rolesIds)) {
+            $placeholders = implode(',', array_fill(0, count($rolesIds), '?'));
+            $sqlPermisosRoles = "SELECT DISTINCT p.clave 
+                            FROM permisos p
+                            JOIN rol_permisos rp ON p.id = rp.permiso_id
+                            WHERE rp.rol_id IN ($placeholders)";
+            $resPermisosRoles = $this->modelo->consultar($sqlPermisosRoles, $rolesIds);
+            $permisosRoles = array_column($resPermisosRoles, 'clave');
         }
 
-        // 2. Obtener la suma de permisos de todos esos roles
-        // Usamos DISTINCT para no repetir permisos si dos roles tienen el mismo
-        $placeholders = implode(',', array_fill(0, count($rolesIds), '?'));
-        $sqlPermisos = "SELECT DISTINCT p.clave 
-                        FROM permisos p
-                        JOIN rol_permisos rp ON p.id = rp.permiso_id
-                        WHERE rp.rol_id IN ($placeholders)";
-        
-        $resPermisos = $this->modelo->consultar($sqlPermisos, $rolesIds);
-        
+        // 3. Obtener permisos específicos del usuario (Overrides)
+        $sqlPermisosUser = "SELECT p.clave 
+                            FROM permisos p
+                            JOIN usuario_permisos up ON p.id = up.permiso_id
+                            WHERE up.usuario_id = :usuario_id";
+        $resPermisosUser = $this->modelo->consultar($sqlPermisosUser, ['usuario_id' => $usuarioId]);
+        $permisosUser = array_column($resPermisosUser, 'clave');
+
+        // Combinar y eliminar duplicados
+        $todosLosPermisos = array_unique(array_merge($permisosRoles, $permisosUser));
+
         return [
             'roles_ids' => $rolesIds,
-            'permisos' => array_column($resPermisos, 'clave')
+            'permisos' => array_values($todosLosPermisos)
         ];
     }
 
