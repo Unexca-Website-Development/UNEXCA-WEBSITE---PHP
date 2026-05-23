@@ -26,7 +26,7 @@ function footer(array $data_array = []){
                 </section>
                 <section class="footer__fondo">
                     <p class="footer__texto">
-                        <span class="footer__copyleft">&copy;</span>2025. Universidad Nacional Experimental de la Gran Caracas (UNEXCA).
+                        <span class="footer__copyleft">&copy;</span>2026. Universidad Nacional Experimental de la Gran Caracas (UNEXCA).
                     </p>
                     <div class="footer__social">
                         <ul class="footer__redes">
