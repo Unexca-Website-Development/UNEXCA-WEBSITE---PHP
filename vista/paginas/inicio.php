@@ -80,5 +80,5 @@
     </section>
     <?php endif; ?>
 
-    <script src="<?= colocar_ruta_html('@scripts/slider.js')?>"> </script>
+    <script src="<?= colocar_ruta_html('@scripts/slider.js')?>?v=<?= time() ?>"> </script>
 </main>

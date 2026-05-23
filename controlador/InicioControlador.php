@@ -20,7 +20,7 @@ class InicioControlador extends BaseControlador {
     $this->establecerHead([
       "title" => "Inicio - UNEXCA",
       "styles" => [
-        "@estilos/paginas/inicio.css",
+        "@estilos/paginas/inicio.css?v=" . time(),
         "@estilos/componentes/botones.css",
         "@estilos/paginas/nucleos.css"
       ],

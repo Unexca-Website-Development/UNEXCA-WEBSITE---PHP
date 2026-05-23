@@ -78,9 +78,10 @@ class InicioServicio
 
         foreach ($noticias_lista as $noticia) {
             $noticias_array[] = [
-                'titulo' => $noticia['titulo_principal'],
-                'img'    => $noticia['imagen_principal'],
-                'link'   => colocar_enlace('noticia', ['url' => $noticia['url']])
+                'titulo'      => $noticia['titulo_principal'],
+                'descripcion' => $noticia['descripcion_corta'],
+                'img'         => $noticia['imagen_principal'],
+                'link'        => colocar_enlace('noticia', ['url' => $noticia['url']])
             ];
         }
 

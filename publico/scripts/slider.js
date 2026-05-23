@@ -1,67 +1,84 @@
-// Contenedor del slider de carreras
-const slider = document.querySelector('.carreras__lista');
+/**
+ * slider.js - UNEXCA Portal Web
+ * 
+ * Implementa un sistema de desplazamiento por arrastre (Drag and Scroll)
+ * optimizado para mouse y pantallas táctiles.
+ */
 
-// Variables de control para arrastrar con mouse o táctil
-let estaAbajo = false; // Indica si el usuario mantiene presionado
-let inicioX = 0;       // Posición inicial del cursor/táctil
-let scrollInicial = 0; // Posición inicial del scroll
+function crearSlider(selector, btnIzq = null, btnDer = null) {
+    const contenedor = document.querySelector(selector);
+    if (!contenedor) return;
 
-// Activa o desactiva el estado de "arrastrando"
-const activar = (estado) => {
-  estaAbajo = estado;
-  slider.classList.toggle('activado', estado);
-};
+    let estaPresionado = false;
+    let puntoInicioX;
+    let scrollIzquierdaInicial;
 
-// Obtiene la posición X del cursor o del toque táctil
-const obtenerPosX = (e) => e.touches ? e.touches[0].pageX : e.pageX;
+    // --- EVENTOS DE MOUSE ---
+    contenedor.addEventListener('mousedown', (e) => {
+        // No arrastrar si es un clic en botón o enlace
+        if (e.target.closest('a') || e.target.closest('button')) return;
+        
+        estaPresionado = true;
+        contenedor.classList.add('activado');
+        puntoInicioX = e.pageX;
+        scrollIzquierdaInicial = contenedor.scrollLeft;
+        
+        // Desactivar selección de texto y drag nativo
+        contenedor.style.cursor = 'grabbing';
+        contenedor.style.userSelect = 'none';
+        e.preventDefault();
+    });
 
-// Inicia el arrastre del slider
-const iniciarDeslizamiento = (e) => {
-  activar(true);
-  inicioX = obtenerPosX(e) - slider.offsetLeft;
-  scrollInicial = slider.scrollLeft;
-};
+    window.addEventListener('mouseup', () => {
+        estaPresionado = false;
+        if (contenedor) {
+            contenedor.classList.remove('activado');
+            contenedor.style.cursor = 'grab';
+            contenedor.style.removeProperty('user-select');
+        }
+    });
 
-// Mueve el slider mientras el usuario arrastra
-const moverDeslizamiento = (e) => {
-  if (!estaAbajo) return;
-  e.preventDefault();
-  const x = obtenerPosX(e) - slider.offsetLeft;
-  const desplazamiento = (x - inicioX) * 2; // Multiplica para mayor velocidad
-  slider.scrollLeft = scrollInicial - desplazamiento;
-};
+    contenedor.addEventListener('mousemove', (e) => {
+        if (!estaPresionado) return;
+        e.preventDefault();
+        
+        const x = e.pageX;
+        const desplazamiento = (x - puntoInicioX) * 2; // Factor de velocidad
+        contenedor.scrollLeft = scrollIzquierdaInicial - desplazamiento;
+    });
 
-// Finaliza el arrastre
-const detenerDeslizamiento = () => activar(false);
+    // --- EVENTOS TÁCTILES (Móviles) ---
+    contenedor.addEventListener('touchstart', (e) => {
+        if (e.target.closest('a') || e.target.closest('button')) return;
+        puntoInicioX = e.touches[0].pageX;
+        scrollIzquierdaInicial = contenedor.scrollLeft;
+    }, { passive: true });
 
-// Eventos para control con mouse
-slider.addEventListener('mousedown', iniciarDeslizamiento);
-slider.addEventListener('mousemove', moverDeslizamiento);
-slider.addEventListener('mouseup', detenerDeslizamiento);
-slider.addEventListener('mouseleave', detenerDeslizamiento);
+    contenedor.addEventListener('touchmove', (e) => {
+        const x = e.touches[0].pageX;
+        const desplazamiento = (x - puntoInicioX) * 1.5;
+        contenedor.scrollLeft = scrollIzquierdaInicial - desplazamiento;
+    }, { passive: true });
 
-// Eventos para control táctil
-slider.addEventListener('touchstart', iniciarDeslizamiento, { passive: false });
-slider.addEventListener('touchmove', moverDeslizamiento, { passive: false });
-slider.addEventListener('touchend', detenerDeslizamiento);
+    // --- BOTONES (Si existen) ---
+    if (btnIzq && btnDer) {
+        const bIzq = document.querySelector(btnIzq);
+        const bDer = document.querySelector(btnDer);
+        if (bIzq && bDer) {
+            bIzq.onclick = (e) => { e.preventDefault(); contenedor.scrollBy({ left: -400, behavior: 'smooth' }); };
+            bDer.onclick = (e) => { e.preventDefault(); contenedor.scrollBy({ left: 400, behavior: 'smooth' }); };
+        }
+    }
+}
 
-// Botones de navegación del slider
-const botonIzquierda = document.querySelector('.carreras__boton--izquierda');
-const botonDerecha = document.querySelector('.carreras__boton--derecha');
-
-// Cantidad de píxeles que se mueve al hacer clic en los botones
-const desplazamientoBoton = 450;
-
-// Función para desplazar el slider con los botones
-const moverSlider = (direccion) => {
-  slider.scrollBy({
-    left: direccion * desplazamientoBoton,
-    behavior: 'smooth' // Desplazamiento animado
-  });
-};
-
-// Eventos de click/touch para los botones
-['mousedown', 'touchstart'].forEach(evento => {
-  botonIzquierda.addEventListener(evento, () => moverSlider(-1));
-  botonDerecha.addEventListener(evento, () => moverSlider(1));
+// Inicialización limpia
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Carreras
+    crearSlider('.carreras__lista', '.carreras__boton--izquierda', '.carreras__boton--derecha');
+    
+    // 2. Noticias
+    crearSlider('.noticias__lista');
+    
+    // 3. Sedes (Núcleos)
+    crearSlider('.componente-nucleos__grid');
 });
