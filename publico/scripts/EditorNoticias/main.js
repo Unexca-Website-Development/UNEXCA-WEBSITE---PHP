@@ -2,6 +2,7 @@ import EditorUI from './ui/EditorUi.js'
 import EditorControlador from './controladores/EditorControlador.js'
 
 async function iniciarEditor() {
+    console.log('Iniciando Editor de Noticias v2.1...');
 	const contenedor = document.getElementById('editor-principal')
 	if (!contenedor) throw new Error('No se encontró el contenedor #editor-principal')
 

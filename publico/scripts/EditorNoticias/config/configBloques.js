@@ -1,6 +1,20 @@
 import { CONFIG_RUTAS } from './configRutas.js';
 
+console.log('Cargando configuracion de bloques v2...');
+
 export const CONFIG_BLOQUES = {
+	imagen: {
+		tipo: 'imagen',
+		texto: 'Imagen',
+		campos: { url: '', descripcion: '' },
+		ui: {
+			icono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.imagen,
+			inputs: [
+				{ tipo: 'file', key: 'url', aceptar: '.png,.jpg,.jpeg,.webp', requerido: true, className: 'editor-noticia__campo-archivo' },
+				{ tipo: 'textarea', key: 'descripcion', requerido: true, placeholder: 'Descripción de la imagen...', className: 'editor-noticia__campo-texto' }
+			]
+		}
+	},
 	titulo: {
 		tipo: 'titulo',
 		texto: 'Título',
@@ -58,28 +72,5 @@ export const CONFIG_BLOQUES = {
 				{ tipo: 'textarea', key: 'autor', requerido: true, placeholder: 'Autor de la cita', className: 'editor-noticia__campo-texto' }
 			]
 		}
-	},
-	/* lista: {
-		tipo: 'lista',
-		texto: 'Lista',
-		campos: { items: [] },
-		ui: {
-			icono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.lista,
-			inputs: [
-				{ tipo: 'textarea', key: 'items', requerido: true, placeholder: 'Agrega elementos de la lista...', className: 'editor-noticia__campo-texto' }
-			]
-		}
-	}, */
-	/* imagen: {
-		tipo: 'imagen',
-		texto: 'Imagen',
-		campos: { url: '', descripcion: '' },
-		ui: {
-			icono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.imagen,
-			inputs: [
-				{ tipo: 'file', key: 'url', aceptar: '.png,.jpg,.jpeg,.webp', requerido: true, className: 'editor-noticia__campo-archivo' },
-				{ tipo: 'textarea', key: 'descripcion', requerido: true, placeholder: 'Descripción de la imagen...', className: 'editor-noticia__campo-texto' }
-			]
-		}
-	} */
+	}
 }
