@@ -6,13 +6,6 @@ export const CONFIG_MENU_LATERAL = [
 		rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.menuAbrir,
 		clase: 'menu-editor__boton'
 	}, */
-	{
-		id: 'btn-nueva-noticia',
-		rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.nuevaNoticia,
-		texto: 'Nueva noticia',
-		clase: 'menu-editor__boton',
-		claseSpan: 'menu-editor__texto'
-	},
 /* 	{
 		id: 'btn-buscar-noticia',
 		rutaIcono: CONFIG_RUTAS.rutaIconos + CONFIG_RUTAS.iconos.buscarNoticia,

@@ -29,10 +29,6 @@ export default class MenuLateralUI {
 		nav.appendChild(menuContenedor)
 		this.elemento = nav
 
-		menuContenedor.querySelector('#btn-nueva-noticia')?.addEventListener('click', () => {
-			this.controlador.nuevoDocumento()
-		})
-
 		menuContenedor.querySelector('#btn-guardar-noticia')?.addEventListener('click', () => {
 			this.controlador.establecerEstado('borrador')
 			this.controlador.guardarNoticia()

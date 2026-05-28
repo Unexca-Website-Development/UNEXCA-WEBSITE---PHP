@@ -299,6 +299,91 @@
 }
 
 /* ==============================
+   MENU DE ACCIONES (INFERIOR)
+============================== */
+.menu-editor {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gris-claro);
+    width: 100%;
+}
+
+.menu-editor__contenedor {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.menu-editor__boton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    min-width: 140px;
+    background-color: var(--blanco);
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.menu-editor__boton:hover {
+    border-color: var(--azul);
+    background-color: var(--blanco-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.menu-editor__boton svg {
+    width: 24px;
+    height: 24px;
+}
+
+.menu-editor__boton svg path {
+    fill: var(--azul);
+    transition: fill 0.3s ease;
+}
+
+.menu-editor__texto {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--azul);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Colores específicos para acciones principales */
+#btn-guardar-noticia:hover {
+    background-color: #f0fdf4; /* Verde muy claro */
+    border-color: #22c55e;
+}
+
+#btn-guardar-noticia:hover .menu-editor__texto {
+    color: #16a34a;
+}
+
+#btn-guardar-noticia:hover svg path {
+    fill: #16a34a;
+}
+
+#btn-publicar-noticia:hover {
+    background-color: #eff6ff; /* Azul muy claro */
+    border-color: #3b82f6;
+}
+
+#btn-publicar-noticia:hover .menu-editor__texto {
+    color: #2563eb;
+}
+
+#btn-publicar-noticia:hover svg path {
+    fill: #2563eb;
+}
+
+/* ==============================
    CONTENEDOR DE ARTICULOS
 ============================== */
 .editor-noticia__contenido-bloques {
