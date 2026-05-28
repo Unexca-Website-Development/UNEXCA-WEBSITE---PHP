@@ -260,6 +260,14 @@
     background-color: var(--blanco-claro);
 }
 
+.editor-noticia__boton-control svg path {
+    fill: var(--azul);
+}
+
+.editor-noticia__boton-control.-subir {
+    transform: rotate(180deg);
+}
+
 .editor-noticia__boton-control.-borrar:hover {
     background-color: #fee2e2;
 }

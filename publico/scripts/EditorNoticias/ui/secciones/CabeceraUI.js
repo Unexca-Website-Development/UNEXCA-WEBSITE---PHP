@@ -78,12 +78,12 @@ export default class CabeceraUI {
 			const preview = this.campos['preview_' + key]
 			
 			if (preview && datos[key]) {
-				// Si hay previsualización para este campo y hay dato
-				// (Aquí asumimos que el dato es una URL relativa que debe procesarse o es absoluta)
-				// Dado que en el editor las rutas suelen venir del servidor, las tratamos como assets
 				let url = datos[key]
 				if (url && !url.startsWith('http') && !url.startsWith('/')) {
-					url = '/publico/imagenes/' + url
+					// Si la URL no tiene el prefijo de publico y no es absoluta, se lo ponemos
+					if (!url.startsWith('publico/')) {
+						url = 'publico/imagenes/' + url
+					}
 				}
 				preview.src = url
 				preview.style.display = 'block'
@@ -138,11 +138,23 @@ export default class CabeceraUI {
 				el.addEventListener('change', async () => {
 					const archivo = el.files[0]
 					if (!archivo) return
-					const formData = new FormData()
-					formData.append('imagen', archivo)
-					const resp = await fetch('index.php?pagina=admin-subir-imagen-noticia', { method: 'POST', body: formData })
-					const data = await resp.json()
-					if (data.url) this.controlador.establecerImagenPrincipal(data.url)
+					
+					try {
+						const formData = new FormData()
+						formData.append('imagen', archivo)
+						const resp = await fetch('index.php?pagina=admin-subir-imagen-noticia', { method: 'POST', body: formData })
+						const data = await resp.json()
+						
+						if (data.success && data.url) {
+							this.controlador.establecerImagenPrincipal(data.url)
+						} else {
+							alert('Error al subir imagen: ' + (data.error || 'Desconocido'))
+							el.value = '' // Limpiar el input si falló
+						}
+					} catch (error) {
+						console.error('Error en la subida:', error)
+						alert('Error de red al intentar subir la imagen.')
+					}
 				})
 			}
 		}

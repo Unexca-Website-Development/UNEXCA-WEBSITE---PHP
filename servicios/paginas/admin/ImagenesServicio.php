@@ -80,9 +80,11 @@ class ImagenesServicio
             throw new \Exception($mensaje);
         }
 
-        $tipoMime = mime_content_type($archivo['tmp_name']);
-        if (!in_array($tipoMime, ['image/jpeg', 'image/png', 'image/gif', 'image/webp'])) {
-            throw new \Exception('Tipo de archivo no permitido. Solo se aceptan imágenes JPG, PNG, WEBP o GIF.');
+        $tipoMime = strtolower(mime_content_type($archivo['tmp_name']));
+        $mimesPermitidos = ['image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/gif', 'image/webp'];
+        
+        if (!in_array($tipoMime, $mimesPermitidos)) {
+            throw new \Exception("Tipo de archivo no permitido ($tipoMime). Solo se aceptan imágenes JPG, PNG, WEBP o GIF.");
         }
 
         if ($archivo['size'] > 5 * 1024 * 1024) { // 5 MB

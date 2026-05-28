@@ -30,16 +30,34 @@ export default class BloqueBaseUI {
 			if (input.tipo === 'file') {
 				const campo = crearInputBloque(this.bloque.id, input.key, input.tipo, input.requerido, input.aceptar)
 				contenedor.appendChild(campo)
+
+				// Contenedor de previsualización para bloques dinámicos
+				const preview = document.createElement('div')
+				preview.className = 'editor-noticia__preview-imagen'
+				preview.style.marginTop = '10px'
+				preview.innerHTML = '<img src="" style="max-width: 100%; height: 150px; object-fit: cover; border-radius: 4px; display: none;">'
+				contenedor.appendChild(preview)
+
 				campo.addEventListener('change', async () => {
 					const archivo = campo.files[0]
 					if (!archivo) return
-					const formData = new FormData()
-					formData.append('imagen', archivo)
-					const resp = await fetch('index.php?pagina=admin-subir-imagen-noticia', { method: 'POST', body: formData })
-					const data = await resp.json()
-					if (data.success && (data.url || data.ruta)) {
-						const urlFinal = data.url || data.ruta
-						this.controlador.actualizarBloque(this.bloque.id, { ...this.obtenerContenido(), url: urlFinal })
+					
+					try {
+						const formData = new FormData()
+						formData.append('imagen', archivo)
+						const resp = await fetch('index.php?pagina=admin-subir-imagen-noticia', { method: 'POST', body: formData })
+						const data = await resp.json()
+						
+						if (data.success && (data.url || data.ruta)) {
+							const urlFinal = data.url || data.ruta
+							this.controlador.actualizarBloque(this.bloque.id, { ...this.obtenerContenido(), url: urlFinal })
+						} else {
+							alert('Error al subir imagen: ' + (data.error || 'Desconocido'))
+							campo.value = ''
+						}
+					} catch (error) {
+						console.error('Error en la subida:', error)
+						alert('Error de red al intentar subir la imagen.')
 					}
 				})
 			}
@@ -71,7 +89,21 @@ export default class BloqueBaseUI {
 		inputs.forEach(input => {
 			const key = input.getAttribute('data-key')
 			if (!key) return
-			if (input.type === 'file') return
+			if (input.type === 'file') {
+				// Manejar previsualización si existe el dato de la URL
+				const url = this.bloque.contenido?.['url'] || this.bloque.contenido?.['imagen_principal']
+				const previewImg = this.elemento.querySelector('.editor-noticia__preview-imagen img')
+				
+				if (previewImg && url) {
+					let finalUrl = url
+					if (!finalUrl.startsWith('http') && !finalUrl.startsWith('/') && !finalUrl.startsWith('publico/')) {
+						finalUrl = 'publico/imagenes/' + finalUrl
+					}
+					previewImg.src = finalUrl
+					previewImg.style.display = 'block'
+				}
+				return
+			}
 			
 			const valor = this.bloque.contenido?.[key] ?? ''
 			input.value = valor
