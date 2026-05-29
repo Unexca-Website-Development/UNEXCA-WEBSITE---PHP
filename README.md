@@ -6,84 +6,47 @@ Este repositorio contiene el código fuente del portal web de la Universidad Nac
 
 Para entender a fondo el funcionamiento del proyecto, consulta los siguientes documentos en el directorio `/docs`:
 
--   [**Arquitectura del Software**](./docs/ARQUITECTURA.md): Explicación de la estructura MVC-S, el flujo de las peticiones y la responsabilidad de cada directorio.
--   [**Base de Datos**](./docs/BASE_DE_DATOS.md): Esquema de la base de datos (PostgreSQL), descripción de las tablas y detalles sobre la conexión.
--   [**Sistema de Enrutamiento**](./docs/ENRUTAMIENTO.md): Guía sobre el sistema de enrutamiento, cómo se gestionan las URLs y cómo añadir nuevas páginas.
--   [**Frontend**](./docs/FRONTEND.md): Documentación sobre la organización de los archivos CSS y JavaScript.
--   [**Guía de Contribuciones**](./docs/CONTRIBUCIONES.md): Guía para desarrolladores que deseen contribuir al proyecto, incluyendo estándares de código y flujo de trabajo con Git.
+-   [**Instalación y Configuración**](./docs/INSTALACION.md): Guía completa para levantar el entorno (Docker, VM o Nativo).
+-   [**Arquitectura del Software**](./docs/ARQUITECTURA.md): Explicación de la estructura MVC-S y el flujo de peticiones.
+-   [**Base de Datos**](./docs/BASE_DE_DATOS.md): Esquema detallado, tablas y sistema de persistencia.
+-   [**Frontend**](./docs/FRONTEND.md): Organización de archivos CSS y JavaScript.
+-   [**Guía del Administrador**](./docs/GUIA_ADMINISTRACION.md): Manual para la gestión de contenidos y usuarios.
+-   [**Guía del Desarrollador**](./docs/GUIA_DESARROLLADOR.md): Estándares de código y cómo extender el sistema.
+-   [**Guía de Contribuciones**](./docs/CONTRIBUCIONES.md): Flujo de trabajo con Git y Pull Requests.
 
-## Guía de Instalación Rápida
+## Guía de Inicio Rápido (Docker)
 
-Esta guía te ayudará a configurar tu entorno de desarrollo para trabajar en el proyecto.
+La forma más rápida y recomendada de levantar el proyecto es utilizando **Docker**.
 
-### Requisitos
-
--   El servidor web Apache.
--   PHP 7.4 o superior.
--   PostgreSQL.
--   Git.
+### Prerrequisitos
+- Docker Desktop instalado.
+- Terminal (PowerShell, Bash o similar).
 
 ### Pasos
+1.  **Preparar el entorno**:
+    ```bash
+    cp .env.default .env
+    ```
+2.  **Levantar servicios**:
+    ```bash
+    docker-compose up -d --build
+    ```
+3.  **Importar Base de Datos**:
+    ```bash
+    docker-compose exec -T db psql -U unexca_user -d unexcadb < "respaldo.sql"
+    ```
 
-1.  **Clonar el Repositorio**:
-    - Clona el proyecto en el directorio de tu servidor web (ej: `C:\xampp\htdocs` en XAMPP(Windows) y `/var/www/html` en Linux).
-    - ```bash
-      git clone https://github.com/Unexca-Website-Development/UNEXCA-WEBSITE---PHP.git
-      ```
-    - Cambiar el nombre de la carpeta del proyecto a `unexca`
-3. **Configuración de entorno**
-   - xampp(Windows):
-     - En la ubicación `C:\xampp\php\php.ini` descomentar las lineas `;extension=pdo_odbc` y `;extension=pdo_pgsql` (quitando el punto y coma), y guardar
-     - En la ubicación `C:\xampp\apache\conf\extra\httpd-vhosts.conf` agregar el siguiente codigo
-       ```bash
-        <VirtualHost *:80>
-            ServerName localhost
-            DocumentRoot C:\xampp\htdocs\unexca\publico
-            <Directory C:\xampp\htdocs\unexca\publico>
-                AllowOverride All
-                Require all granted
-            </Directory>
-        </VirtualHost>    
-        ```
-    - Linux:
-       - En la ubicación `/etc/apache2/sites-available/000-default.conf` Agregar el siguiente codigo
-         ```bash
-          <VirtualHost *:80>
-              ServerName localhost
-              DocumentRoot /var/www/html/unexca/publico
-              <Directory /var/www/html/unexca/publico>
-                  AllowOverride All
-                  Require all granted
-              </Directory>
-          </VirtualHost>  
-          ```
-    ### Nota: En caso de que ya exista un `<VirtualHost *:80>` borrar o comentar todo y pegar el codigo
+El portal estará disponible en: **[http://localhost:8080](http://localhost:8080)**
 
-5. **Verificar estado de los servicios requeridos**
-    - Linux: 
-      -   `systemctl status postgresql`
-      -   `systemctl status apache2 `
-      -   `systemctl status php7.4-fpm `
-    - Windows:
-      - `sc query "postgresql-x64-18"` el 18 se debe cambiar por la versión instalada de postgres
-      - En xampp habilitar el servicio apache
-   
-2.  **Base de Datos**:
-    -   Asegúrate de que tu servidor de PostgreSQL esté en ejecución.
-    -   Crear la base de datos unexca con el comando `createdb -U postgres unexca`
-    -   Restaurar la base de datos:
-        - Descargar la base de datos actualizada y descomprimirla
-        - Acceder a la nueva carpeta y abrir una terminal
-        - Ingresar el comando `pg_restore -U postgres -d unexca "UNEXCA - DB RESPALDO OCTUBRE.sql" `
-      
-3.  **Configurar la Conexión**:
-    -   Abre el archivo `modelo/conexiondb.php`.
-    -   Actualiza las credenciales (`$host`, `$puerto`, `$nombredb`, `$usuario`, `$clave`) para que coincidan con la configuración de tu base de datos PostgreSQL.
+---
 
-    > **⚠️ Advertencia de Inconsistencia:**
-    > El archivo `modelo/conexiondb.php` en la rama actual podría estar usando `mysqli` (para MySQL) en lugar de `pgsql` (para PostgreSQL). Esto es un error conocido. Asegúrate de que el código de conexión utilice **PDO con el driver `pgsql`** como se documenta en `docs/BASE_DE_DATOS.md` para que el sistema funcione correctamente.
+## Otras Opciones de Instalación
 
-4.  **Acceder al Proyecto**: Abre tu navegador y visita la URL `http://127.0.0.1/` 
+Si prefieres instalar el proyecto de forma manual (XAMPP, Apache nativo o Máquina Virtual), consulta la **[Guía Completa de Instalación](./docs/INSTALACION.md)**, donde encontrarás instrucciones detalladas para:
+- Configuración de Virtual Hosts en Apache.
+- Habilitación de extensiones de PostgreSQL en PHP.
+- Ajuste de permisos en sistemas Linux/Debian.
+- Gestión de usuarios administrativos vía CLI.
 
 ## Recursos Adicionales
 
