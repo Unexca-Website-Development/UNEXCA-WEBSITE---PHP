@@ -16,20 +16,32 @@ Esta es la configuración recomendada para entornos de certificación o producci
 
 ### Configuración de la Base de Datos
 
+Para garantizar la seguridad del portal, el usuario de conexión de la aplicación web (`unexca_user`) debe ser diferente al propietario de las tablas (`postgres`). Así, la aplicación web tendrá permisos limitados de manipulación de datos (DML) y no podrá borrar ni modificar la estructura de las tablas (DDL).
+
 1.  **Acceso a PostgreSQL**:
     ```bash
     sudo -i -u postgres psql
     ```
-2.  **Crear base de datos y configurar usuario**:
+2.  **Crear base de datos y usuario de la aplicación**:
+    En la consola de PostgreSQL (`psql`):
     ```sql
+    -- Crear la base de datos
     CREATE DATABASE unexcadb;
-    ALTER USER postgres WITH PASSWORD '1234';
+
+    -- Crear el usuario limitado para la aplicación web (use una contraseña segura)
+    CREATE USER unexca_user WITH PASSWORD 'tu_contrasena_segura_aqui';
+
     \q
     ```
 3.  **Importar estructura y datos**:
-    Asegúrese de que el archivo `respaldo.sql` esté accesible (ej: en `/tmp/`):
+    Importe el respaldo como superusuario `postgres` para que las tablas sean de su propiedad. Asegúrese de que el archivo `respaldo.sql` esté accesible (ej: en `/tmp/`):
     ```bash
     sudo -u postgres psql unexcadb < /tmp/respaldo.sql
+    ```
+4.  **Aplicar Capa de Seguridad (Privilegios Limitados)**:
+    Ejecute el script de seguridad como superusuario `postgres` para restringir los permisos de `unexca_user` únicamente a DML (SELECT, INSERT, UPDATE, DELETE):
+    ```bash
+    sudo -u postgres psql -d unexcadb < /var/www/html/portal_unexca/scripts/db_security_setup.sql
     ```
 
 ### Despliegue de la Aplicación
@@ -82,9 +94,17 @@ Esta es la configuración recomendada para entornos de certificación o producci
     ```bash
     docker-compose up -d --build
     ```
-3.  **Importar Base de Datos**:
+3.  **Importar Base de Datos y Configurar Seguridad**:
+    Dado que Docker inicia PostgreSQL con el superusuario `postgres` como dueño de las tablas, importaremos el respaldo con este superusuario y luego crearemos el usuario limitado de desarrollo:
     ```bash
-    docker-compose exec -T db psql -U unexca_user -d unexcadb < "respaldo.sql"
+    # A. Importar el respaldo como superusuario postgres
+    docker-compose exec -T db psql -U postgres -d unexcadb < "respaldo.sql"
+
+    # B. Crear el usuario limitado para la aplicación en desarrollo (coincidiendo con el .env)
+    docker-compose exec -T db psql -U postgres -d unexcadb -c "CREATE USER unexca_user WITH PASSWORD '1234';"
+
+    # C. Aplicar la capa de seguridad para restringir los permisos de unexca_user
+    docker-compose exec -T db psql -U postgres -d unexcadb < "scripts/db_security_setup.sql"
     ```
 
 Acceso: **http://localhost:8080**
@@ -95,14 +115,14 @@ Acceso: **http://localhost:8080**
 
 Una vez instalada la aplicación, no existen usuarios por defecto por razones de seguridad. Debe crearlos manualmente utilizando las herramientas en la carpeta `scripts/`.
 
-### A. Aplicar Capa de Seguridad (Opcional pero recomendado)
-Antes de crear usuarios, puede blindar la base de datos para que el usuario de la web no tenga permisos de borrado de tablas (solo manipulación de datos):
+### A. Aplicar Capa de Seguridad (Ya realizado en pasos previos)
+Este paso ya fue completado durante la configuración inicial de la base de datos (Secciones 1 y 2). Si en el futuro necesita re-aplicar esta capa (por ejemplo, tras crear nuevas tablas), puede ejecutar:
 ```bash
 # Docker
-docker-compose exec -T db psql -U unexca_user -d unexcadb < "scripts/db_security_setup.sql"
+docker-compose exec -T db psql -U postgres -d unexcadb < "scripts/db_security_setup.sql"
 
-# Nativo
-psql -U unexca_user -d unexcadb < scripts/db_security_setup.sql
+# Nativo (Debian)
+sudo -u postgres psql -d unexcadb < scripts/db_security_setup.sql
 ```
 
 ### B. Crear su Primer Usuario Admin
